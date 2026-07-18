@@ -146,6 +146,20 @@
 .rail-line i:nth-child(2) { left: 50%; }
 .rail-line i:nth-child(3) { left: 78%; }
 
+.rail-line > span {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 0;
+  width: 0.65rem;
+  height: 0.65rem;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.25rem var(--indigo-900), 0 0 0 0.35rem var(--mint);
+  transform: translate(-50%, -50%);
+  animation: exchange-signal 5.5s 900ms var(--ease-out) infinite;
+}
+
 .exchange-rail > p {
   position: absolute;
   right: 0;
@@ -248,6 +262,12 @@
   border: 1px solid var(--indigo-500);
   border-radius: var(--radius-sm);
   font: inherit;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.integration-search input:focus {
+  border-color: var(--indigo-700);
+  box-shadow: 0 0 0 0.25rem var(--indigo-100);
 }
 
 .integration-search input::placeholder {
@@ -347,6 +367,24 @@
   color: var(--indigo-700);
   font-size: 1rem;
   text-decoration: none;
+  transition: color 180ms ease, transform 220ms var(--ease-out);
+}
+
+.custom-connection:hover a,
+.custom-connection:focus-within a {
+  color: var(--indigo-900);
+  transform: translateX(0.25rem);
+}
+
+.custom-connection > span {
+  transition: color 180ms ease, background-color 180ms ease, transform 220ms var(--ease-out);
+}
+
+.custom-connection:hover > span,
+.custom-connection:focus-within > span {
+  color: var(--indigo-950);
+  background: var(--mint);
+  transform: rotate(-4deg);
 }
 
 .integration-results {
@@ -385,6 +423,10 @@
   background: var(--surface);
 }
 
+.system-row.is-filtered-in {
+  animation: filtered-row-in 480ms var(--row-delay, 0ms) var(--ease-out) both;
+}
+
 .integration-identity {
   display: flex;
   align-items: center;
@@ -404,6 +446,19 @@
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+
+.system-row:hover .integration-mark,
+.system-row:focus-within .integration-mark,
+.system-row.is-exact-match .integration-mark {
+  color: var(--indigo-950);
+  background: var(--mint);
+  transform: translateY(-0.1rem);
+}
+
+.system-row.is-exact-match .integration-mark {
+  box-shadow: 0 0 0 0.3rem var(--indigo-100);
 }
 
 .system-row:nth-child(4n + 2) .integration-mark {
@@ -470,6 +525,17 @@
   height: 0.55rem;
   background: var(--mint-deep);
   border-radius: 50%;
+  transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+
+.system-row:hover .integration-status i,
+.system-row.is-exact-match .integration-status i {
+  box-shadow: 0 0 0 0.3rem var(--indigo-100);
+  transform: scale(1.12);
+}
+
+.integration-count.is-updated {
+  animation: result-count-confirm 420ms var(--ease-out);
 }
 
 .integration-empty {
@@ -579,6 +645,20 @@
 @keyframes integration-rail-in {
   from { transform: translateY(2.5rem); }
   to { transform: translateY(0); }
+}
+
+@keyframes exchange-signal {
+  0%, 12% { left: 0; }
+  88%, 100% { left: 100%; }
+}
+
+@keyframes filtered-row-in {
+  from { filter: blur(2px); transform: translateY(0.4rem); }
+  to { filter: blur(0); transform: translateY(0); }
+}
+
+@keyframes result-count-confirm {
+  50% { color: var(--mint-deep); transform: translateY(-0.12rem); }
 }
 
 @media (max-width: 76rem) {
@@ -764,7 +844,20 @@
 
 @media (prefers-reduced-motion: reduce) {
   .integrations-hero__copy,
-  .exchange-rail {
+  .exchange-rail,
+  .rail-line > span,
+  .system-row.is-filtered-in,
+  .integration-count.is-updated {
     animation: none;
+  }
+
+  .system-row:hover .integration-mark,
+  .system-row:focus-within .integration-mark,
+  .system-row.is-exact-match .integration-mark,
+  .custom-connection:hover > span,
+  .custom-connection:focus-within > span,
+  .custom-connection:hover a,
+  .custom-connection:focus-within a {
+    transform: none;
   }
 }

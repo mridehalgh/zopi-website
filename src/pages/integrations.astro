@@ -96,7 +96,7 @@ const markFor = (name: string) => name
           <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 8h16v14H3zM19 13h5l5 5v4H19zM8 25a3 3 0 1 0 0-.1M24 25a3 3 0 1 0 0-.1" /></svg>
           <span>Ship</span>
         </div>
-        <div class="rail-line" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="rail-line" aria-hidden="true"><span></span><i></i><i></i><i></i></div>
         <p>Orders <i></i> Invoices <i></i> Dispatch <i></i> Inventory</p>
       </div>
     </section>
@@ -152,6 +152,7 @@ const markFor = (name: string) => name
               <article
               class="system-row"
                 data-integration-row
+                data-integration-name={integration.name.toLocaleLowerCase('en-GB')}
                 data-category={integration.category}
                 data-search={`${integration.name} ${integration.category} ${integration.description} ${integration.capabilities.join(' ')}`.toLocaleLowerCase('en-GB')}
               >
@@ -169,8 +170,8 @@ const markFor = (name: string) => name
           </div>
 
           <div class="integration-empty" hidden data-integration-empty>
-            <h3>No matching integrations</h3>
-            <p>Try another term or clear the category. If your system is not listed, we can connect through its API or files.</p>
+            <h3>No route showing—yet.</h3>
+            <p>Try another term or clear the category. Your system can still connect through its API or files.</p>
             <button type="button" data-reset-integrations>Clear filters</button>
           </div>
         </div>
@@ -241,7 +242,27 @@ const markFor = (name: string) => name
       const count = directory.querySelector('[data-integration-count]');
       const empty = directory.querySelector('[data-integration-empty]');
       const reset = directory.querySelector('[data-reset-integrations]');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let activeCategory = 'all';
+
+      const signalUpdate = () => {
+        if (reduceMotion.matches) return;
+        const visibleRows = rows.filter((row) => row instanceof HTMLElement && !row.hidden).slice(0, 8);
+        visibleRows.forEach((row, index) => {
+          if (!(row instanceof HTMLElement)) return;
+          row.classList.remove('is-filtered-in');
+          row.style.setProperty('--row-delay', `${index * 35}ms`);
+          void row.offsetWidth;
+          row.classList.add('is-filtered-in');
+          row.addEventListener('animationend', () => row.classList.remove('is-filtered-in'), { once: true });
+        });
+        if (count instanceof HTMLElement) {
+          count.classList.remove('is-updated');
+          void count.offsetWidth;
+          count.classList.add('is-updated');
+          count.addEventListener('animationend', () => count.classList.remove('is-updated'), { once: true });
+        }
+      };
 
       const updateDirectory = () => {
         const query = search instanceof HTMLInputElement ? search.value.trim().toLocaleLowerCase('en-GB') : '';
@@ -252,12 +273,14 @@ const markFor = (name: string) => name
           const matchesCategory = activeCategory === 'all' || row.dataset.category === activeCategory;
           const matchesSearch = !query || (row.dataset.search ?? '').includes(query);
           row.hidden = !(matchesCategory && matchesSearch);
+          row.classList.toggle('is-exact-match', Boolean(query) && row.dataset.integrationName === query);
           if (!row.hidden) visible += 1;
         });
 
         if (count) count.innerHTML = `<strong>${visible}</strong> ${visible === 1 ? 'useful integration' : 'useful integrations'} shown`;
         if (empty instanceof HTMLElement) empty.hidden = visible !== 0;
         if (clearSearch instanceof HTMLButtonElement) clearSearch.hidden = !query;
+        signalUpdate();
       };
 
       search?.addEventListener('input', updateDirectory);
