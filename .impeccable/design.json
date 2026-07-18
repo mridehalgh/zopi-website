@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-18T19:20:44Z",
+  "title": "Design System: EDI Spark",
+  "extensions": {
+    "colorMeta": {
+      "exchange-indigo-deep": {
+        "role": "primary",
+        "displayName": "Exchange Indigo Deep",
+        "canonical": "oklch(0.18 0.1 270)",
+        "tonalRamp": ["oklch(0.15 0.1 270)", "oklch(0.25 0.1 270)", "oklch(0.35 0.1 270)", "oklch(0.45 0.1 270)", "oklch(0.58 0.09 270)", "oklch(0.7 0.07 270)", "oklch(0.83 0.045 270)", "oklch(0.95 0.02 270)"]
+      },
+      "exchange-indigo": {
+        "role": "primary",
+        "displayName": "Exchange Indigo",
+        "canonical": "oklch(0.27 0.15 270)",
+        "tonalRamp": ["oklch(0.15 0.12 270)", "oklch(0.25 0.15 270)", "oklch(0.35 0.16 270)", "oklch(0.45 0.16 270)", "oklch(0.58 0.14 270)", "oklch(0.7 0.1 270)", "oklch(0.83 0.055 270)", "oklch(0.95 0.02 270)"]
+      },
+      "exchange-indigo-action": {
+        "role": "primary",
+        "displayName": "Exchange Indigo Action",
+        "canonical": "oklch(0.45 0.18 270)",
+        "tonalRamp": ["oklch(0.15 0.1 270)", "oklch(0.25 0.14 270)", "oklch(0.35 0.17 270)", "oklch(0.45 0.18 270)", "oklch(0.58 0.16 270)", "oklch(0.7 0.12 270)", "oklch(0.83 0.07 270)", "oklch(0.95 0.025 270)"]
+      },
+      "exchange-indigo-mid": {
+        "role": "primary",
+        "displayName": "Exchange Indigo Mid",
+        "canonical": "oklch(0.62 0.15 270)",
+        "tonalRamp": ["oklch(0.15 0.08 270)", "oklch(0.25 0.11 270)", "oklch(0.35 0.14 270)", "oklch(0.45 0.15 270)", "oklch(0.58 0.15 270)", "oklch(0.7 0.12 270)", "oklch(0.83 0.07 270)", "oklch(0.95 0.025 270)"]
+      },
+      "exchange-indigo-pale": {
+        "role": "neutral",
+        "displayName": "Exchange Indigo Pale",
+        "canonical": "oklch(0.94 0.025 270)",
+        "tonalRamp": ["oklch(0.15 0.025 270)", "oklch(0.25 0.025 270)", "oklch(0.35 0.025 270)", "oklch(0.45 0.025 270)", "oklch(0.58 0.025 270)", "oklch(0.7 0.025 270)", "oklch(0.83 0.025 270)", "oklch(0.95 0.025 270)"]
+      },
+      "clear-white": {
+        "role": "neutral",
+        "displayName": "Clear White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.58 0 0)", "oklch(0.7 0 0)", "oklch(0.83 0 0)", "oklch(0.95 0 0)"]
+      },
+      "quiet-surface": {
+        "role": "neutral",
+        "displayName": "Quiet Surface",
+        "canonical": "oklch(0.96 0.012 270)",
+        "tonalRamp": ["oklch(0.15 0.012 270)", "oklch(0.25 0.012 270)", "oklch(0.35 0.012 270)", "oklch(0.45 0.012 270)", "oklch(0.58 0.012 270)", "oklch(0.7 0.012 270)", "oklch(0.83 0.012 270)", "oklch(0.95 0.012 270)"]
+      },
+      "technical-ink": {
+        "role": "neutral",
+        "displayName": "Technical Ink",
+        "canonical": "oklch(0.18 0.035 270)",
+        "tonalRamp": ["oklch(0.15 0.035 270)", "oklch(0.25 0.035 270)", "oklch(0.35 0.035 270)", "oklch(0.45 0.035 270)", "oklch(0.58 0.03 270)", "oklch(0.7 0.025 270)", "oklch(0.83 0.018 270)", "oklch(0.95 0.01 270)"]
+      },
+      "supporting-ink": {
+        "role": "neutral",
+        "displayName": "Supporting Ink",
+        "canonical": "oklch(0.45 0.025 270)",
+        "tonalRamp": ["oklch(0.15 0.025 270)", "oklch(0.25 0.025 270)", "oklch(0.35 0.025 270)", "oklch(0.45 0.025 270)", "oklch(0.58 0.025 270)", "oklch(0.7 0.025 270)", "oklch(0.83 0.02 270)", "oklch(0.95 0.01 270)"]
+      },
+      "connection-mint": {
+        "role": "secondary",
+        "displayName": "Connection Mint",
+        "canonical": "oklch(0.88 0.13 155)",
+        "tonalRamp": ["oklch(0.15 0.07 155)", "oklch(0.25 0.1 155)", "oklch(0.35 0.13 155)", "oklch(0.45 0.15 155)", "oklch(0.58 0.15 155)", "oklch(0.7 0.14 155)", "oklch(0.83 0.13 155)", "oklch(0.95 0.06 155)"]
+      },
+      "connection-mint-deep": {
+        "role": "secondary",
+        "displayName": "Connection Mint Deep",
+        "canonical": "oklch(0.54 0.15 155)",
+        "tonalRamp": ["oklch(0.15 0.07 155)", "oklch(0.25 0.1 155)", "oklch(0.35 0.13 155)", "oklch(0.45 0.15 155)", "oklch(0.58 0.15 155)", "oklch(0.7 0.14 155)", "oklch(0.83 0.1 155)", "oklch(0.95 0.045 155)"]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Action Danger",
+        "canonical": "oklch(0.55 0.19 25)",
+        "tonalRamp": ["oklch(0.15 0.09 25)", "oklch(0.25 0.13 25)", "oklch(0.35 0.17 25)", "oklch(0.45 0.19 25)", "oklch(0.58 0.18 25)", "oklch(0.7 0.14 25)", "oklch(0.83 0.08 25)", "oklch(0.95 0.03 25)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero claims only; compact, balanced, and decisive." },
+      "headline": { "displayName": "Headline", "purpose": "Major business-outcome arguments and section titles." },
+      "title": { "displayName": "Title", "purpose": "Workflow steps and prominent component titles." },
+      "body": { "displayName": "Body", "purpose": "Plain-English explanation capped near 65–75 characters per line." },
+      "label": { "displayName": "Label", "purpose": "Navigation, controls, statuses, and compact metadata." }
+    },
+    "shadows": [
+      { "name": "signal-ring", "value": "0 0 0 0.35rem var(--indigo-100)", "purpose": "Tight tonal ring around a small integration status dot only." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Shared exponential ease for entrances and responsive movement." },
+      { "name": "state-fast", "value": "180ms", "purpose": "Button, arrow, and row hover feedback." },
+      { "name": "menu", "value": "220ms", "purpose": "Mobile navigation opacity and vertical transition." },
+      { "name": "hero-copy", "value": "700ms", "purpose": "Short upward entrance for hero copy." },
+      { "name": "hero-ledger", "value": "850ms 80ms", "purpose": "Offset horizontal entrance for the pricing ledger." },
+      { "name": "route-pulse", "value": "2.4s", "purpose": "Continuous document movement along the connection route." },
+      { "name": "reduced-motion", "value": "0.01ms", "purpose": "Near-instant alternative for every animation and transition." }
+    ],
+    "breakpoints": [
+      { "name": "wide-adjustment", "value": "72rem" },
+      { "name": "single-column", "value": "58rem" },
+      { "name": "compact-mobile", "value": "40rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary trial action on light surfaces.",
+      "html": "<button class=\"ds-btn-primary\">Start free for 30 days</button>",
+      "css": ".ds-btn-primary { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--ink); background: var(--mint); border: 1px solid transparent; border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), background-color 180ms ease; } .ds-btn-primary:hover { background: oklch(0.84 0.15 155); transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.25rem; } .ds-btn-primary:active { transform: translateY(0) scale(0.98); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary demo action on light surfaces.",
+      "html": "<button class=\"ds-btn-outline\">Book a demo</button>",
+      "css": ".ds-btn-outline { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--indigo-900); background: transparent; border: 1px solid var(--indigo-700); border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), color 180ms ease, background-color 180ms ease; } .ds-btn-outline:hover { color: var(--white); background: var(--indigo-700); transform: translateY(-2px); } .ds-btn-outline:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.25rem; } .ds-btn-outline:active { transform: translateY(0) scale(0.98); }"
+    },
+    {
+      "name": "Light Button",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "High-contrast action for deep-indigo sections.",
+      "html": "<button class=\"ds-btn-light\">Talk to us</button>",
+      "css": ".ds-btn-light { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--indigo-950); background: var(--white); border: 1px solid transparent; border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), background-color 180ms ease; } .ds-btn-light:hover { background: var(--mint); transform: translateY(-2px); } .ds-btn-light:focus-visible { outline: 0.2rem solid var(--mint); outline-offset: 0.25rem; } .ds-btn-light:active { transform: translateY(0) scale(0.98); }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Compact product filter; the only full-pill primitive.",
+      "html": "<button class=\"ds-filter-chip\">All documents</button>",
+      "css": ".ds-filter-chip { padding: 0.45rem 0.75rem; color: var(--indigo-900); background: var(--indigo-100); border: 0; border-radius: 999px; font: 600 0.86rem/1.2 'Source Sans 3', 'Segoe UI', sans-serif; transition: background-color 180ms ease; } .ds-filter-chip:hover { background: oklch(0.9 0.045 270); } .ds-filter-chip:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.2rem; }"
+    },
+    {
+      "name": "Desktop Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "White ruled navigation with a precise animated underline.",
+      "html": "<nav class=\"ds-nav\"><strong>EDI Spark</strong><a href=\"#\">Product</a><a href=\"#\">Pricing</a><button>Start free</button></nav>",
+      "css": ".ds-nav { display: flex; min-height: 5.75rem; align-items: center; gap: 2rem; padding: 0 2rem; color: var(--ink); background: var(--white); border-bottom: 1px solid var(--indigo-100); font: 600 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-nav strong { margin-right: auto; color: var(--indigo-900); font-size: 1.4rem; } .ds-nav a { position: relative; min-height: 2.75rem; display: inline-flex; align-items: center; color: inherit; text-decoration: none; } .ds-nav a::after { content: ''; position: absolute; inset: auto 0 0.25rem; height: 2px; background: var(--indigo-700); transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease-out); } .ds-nav a:hover::after, .ds-nav a:focus-visible::after { transform: scaleX(1); } .ds-nav button { min-height: 2.9rem; padding: 0.7rem 1.2rem; color: var(--ink); background: var(--mint); border: 0; border-radius: var(--radius-sm); font-weight: 700; }"
+    },
+    {
+      "name": "Transaction Row",
+      "kind": "custom",
+      "description": "Ruled product-evidence row with tabular reference and positive status.",
+      "html": "<div class=\"ds-transaction\"><span class=\"ds-document\"></span><span><strong>Purchase order</strong><small>PO-10482</small></span><em><i></i>Ready</em></div>",
+      "css": ".ds-transaction { display: grid; min-height: 6rem; grid-template-columns: 2.5rem 1fr auto; gap: 1rem; align-items: center; color: var(--ink); background: var(--white); border-top: 1px solid var(--indigo-100); border-bottom: 1px solid var(--indigo-100); font-family: 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-transaction > span:nth-child(2) { display: flex; flex-direction: column; } .ds-transaction small { color: var(--muted); font-variant-numeric: tabular-nums; } .ds-transaction em { display: inline-flex; align-items: center; gap: 0.5rem; color: oklch(0.38 0.11 155); font-size: 0.88rem; font-style: normal; font-weight: 600; } .ds-transaction em i { width: 0.55rem; height: 0.55rem; background: var(--mint-deep); border-radius: 50%; } .ds-document { width: 1.75rem; height: 2.2rem; border: 1px solid var(--indigo-700); border-radius: 2px; }"
+    },
+    {
+      "name": "Price Ledger",
+      "kind": "custom",
+      "description": "Transparent consumption pricing expressed as an aligned ruled ledger.",
+      "html": "<div class=\"ds-price\"><span>Platform</span><strong>£9.95</strong><small>per month</small></div>",
+      "css": ".ds-price { display: grid; grid-template-columns: 1fr auto; gap: 0 2rem; align-items: end; padding: 2.5rem 0; color: var(--ink); background: var(--white); border-top: 2px solid var(--indigo-900); border-bottom: 1px solid var(--indigo-100); font-family: 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-price > span { align-self: center; font-size: 1.25rem; font-weight: 600; } .ds-price strong { color: var(--indigo-900); font-size: clamp(3.75rem, 7vw, 6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 0.85; font-variant-numeric: tabular-nums; } .ds-price small { grid-column: 2; color: var(--muted); text-align: right; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clear Exchange",
+    "overview": "EDI Spark feels like a brightly lit logistics control room after the paperwork has disappeared: calm, legible, and quietly powerful, with every connection understandable at a glance. The system gives suppliers immediate relief through plain language and large, decisive hierarchy, then proves capability through structured ledgers, transaction views, network indexes, and precise commercial detail.\n\nThe composition is architectural rather than card-led. Committed indigo fields represent dependable exchange infrastructure; white and pale indigo surfaces create breathing room; mint marks successful movement and action. Long sections use rules, asymmetric splits, and generous fluid spacing to establish pace. Desktop layouts become direct single-column stories below 58rem, while the core hierarchy and proof remain intact.\n\nThis system explicitly rejects the dated enterprise-software look associated with OpenText and TrueCommerce, jargon-heavy EDI sites, generic AI/SaaS styling, secretive pricing, and any suggestion of long or consultant-led setup.",
+    "keyCharacteristics": [
+      "Committed violet-indigo infrastructure balanced by true white and a pale indigo surface",
+      "Mint used as a purposeful signal for action, connection, and success",
+      "One open humanist typeface with strong scale contrast and plain-English rhythm",
+      "Product evidence, trading-network coverage, and transparent pricing as the visual material",
+      "Flat, rule-led compositions with compact corners and almost no decorative elevation",
+      "Responsive motion that confirms exchange without gating access to content"
+    ],
+    "rules": [
+      { "name": "The Committed Indigo Rule", "body": "Indigo must carry major structural surfaces, not appear as a timid accent scattered across a generic white SaaS page.", "section": "colors" },
+      { "name": "The Signal Mint Rule", "body": "Mint means action, connection, or a successful state. If an element has none of those meanings, it does not earn mint.", "section": "colors" },
+      { "name": "The Infrastructure, Not AI Rule", "body": "Purple gradients, neon glows, cosmic imagery, and synthetic AI symbolism are prohibited.", "section": "colors" },
+      { "name": "The Plain-English Hierarchy Rule", "body": "Outcome first, evidence second, implementation detail on demand. Never simulate authority with dense jargon or walls of small text.", "section": "typography" },
+      { "name": "The One Human Voice Rule", "body": "Source Sans 3 is the brand voice. Monospace is reserved for genuine protocol or code data, never as decorative shorthand for technical credibility.", "section": "typography" },
+      { "name": "The Numerical Confidence Rule", "body": "Prices and document references use tabular numerals so transparent commercial information reads as stable infrastructure.", "section": "typography" },
+      { "name": "The Grounded Surface Rule", "body": "Sections and product evidence stay flat at rest. A shadow is allowed only when an element has genuinely moved above the page or when a compact ring communicates state.", "section": "elevation" },
+      { "name": "The One Depth Mechanism Rule", "body": "Never combine a border with a wide decorative shadow. Use a rule, a tonal change, or elevation—one mechanism at a time.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do make complexity feel handled: lead with faster onboarding, less admin, fewer errors, and clearer document visibility.",
+      "Do prove coverage with hundreds of trading partners, every major UK retailer, and more than 300 SaaS integrations.",
+      "Do make exchange tangible through real product UI, structured document flows, trading-network indexes, and transparent price ledgers.",
+      "Do let Exchange Indigo carry major structural surfaces and reserve Connection Mint for action, connection, and success.",
+      "Do keep the £9.95 monthly price, £0.25 document price, 30-day trial, no setup fee, and no 12-month contract close to conversion actions.",
+      "Do preserve semantic structure, visible keyboard focus, WCAG 2.2 AA contrast, and the global reduced-motion alternative.",
+      "Do route technical evaluators toward API, A2A, agentic, MCP, and UBL detail without forcing that vocabulary into the supplier journey."
+    ],
+    "donts": [
+      "Don't reproduce the dated enterprise-software look associated with OpenText or TrueCommerce.",
+      "Don't build a jargon-heavy EDI website that asks suppliers to understand implementation before business value.",
+      "Don't use generic AI/SaaS styling: purple gradients, neon glows, glass cards, decorative network orbs, interchangeable rounded-card grids, or synthetic AI imagery are forbidden.",
+      "Don't hide pricing or suggest long setup times, consultant-led implementation, secretive sales qualification, or inflexible annual contracts.",
+      "Don't imply an established customer history. This is a new startup; establish trust through specific, supportable product and integration evidence.",
+      "Don't use product-free decoration where real coverage, interface evidence, or technical artifacts can establish trust.",
+      "Don't repeat tiny uppercase eyebrows, decorative numbered section markers, gradient text, side-stripe accents, wide ghost-card shadows, or decorative grid backgrounds as scaffolding.",
+      "Don't exceed 0.75rem corner radii on functional containers. Full pills are reserved for filters and compact statuses."
+    ]
+  }
+}

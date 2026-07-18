@@ -30,7 +30,7 @@ EDI Spark is the simplest route into retailer EDI: quick to adopt without prior 
 - Secondary CTA: Book a demo.
 - The line a visitor remembers after 10 seconds: Effortless EDI. Pay only for what you exchange.
 - Belief ladder: EDI Spark connects suppliers to the retailers and SaaS tools they use; setup is quick and does not require EDI expertise; pricing is transparent, flexible, and low-risk; the platform is technically serious, with UBL mapping, APIs, A2A, agentic workflows, and MCP; and it scales from smaller suppliers to enterprise operations.
-- Proof on hand: Integration with more than 300 common SaaS products, supported by demonstrable API, A2A, agentic, and MCP capabilities. As a new startup, EDI Spark should substantiate claims through visible product and technical evidence rather than imply an established customer history.
+- Proof on hand: Connections to hundreds of trading partners, including every major UK retailer; integration with more than 300 common SaaS products; and demonstrable API, A2A, agentic, and MCP capabilities. As a new startup, EDI Spark should substantiate claims through visible product and technical evidence rather than imply an established customer history.
 
 ## Brand Personality
 
