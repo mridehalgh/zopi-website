@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-18T19:20:44Z",
+  "generatedAt": "2026-07-18T20:00:42Z",
   "title": "Design System: EDI Spark",
   "extensions": {
     "colorMeta": {
@@ -108,7 +108,7 @@
       "kind": "button",
       "refersTo": "button-primary",
       "description": "Primary trial action on light surfaces.",
-      "html": "<button class=\"ds-btn-primary\">Start free for 30 days</button>",
+      "html": "<button class=\"ds-btn-primary\">Start free</button>",
       "css": ".ds-btn-primary { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--ink); background: var(--mint); border: 1px solid transparent; border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), background-color 180ms ease; } .ds-btn-primary:hover { background: oklch(0.84 0.15 155); transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.25rem; } .ds-btn-primary:active { transform: translateY(0) scale(0.98); }"
     },
     {
@@ -154,7 +154,7 @@
       "name": "Price Ledger",
       "kind": "custom",
       "description": "Transparent consumption pricing expressed as an aligned ruled ledger.",
-      "html": "<div class=\"ds-price\"><span>Platform</span><strong>£9.95</strong><small>per month</small></div>",
+      "html": "<div class=\"ds-price\"><span>Platform</span><strong>{monthly fee}</strong><small>per month</small></div>",
       "css": ".ds-price { display: grid; grid-template-columns: 1fr auto; gap: 0 2rem; align-items: end; padding: 2.5rem 0; color: var(--ink); background: var(--white); border-top: 2px solid var(--indigo-900); border-bottom: 1px solid var(--indigo-100); font-family: 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-price > span { align-self: center; font-size: 1.25rem; font-weight: 600; } .ds-price strong { color: var(--indigo-900); font-size: clamp(3.75rem, 7vw, 6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 0.85; font-variant-numeric: tabular-nums; } .ds-price small { grid-column: 2; color: var(--muted); text-align: right; }"
     }
   ],
@@ -184,7 +184,7 @@
       "Do prove coverage with hundreds of trading partners, every major UK retailer, and more than 300 SaaS integrations.",
       "Do make exchange tangible through real product UI, structured document flows, trading-network indexes, and transparent price ledgers.",
       "Do let Exchange Indigo carry major structural surfaces and reserve Connection Mint for action, connection, and success.",
-      "Do keep the £9.95 monthly price, £0.25 document price, 30-day trial, no setup fee, and no 12-month contract close to conversion actions.",
+      "Do keep the canonical prices and offer durations from src/config/pricing.ts, plus the no-setup-fee and no-annual-contract terms, close to conversion actions.",
       "Do preserve semantic structure, visible keyboard focus, WCAG 2.2 AA contrast, and the global reduced-motion alternative.",
       "Do route technical evaluators toward API, A2A, agentic, MCP, and UBL detail without forcing that vocabulary into the supplier journey."
     ],

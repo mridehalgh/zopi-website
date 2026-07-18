@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { pricing, pricingDisplay } from '../config/pricing';
 
 const trialUrl = 'https://example.com/edi-spark/start-free';
 const demoUrl = 'https://example.com/edi-spark/book-demo';
@@ -9,7 +10,7 @@ const navigation = [
   { label: 'Product', href: '#product' },
   { label: 'Solutions', href: '#solutions' },
   { label: 'Developers', href: '#developers' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Pricing', href: '/pricing' },
 ];
 
 const integrationGroups = [
@@ -98,7 +99,7 @@ const transactions = [
           Connect to retailers without setup fees, annual contracts or prior EDI knowledge.
         </p>
         <div class="button-group">
-          <a class="button" href={trialUrl}>Start free for 30 days</a>
+          <a class="button" href={trialUrl}>Start free for {pricing.standard.trialDays} days</a>
           <a class="button button--outline" href={demoUrl}>Book a demo</a>
         </div>
         <p class="trial-note">No setup fee. No 12-month contract.</p>
@@ -107,11 +108,11 @@ const transactions = [
       <div class="hero-ledger" aria-label="EDI Spark pricing and document exchange overview">
         <div class="ledger-pricing">
           <div class="ledger-row">
-            <span class="ledger-value">£9.95</span>
+            <span class="ledger-value">{pricingDisplay.monthlyFee}</span>
             <span class="ledger-unit">per month</span>
           </div>
           <div class="ledger-row">
-            <span class="ledger-value">£0.25</span>
+            <span class="ledger-value">{pricingDisplay.documentFee}</span>
             <span class="ledger-unit">per document</span>
           </div>
           <div class="ledger-row ledger-row--plain">
@@ -297,12 +298,12 @@ const transactions = [
       <div class="price-ledger">
         <div class="price-row">
           <span class="price-label">EDI Spark mailbox</span>
-          <span class="price-value">£9.95</span>
+          <span class="price-value">{pricingDisplay.monthlyFee}</span>
           <span class="price-unit">per month</span>
         </div>
         <div class="price-row">
           <span class="price-label">Documents exchanged</span>
-          <span class="price-value">£0.25</span>
+          <span class="price-value">{pricingDisplay.documentFee}</span>
           <span class="price-unit">per document</span>
         </div>
         <div class="price-includes">
@@ -311,7 +312,10 @@ const transactions = [
           <span>Unlimited users</span>
           <span>Technical support</span>
         </div>
-        <a class="button" href={trialUrl}>Start free for 30 days</a>
+        <a class="button" href={trialUrl}>Start free for {pricing.standard.trialDays} days</a>
+        <a class="text-arrow text-arrow--ink" href="/pricing">
+          Estimate your monthly cost <span aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
 
@@ -335,7 +339,7 @@ const transactions = [
         <h2 id="final-title">Make EDI effortless.</h2>
       </div>
       <div class="final-cta__actions">
-        <a class="button button--ink" href={trialUrl}>Start free for 30 days</a>
+        <a class="button button--ink" href={trialUrl}>Start free for {pricing.standard.trialDays} days</a>
         <a class="text-arrow text-arrow--ink" href={demoUrl}>Book a demo <span aria-hidden="true">→</span></a>
       </div>
     </section>

@@ -1,0 +1,421 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatPrice, pricing, pricingDisplay } from '../config/pricing';
+import '../styles/pricing.css';
+
+const trialUrl = 'https://example.com/edi-spark/start-free';
+const sandboxUrl = 'https://example.com/edi-spark/developer-sandbox';
+const demoUrl = 'https://example.com/edi-spark/book-demo';
+const signInUrl = 'https://example.com/edi-spark/sign-in';
+
+const navigation = [
+  { label: 'Product', href: '/#product' },
+  { label: 'Solutions', href: '/#solutions' },
+  { label: 'Developers', href: '/#developers' },
+  { label: 'Pricing', href: '/pricing', current: true },
+];
+
+const defaultUsage = pricing.estimator.defaultDocuments * pricing.standard.documentFee;
+const defaultTotal = pricing.standard.monthlyFee + defaultUsage;
+
+const plans = [
+  {
+    id: 'sandbox',
+    title: 'Developer Sandbox',
+    description: 'Build and test an EDI connection before anything reaches a live trading partner.',
+    price: pricingDisplay.sandbox,
+    priceNote: 'No card required',
+    benefits: ['Test connections and documents', 'Simulate retailer flows', 'Explore APIs, A2A and MCP'],
+    cta: 'Open a free sandbox',
+    href: sandboxUrl,
+    variant: 'outline',
+    icon: 'code',
+  },
+  {
+    id: 'standard',
+    title: 'Pay as you exchange',
+    description: 'A complete managed EDI service with a low platform fee and usage that follows your business.',
+    price: `${pricingDisplay.monthlyFee} / month`,
+    priceNote: `${pricingDisplay.documentFee} per document`,
+    benefits: ['Connect to any retailer', 'Unlimited users and support', 'Scale up or down at any time'],
+    cta: `Start free for ${pricing.standard.trialDays} days`,
+    href: trialUrl,
+    variant: 'primary',
+    icon: 'exchange',
+  },
+  {
+    id: 'enterprise',
+    title: 'Enterprise',
+    description: 'For larger networks, higher volumes and organisations that need commercial terms shaped around their operation.',
+    price: pricingDisplay.enterprise,
+    priceNote: 'Priced to your network and volume',
+    benefits: ['Dedicated environment options', 'Custom agreements and SLAs', 'Volume-aware commercial terms'],
+    cta: 'Discuss private pricing',
+    href: demoUrl,
+    variant: 'ink',
+    icon: 'building',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What counts as a document?',
+    answer:
+      'Each business document exchanged through EDI Spark counts once. That includes purchase orders, invoices, order responses, despatch advice and other supported document types.',
+  },
+  {
+    question: 'How is my monthly bill calculated?',
+    answer: `Your monthly bill is the ${pricingDisplay.monthlyFee} platform fee plus ${pricingDisplay.documentFee} for each document exchanged during that billing month. Prices exclude VAT.`,
+  },
+  {
+    question: `How does the ${pricing.switchingOffer.freeDays}-day switching offer work?`,
+    answer: `If you are moving an existing live EDI service to EDI Spark, your first ${pricing.switchingOffer.freeDays} days are free while we help you make the change. We will confirm eligibility and the switching plan with you before onboarding begins.`,
+  },
+  {
+    question: 'Are there setup fees or annual contracts?',
+    answer:
+      'No. The standard pay-as-you-exchange plan has no setup fee and no annual contract. Enterprise agreements may use different commercial terms when your requirements call for them.',
+  },
+  {
+    question: 'When should I ask for enterprise pricing?',
+    answer:
+      'Talk to us if you have high document volumes, a large trading network, dedicated-environment requirements, custom service levels or procurement terms that need a tailored agreement.',
+  },
+];
+---
+
+<BaseLayout
+  title="EDI Spark pricing — Pay only for what you exchange"
+  description={`Estimate your EDI costs. Plans start at ${pricingDisplay.monthlyFee} per month plus ${pricingDisplay.documentFee} per document, with no setup fee or annual contract.`}
+>
+  <header class="site-header" data-header>
+    <a class="brand" href="/" aria-label="EDI Spark home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>EDI Spark</span>
+    </a>
+
+    <button
+      class="menu-button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      data-menu-button
+    >
+      <span class="sr-only">Open navigation</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation" data-navigation>
+      <div class="nav-links">
+        {navigation.map((item) => (
+          <a href={item.href} aria-current={item.current ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </div>
+      <div class="nav-actions">
+        <a class="text-link" href={signInUrl}>Sign in</a>
+        <a class="button button--compact" href={trialUrl}>Start free</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="pricing-page">
+    <section class="pricing-hero" aria-labelledby="pricing-hero-title">
+      <div class="pricing-hero__copy">
+        <p class="pricing-context">Transparent pricing for retailer EDI.</p>
+        <h1 id="pricing-hero-title">Effortless EDI. Pay only for what you exchange.</h1>
+        <p class="pricing-hero__lede">
+          Start without a setup fee or annual contract. Your monthly cost follows the documents
+          your business actually exchanges.
+        </p>
+
+        <div class="hero-exchange" aria-hidden="true">
+          <span class="hero-exchange__document"><i></i></span>
+          <span class="hero-exchange__line"><i></i></span>
+          <span class="hero-exchange__document hero-exchange__document--price"><i></i></span>
+          <span class="hero-exchange__line"><i></i></span>
+          <span class="hero-exchange__document hero-exchange__document--done"><i></i></span>
+        </div>
+
+        <ul class="hero-assurances" aria-label="Standard pricing terms">
+          <li>No setup fee</li>
+          <li>No annual contract</li>
+          <li>Prices exclude VAT</li>
+        </ul>
+      </div>
+
+      <div
+        class="estimator"
+        data-price-estimator
+        data-monthly-fee={pricing.standard.monthlyFee}
+        data-document-fee={pricing.standard.documentFee}
+        data-trial-days={pricing.standard.trialDays}
+        data-locale={pricing.locale}
+        data-currency={pricing.currency}
+      >
+        <div class="estimator__heading">
+          <p>See your monthly cost</p>
+          <span>Adjust the volume to match a typical month.</span>
+        </div>
+
+        <div class="estimator__controls">
+          <div class="estimator__label-row">
+            <label for="document-volume">Documents per month</label>
+            <div class="estimator__number-wrap">
+              <input
+                id="document-volume-number"
+                name="document-volume-number"
+                type="number"
+                min="0"
+                max={pricing.estimator.maximumDocuments}
+                step={pricing.estimator.step}
+                value={pricing.estimator.defaultDocuments}
+                inputmode="numeric"
+                aria-describedby="volume-help"
+                data-volume-number
+              />
+              <span>documents</span>
+            </div>
+          </div>
+          <input
+            id="document-volume"
+            name="document-volume"
+            type="range"
+            min="0"
+            max={pricing.estimator.maximumDocuments}
+            step={pricing.estimator.step}
+            value={pricing.estimator.defaultDocuments}
+            aria-describedby="volume-help"
+            data-volume-range
+          />
+          <div class="estimator__range-labels" id="volume-help">
+            <span>0</span>
+            <span>{pricing.estimator.maximumDocuments.toLocaleString(pricing.locale)}+</span>
+          </div>
+        </div>
+
+        <div class="estimator__breakdown" aria-label="Estimated monthly cost breakdown">
+          <div class="estimator__row">
+            <span>Platform fee</span>
+            <strong data-base-fee>{pricingDisplay.monthlyFee}</strong>
+          </div>
+          <div class="estimator__row">
+            <span>
+              Document usage
+              <small data-usage-formula>
+                {pricing.estimator.defaultDocuments.toLocaleString(pricing.locale)} × {pricingDisplay.documentFee}
+              </small>
+            </span>
+            <strong data-usage-fee>{formatPrice(defaultUsage)}</strong>
+          </div>
+        </div>
+
+        <div class="estimator__total">
+          <span>Estimated monthly total</span>
+          <output
+            for="document-volume document-volume-number"
+            aria-live="polite"
+            data-total
+          >{formatPrice(defaultTotal)}</output>
+          <small>Excluding VAT</small>
+        </div>
+
+        <p class="estimator__message" aria-live="polite" data-estimator-message>
+          This estimate uses our standard pay-as-you-exchange pricing.
+        </p>
+        <a class="button estimator__cta" href={trialUrl} data-estimator-cta>
+          Start free for {pricing.standard.trialDays} days
+        </a>
+      </div>
+    </section>
+
+    <section class="switch-offer" aria-labelledby="switch-title">
+      <div class="route-node route-node--switch" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img">
+          <path d="M11 17h25m0 0-7-7m7 7-7 7M37 31H12m0 0 7 7m-7-7 7-7" />
+        </svg>
+      </div>
+      <div class="switch-offer__copy">
+        <div class="switch-offer__title">
+          <p>Moving from another EDI provider?</p>
+          <h2 id="switch-title">Switch for free.</h2>
+        </div>
+        <div class="switch-offer__details">
+          <strong>Get your first {pricing.switchingOffer.freeDays} days free while you move.</strong>
+          <p>Keep trading while we handle the move with you.</p>
+        </div>
+      </div>
+      <a class="button button--ink" href={demoUrl}>Plan my switch</a>
+    </section>
+
+    <section class="plan-route" aria-labelledby="plans-title">
+      <div class="plan-route__intro">
+        <h2 id="plans-title">Choose the route that fits today.</h2>
+        <p>Start in a free developer environment, move into transparent usage pricing, or shape a private enterprise agreement around a larger network.</p>
+      </div>
+
+      <div class="plan-route__list">
+        {plans.map((plan) => (
+          <article class={`plan-stop plan-stop--${plan.id}`}>
+            <div class={`route-node route-node--${plan.icon}`} aria-hidden="true">
+              {plan.icon === 'code' && <span>&lt;/&gt;</span>}
+              {plan.icon === 'exchange' && (
+                <svg viewBox="0 0 48 48"><path d="M10 16h27m0 0-8-8m8 8-8 8M38 32H11m0 0 8 8m-8-8 8-8" /></svg>
+              )}
+              {plan.icon === 'building' && (
+                <svg viewBox="0 0 48 48"><path d="M12 41V9h24v32M8 41h32M18 15h4m4 0h4m-12 7h4m4 0h4m-12 7h4m4 0h4m-10 12v-6h8v6" /></svg>
+              )}
+            </div>
+
+            <div class="plan-stop__identity">
+              <h3>{plan.title}</h3>
+              <p>{plan.description}</p>
+            </div>
+
+            <div class="plan-stop__benefits">
+              {plan.benefits.map((benefit) => <span>{benefit}</span>)}
+            </div>
+
+            <div class="plan-stop__commercial">
+              <strong>{plan.price}</strong>
+              <span>{plan.priceNote}</span>
+              <a class={`button ${plan.variant === 'outline' ? 'button--outline' : plan.variant === 'ink' ? 'button--ink' : ''}`} href={plan.href}>
+                {plan.cta}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="pricing-terms" aria-labelledby="terms-title">
+      <div class="pricing-terms__heading">
+        <h2 id="terms-title">Pricing, without the fine-print feeling.</h2>
+        <p>Clear answers before you start. If your network is more complex, we can price it with you directly.</p>
+      </div>
+      <div class="pricing-faqs">
+        {faqs.map((item) => (
+          <details>
+            <summary>{item.question}<span aria-hidden="true"></span></summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="pricing-cta" aria-labelledby="pricing-cta-title">
+      <div>
+        <p>Your next retailer connection can be the easy one.</p>
+        <h2 id="pricing-cta-title">Start exchanging in 30 days—or less.</h2>
+      </div>
+      <div class="pricing-cta__actions">
+        <a class="button button--ink" href={trialUrl}>Start free for {pricing.standard.trialDays} days</a>
+        <a class="text-arrow text-arrow--ink" href={demoUrl}>Book a demo <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="/">EDI Spark</a>
+    <p>Effortless EDI for suppliers connecting to retailers.</p>
+    <div class="footer-links">
+      <a href="https://example.com/edi-spark/privacy">Privacy</a>
+      <a href="https://example.com/edi-spark/terms">Terms</a>
+      <a href={signInUrl}>Sign in</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('[data-menu-button]');
+    const navigation = document.querySelector('[data-navigation]');
+
+    const setMenu = (open) => {
+      if (!(menuButton instanceof HTMLButtonElement) || !(navigation instanceof HTMLElement)) return;
+      menuButton.setAttribute('aria-expanded', String(open));
+      const menuLabel = menuButton.querySelector('.sr-only');
+      if (menuLabel) menuLabel.textContent = open ? 'Close navigation' : 'Open navigation';
+      navigation.dataset.open = String(open);
+      document.body.classList.toggle('menu-open', open);
+    };
+
+    menuButton?.addEventListener('click', () => {
+      setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+    });
+    navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenu(false);
+    });
+
+    const estimator = document.querySelector('[data-price-estimator]');
+    if (estimator instanceof HTMLElement) {
+      const range = estimator.querySelector('[data-volume-range]');
+      const number = estimator.querySelector('[data-volume-number]');
+      const baseFee = estimator.querySelector('[data-base-fee]');
+      const usageFee = estimator.querySelector('[data-usage-fee]');
+      const formula = estimator.querySelector('[data-usage-formula]');
+      const total = estimator.querySelector('[data-total]');
+      const message = estimator.querySelector('[data-estimator-message]');
+      const cta = estimator.querySelector('[data-estimator-cta]');
+      const monthlyFee = Number(estimator.dataset.monthlyFee);
+      const documentFee = Number(estimator.dataset.documentFee);
+      const trialDays = Number(estimator.dataset.trialDays);
+      const locale = estimator.dataset.locale || 'en-GB';
+      const currency = estimator.dataset.currency || 'GBP';
+      const maximum = range instanceof HTMLInputElement ? Number(range.max) : 100000;
+
+      const money = new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      const integer = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
+
+      const updateEstimate = (rawValue) => {
+        const parsed = Number(rawValue);
+        const value = Number.isFinite(parsed) ? Math.min(Math.max(Math.round(parsed), 0), maximum) : 0;
+        const usage = value * documentFee;
+        const estimate = monthlyFee + usage;
+
+        if (range instanceof HTMLInputElement) {
+          range.value = String(value);
+          range.style.setProperty('--range-progress', `${(value / maximum) * 100}%`);
+        }
+        if (number instanceof HTMLInputElement && document.activeElement !== number) number.value = String(value);
+        if (baseFee) baseFee.textContent = money.format(monthlyFee);
+        if (usageFee) usageFee.textContent = money.format(usage);
+        if (formula) formula.textContent = `${integer.format(value)} × ${money.format(documentFee)}`;
+        if (total) total.textContent = money.format(estimate);
+        if (message) {
+          message.textContent = value === maximum
+            ? `Exchanging more than ${integer.format(maximum)} documents? Enterprise pricing may be more competitive.`
+            : 'This estimate uses our standard pay-as-you-exchange pricing.';
+        }
+        if (cta instanceof HTMLAnchorElement) {
+          cta.textContent = value === maximum ? 'Discuss volume pricing' : `Start free for ${trialDays} days`;
+          cta.href = value === maximum
+            ? 'https://example.com/edi-spark/book-demo'
+            : 'https://example.com/edi-spark/start-free';
+        }
+      };
+
+      range?.addEventListener('input', (event) => {
+        if (!(event.currentTarget instanceof HTMLInputElement)) return;
+        if (number instanceof HTMLInputElement) number.value = event.currentTarget.value;
+        updateEstimate(event.currentTarget.value);
+      });
+      number?.addEventListener('input', (event) => {
+        if (!(event.currentTarget instanceof HTMLInputElement)) return;
+        updateEstimate(event.currentTarget.value);
+      });
+      number?.addEventListener('blur', (event) => {
+        if (!(event.currentTarget instanceof HTMLInputElement)) return;
+        const value = Number(event.currentTarget.value);
+        event.currentTarget.value = String(Number.isFinite(value) ? Math.min(Math.max(Math.round(value), 0), maximum) : 0);
+        updateEstimate(event.currentTarget.value);
+      });
+
+      updateEstimate(range instanceof HTMLInputElement ? range.value : '0');
+    }
+  </script>
+</BaseLayout>

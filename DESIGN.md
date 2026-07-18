@@ -245,7 +245,7 @@ Hero copy rises 1.5rem over 700ms; the ledger enters from 3rem over 850ms; conne
 - **Do** prove coverage with hundreds of trading partners, every major UK retailer, and more than 300 SaaS integrations.
 - **Do** make exchange tangible through real product UI, structured document flows, trading-network indexes, and transparent price ledgers.
 - **Do** let Exchange Indigo carry major structural surfaces and reserve Connection Mint for action, connection, and success.
-- **Do** keep the £9.95 monthly price, £0.25 document price, 30-day trial, no setup fee, and no 12-month contract close to conversion actions.
+- **Do** keep the canonical prices and offer durations from `src/config/pricing.ts`, plus the no-setup-fee and no-annual-contract terms, close to conversion actions.
 - **Do** preserve semantic structure, visible keyboard focus, WCAG 2.2 AA contrast, and the global reduced-motion alternative.
 - **Do** route technical evaluators toward API, A2A, agentic, MCP, and UBL detail without forcing that vocabulary into the supplier journey.
 
