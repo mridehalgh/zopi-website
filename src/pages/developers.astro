@@ -1,0 +1,495 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/developers.css';
+
+const docsUrl = 'https://example.com/edi-spark/docs';
+const apiReferenceUrl = 'https://example.com/edi-spark/docs/api';
+const sandboxUrl = 'https://example.com/edi-spark/developer-sandbox';
+const demoUrl = 'https://example.com/edi-spark/book-demo';
+const signInUrl = 'https://example.com/edi-spark/sign-in';
+
+const navigation = [
+  { label: 'Product', href: '/#product' },
+  { label: 'Solutions', href: '/#solutions' },
+  { label: 'Developers', href: '/developers', current: true },
+  { label: 'Pricing', href: '/pricing' },
+];
+
+const endpointGroups = [
+  {
+    name: 'Documents',
+    description: 'Send, validate and track every business document.',
+    method: 'POST',
+    path: '/v1/documents',
+  },
+  {
+    name: 'Mappings',
+    description: 'Transform retailer formats into your canonical model.',
+    method: 'POST',
+    path: '/v1/mappings',
+  },
+  {
+    name: 'Connections',
+    description: 'Configure routes, credentials and partner delivery.',
+    method: 'GET',
+    path: '/v1/connections',
+  },
+  {
+    name: 'Webhooks',
+    description: 'React to accepted, rejected and delivered events.',
+    method: 'POST',
+    path: '/v1/webhooks',
+  },
+  {
+    name: 'Trading partners',
+    description: 'Discover retailer capabilities and requirements.',
+    method: 'GET',
+    path: '/v1/trading-partners',
+  },
+];
+
+const sdkExamples = {
+  typescript: {
+    label: 'TypeScript',
+    install: 'npm install @edispark/sdk',
+    code: `import { EDISpark } from '@edispark/sdk';
+
+const edi = new EDISpark({ apiKey: process.env.EDI_SPARK_KEY });
+
+const document = await edi.documents.create({
+  tradingPartnerId: 'retailer_uk_1042',
+  type: 'purchase_order',
+  data: order,
+});`,
+  },
+  python: {
+    label: 'Python',
+    install: 'pip install edispark',
+    code: `from edispark import EDISpark
+
+edi = EDISpark(api_key=os.environ["EDI_SPARK_KEY"])
+
+document = edi.documents.create(
+    trading_partner_id="retailer_uk_1042",
+    type="purchase_order",
+    data=order,
+)`,
+  },
+  dotnet: {
+    label: '.NET',
+    install: 'dotnet add package EDISpark',
+    code: `var edi = new EDISparkClient(apiKey);
+
+var document = await edi.Documents.CreateAsync(new() {
+    TradingPartnerId = "retailer_uk_1042",
+    Type = "purchase_order",
+    Data = order
+});`,
+  },
+  java: {
+    label: 'Java',
+    install: 'implementation("com.edispark:sdk")',
+    code: `var edi = EDISparkClient.builder()
+    .apiKey(System.getenv("EDI_SPARK_KEY"))
+    .build();
+
+var document = edi.documents().create(
+    DocumentRequest.from("retailer_uk_1042", order)
+);`,
+  },
+};
+
+const mappingRows = [
+  ['BEG03', 'purchaseOrderNumber', 'PO-123456'],
+  ['N1.BY.02', 'buyer.name', 'Example Retailer'],
+  ['PO1[].07', 'lineItems[].sku', 'ABC-123'],
+  ['PO1[].02', 'lineItems[].quantity', '100'],
+  ['CTT01', 'totals.lineCount', '1'],
+];
+
+const workflowSteps = [
+  ['Order received', 'Validate the document and identify the retailer profile.'],
+  ['Mapping applied', 'Transform retailer EDI into canonical JSON or UBL.'],
+  ['ERP updated', 'Create the order through your existing integration code.'],
+  ['Response returned', 'Send acknowledgement and delivery events automatically.'],
+];
+
+const agentInterfaces = [
+  {
+    name: 'A2A',
+    title: 'Delegate complete EDI tasks',
+    body: 'Your agents can discover EDI Spark, submit long-running tasks and receive structured results through the open Agent2Agent protocol.',
+    artifact: 'POST /a2a/tasks',
+    result: 'task.status → completed',
+  },
+  {
+    name: 'MCP Server',
+    title: 'Give agents tools and context',
+    body: 'Connect compatible assistants to EDI documentation, mapping schemas, trading-partner discovery and safe workflow tools.',
+    artifact: 'https://mcp.edispark.com',
+    result: 'tools/list → 18 tools',
+  },
+  {
+    name: 'Mapping Agent',
+    title: 'Create mappings from real examples',
+    body: 'Give the agent representative source documents and your target schema. It proposes mapping rules, tests edge cases and returns a versioned draft for review.',
+    artifact: 'mapping.createDraft(samples)',
+    result: '18 rules · 3 checks',
+  },
+  {
+    name: 'Workflow Agent',
+    title: 'Compose your business workflow',
+    body: 'Describe the process you need—from order receipt to invoice delivery. The agent assembles APIs, conditions, approvals and recovery paths into a testable workflow.',
+    artifact: 'workflow.compose("order-to-cash")',
+    result: '6 steps · ready to test',
+  },
+  {
+    name: 'EDI AI Agent',
+    title: 'Resolve work in the platform',
+    body: 'A ready-to-use assistant helps teams explain document failures, refine mappings and move recoverable exceptions forward.',
+    artifact: 'Review PO-123456',
+    result: '2 issues explained',
+  },
+];
+---
+
+<BaseLayout
+  title="EDI Spark for developers — APIs and SDKs for retailer EDI"
+  description="Build retailer EDI integrations with JSON-native APIs, official SDKs, mapping tools, webhooks, A2A and MCP."
+>
+  <header class="site-header" data-header>
+    <a class="brand" href="/" aria-label="EDI Spark home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>EDI Spark</span>
+    </a>
+
+    <button
+      class="menu-button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      data-menu-button
+    >
+      <span class="sr-only">Open navigation</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation" data-navigation>
+      <div class="nav-links">
+        {navigation.map((item) => (
+          <a href={item.href} aria-current={item.current ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </div>
+      <div class="nav-actions">
+        <a class="text-link" href={signInUrl}>Sign in</a>
+        <a class="button button--compact" href={sandboxUrl}>Open sandbox</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="developers-page">
+    <section class="developer-hero" aria-labelledby="developer-hero-title">
+      <div class="developer-hero__copy">
+        <p class="developer-context">EDI Spark for developers</p>
+        <h1 id="developer-hero-title">APIs that<br />speak retail.</h1>
+        <p class="developer-hero__lede">
+          JSON-native APIs and official SDKs for mapping, exchanging and monitoring retailer
+          documents—without becoming an EDI specialist.
+        </p>
+        <div class="button-group">
+          <a class="button button--api" href={docsUrl}>Read the API docs</a>
+          <a class="button button--outline" href="#sdks">Explore SDKs</a>
+        </div>
+        <ul class="developer-assurances" aria-label="Developer platform capabilities">
+          <li>REST + webhooks</li>
+          <li>Sandbox included</li>
+          <li>Canonical JSON + UBL</li>
+        </ul>
+      </div>
+
+      <div class="api-exchange" aria-label="Example API request and response">
+        <div class="api-exchange__bar">
+          <span><strong>POST</strong> /v1/documents</span>
+          <span class="api-status"><i></i> 202 Accepted</span>
+        </div>
+        <div class="api-exchange__panes">
+          <div class="code-pane">
+            <span class="code-pane__label">Request</span>
+            <pre><code><span class="code-line">&#123;</span>
+<span class="code-line">  <b>"tradingPartnerId"</b>: <em>"retailer_uk_1042"</em>,</span>
+<span class="code-line">  <b>"type"</b>: <em>"purchase_order"</em>,</span>
+<span class="code-line">  <b>"direction"</b>: <em>"inbound"</em>,</span>
+<span class="code-line">  <b>"data"</b>: &#123;</span>
+<span class="code-line">    <b>"purchaseOrderNumber"</b>: <em>"PO-123456"</em></span>
+<span class="code-line">  &#125;</span>
+<span class="code-line">&#125;</span></code></pre>
+          </div>
+          <div class="code-pane code-pane--response">
+            <span class="code-pane__label">Response</span>
+            <pre><code><span class="code-line">&#123;</span>
+<span class="code-line">  <b>"id"</b>: <em>"doc_01HZK7"</em>,</span>
+<span class="code-line">  <b>"status"</b>: <em>"processing"</em>,</span>
+<span class="code-line">  <b>"mapping"</b>: &#123;</span>
+<span class="code-line">    <b>"target"</b>: <em>"ubl-2.3"</em>,</span>
+<span class="code-line">    <b>"version"</b>: <em>"7"</em></span>
+<span class="code-line">  &#125;</span>
+<span class="code-line">&#125;</span></code></pre>
+          </div>
+        </div>
+        <div class="api-exchange__event">
+          <span>document.processed</span>
+          <strong>Delivered in 842 ms</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="endpoint-index" id="api" aria-labelledby="endpoint-title">
+      <div class="endpoint-index__heading">
+        <h2 id="endpoint-title">One platform API.<br />The whole exchange.</h2>
+        <p>
+          Work with the business objects your application already understands. EDI Spark handles
+          partner formats, transport protocols and delivery rules behind a consistent interface.
+        </p>
+      </div>
+      <div class="endpoint-list">
+        {endpointGroups.map((endpoint) => (
+          <a class="endpoint-row" href={apiReferenceUrl}>
+            <strong>{endpoint.name}</strong>
+            <span>{endpoint.description}</span>
+            <code><i>{endpoint.method}</i> {endpoint.path}</code>
+            <b aria-hidden="true">→</b>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="sdk-section" id="sdks" aria-labelledby="sdk-title">
+      <div class="sdk-copy">
+        <p class="developer-context">Start with your stack</p>
+        <h2 id="sdk-title">Typed SDKs. Less integration glue.</h2>
+        <p>
+          Authentication, retries, pagination, typed models and webhook verification are built in.
+          Choose your language and move from sandbox to a live retailer connection without rewriting
+          the integration.
+        </p>
+        <a class="text-arrow text-arrow--ink" href={docsUrl}>See SDK documentation <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="sdk-workbench" data-sdk-workbench>
+        <div class="sdk-tabs" role="tablist" aria-label="SDK language">
+          {Object.entries(sdkExamples).map(([key, sdk], index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`sdk-tab-${key}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+              aria-controls={`sdk-panel-${key}`}
+              data-sdk-tab={key}
+            >
+              {sdk.label}
+            </button>
+          ))}
+        </div>
+        {Object.entries(sdkExamples).map(([key, sdk], index) => (
+          <div
+            class="sdk-panel"
+            role="tabpanel"
+            id={`sdk-panel-${key}`}
+            aria-labelledby={`sdk-tab-${key}`}
+            hidden={index !== 0}
+            data-sdk-panel={key}
+          >
+            <div class="install-command">
+              <code>{sdk.install}</code>
+              <button type="button" data-copy={sdk.install} aria-label={`Copy ${sdk.label} install command`}>
+                <span data-copy-label>Copy</span>
+              </button>
+            </div>
+            <pre><code>{sdk.code}</code></pre>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mapping-lab" aria-labelledby="mapping-lab-title">
+      <div class="mapping-lab__heading">
+        <p class="developer-context">Mapping without the spreadsheet archaeology</p>
+        <h2 id="mapping-lab-title">Turn partner EDI into the model your product needs.</h2>
+        <p>
+          Create versioned mappings, test them against representative documents and inspect every
+          transformation before promoting it to production. Or give the Mapping Agent source
+          examples and a target schema to generate and validate the first draft for you.
+        </p>
+      </div>
+      <div class="mapping-artifact" aria-label="Example retailer EDI mapping">
+        <div class="mapping-artifact__source">
+          <span>Retailer input</span>
+          <strong>X12 850</strong>
+          <pre><code>BEG*00*NE*PO-123456**20250718~
+N1*BY*EXAMPLE RETAILER*92*1042~
+PO1*1*100*EA*15.00**VP*ABC-123~
+CTT*1~</code></pre>
+        </div>
+        <div class="mapping-artifact__rules">
+          <span>Mapping v7</span>
+          {mappingRows.map(([source, target, value]) => (
+            <div class="mapping-rule">
+              <code>{source}</code>
+              <span aria-hidden="true">→</span>
+              <strong>{target}</strong>
+              <small>{value}</small>
+            </div>
+          ))}
+        </div>
+        <div class="mapping-artifact__target">
+          <span>Canonical output</span>
+          <strong>JSON + UBL 2.3</strong>
+          <pre><code>{`{
+  "purchaseOrderNumber": "PO-123456",
+  "buyer": { "id": "1042" },
+  "lineItems": [
+    { "sku": "ABC-123", "quantity": 100 }
+  ]
+}`}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow-section" aria-labelledby="workflow-title">
+      <div class="workflow-heading">
+        <p class="developer-context">APIs for the document. Workflows for the business.</p>
+        <h2 id="workflow-title">Build the full order-to-cash path.</h2>
+        <p>
+          Combine document APIs, mappings, connections and webhooks into reliable workflows that
+          match how your retail operation actually runs. The Workflow Agent can turn a described
+          business process into a testable flow with conditions, approvals and recovery steps.
+        </p>
+      </div>
+      <ol class="workflow-list">
+        {workflowSteps.map(([title, body], index) => (
+          <li>
+            <span>{index + 1}</span>
+            <div><strong>{title}</strong><p>{body}</p></div>
+            <i aria-hidden="true"></i>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="agent-launch" id="agent" aria-labelledby="agent-title">
+      <div class="agent-launch__heading">
+        <span class="new-badge">New</span>
+        <h2 id="agent-title">Build agent-ready EDI workflows.</h2>
+        <p>
+          Add EDI Spark to your agent architecture—or use our specialist agents directly. Open
+          interfaces and purpose-built agents extend the same APIs, permissions and audit trail you
+          already rely on.
+        </p>
+      </div>
+      <div class="agent-flow">
+        {agentInterfaces.map((surface, index) => (
+          <article class="agent-surface">
+            <div class="agent-surface__number">{index + 1}</div>
+            <div class="agent-surface__copy">
+              <span>{surface.name}</span>
+              <h3>{surface.title}</h3>
+              <p>{surface.body}</p>
+            </div>
+            <div class="agent-artifact">
+              <code>{surface.artifact}</code>
+              <span>{surface.result}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="agent-launch__actions">
+        <a class="button" href={docsUrl}>Explore agent interfaces</a>
+        <p>New capabilities. Built on the same governed platform.</p>
+      </div>
+    </section>
+
+    <section class="developer-cta" aria-labelledby="developer-cta-title">
+      <div>
+        <p class="developer-context">Start in the sandbox</p>
+        <h2 id="developer-cta-title">Send your first retail document today.</h2>
+      </div>
+      <div class="developer-cta__actions">
+        <a class="button button--ink" href={sandboxUrl}>Open a free sandbox</a>
+        <a class="text-arrow text-arrow--ink" href={demoUrl}>Talk to an integration engineer <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="/">EDI Spark</a>
+    <p>APIs, SDKs and agent interfaces for retailer EDI.</p>
+    <div class="footer-links">
+      <a href={docsUrl}>Documentation</a>
+      <a href={apiReferenceUrl}>API reference</a>
+      <a href={signInUrl}>Sign in</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('[data-menu-button]');
+    const navigation = document.querySelector('[data-navigation]');
+
+    const setMenu = (open) => {
+      if (!(menuButton instanceof HTMLButtonElement) || !(navigation instanceof HTMLElement)) return;
+      menuButton.setAttribute('aria-expanded', String(open));
+      const label = menuButton.querySelector('.sr-only');
+      if (label) label.textContent = open ? 'Close navigation' : 'Open navigation';
+      navigation.dataset.open = String(open);
+      document.body.classList.toggle('menu-open', open);
+    };
+
+    menuButton?.addEventListener('click', () => {
+      setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+    });
+    navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenu(false);
+    });
+
+    const tabs = [...document.querySelectorAll('[data-sdk-tab]')];
+    const panels = [...document.querySelectorAll('[data-sdk-panel]')];
+
+    const selectSdk = (tab) => {
+      if (!(tab instanceof HTMLButtonElement)) return;
+      const target = tab.dataset.sdkTab;
+      tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+      panels.forEach((panel) => {
+        if (panel instanceof HTMLElement) panel.hidden = panel.dataset.sdkPanel !== target;
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectSdk(tab));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const next = tabs[(index + direction + tabs.length) % tabs.length];
+        next?.focus();
+        selectSdk(next);
+      });
+    });
+
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const value = button.dataset.copy ?? '';
+        const label = button.querySelector('[data-copy-label]');
+        try {
+          await navigator.clipboard.writeText(value);
+          if (label) label.textContent = 'Copied';
+          window.setTimeout(() => { if (label) label.textContent = 'Copy'; }, 1600);
+        } catch {
+          if (label) label.textContent = 'Select command';
+        }
+      });
+    });
+
+  </script>
+</BaseLayout>
