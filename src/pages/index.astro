@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const trialUrl = 'https://example.com/edi-spark/start-free';
 const demoUrl = 'https://example.com/edi-spark/book-demo';
 const signInUrl = 'https://example.com/edi-spark/sign-in';
-const inspectSection = Astro.url.searchParams.get('inspect') ?? '';
 
 const navigation = [
   { label: 'Product', href: '#product' },
@@ -22,27 +21,36 @@ const integrationGroups = [
 
 const mappingSteps = [
   {
-    stage: 'Receive',
-    title: 'Your order arrives as EDI',
-    body: 'EDI Spark receives and validates each retailer document, so your team never has to inspect raw EDI.',
-    code: "UNH+00001+ORDERS:D:96A:UN'\nBGM+220+PO-10482+9'\nDTM+137:20260718:102'",
+    stage: 'Orders arrive',
+    title: 'Stop checking retailer portals',
+    body: 'New orders arrive automatically in one clear workspace, ready for your team to process.',
+    item: 'Retailer purchase order',
+    result: 'Ready to process',
   },
   {
-    stage: 'Understand',
-    title: 'Every field maps to UBL',
-    body: 'The original message becomes a consistent UBL document your systems and people can work with.',
-    code: '<Order>\n  <ID>PO-10482</ID>\n  <IssueDate>2026-07-18</IssueDate>\n</Order>',
+    stage: 'Work stays in sync',
+    title: 'Remove repetitive data entry',
+    body: 'Connect the software you already use so order details move without copying, pasting or re-keying.',
+    item: 'Sales order created',
+    result: 'Synced automatically',
   },
   {
-    stage: 'Deliver',
-    title: 'Send it wherever work happens',
-    body: 'Use the managed interface or route clean data through APIs, A2A workflows, MCP, or your existing SaaS stack.',
-    code: 'POST /v1/documents\ncontent-type: application/json\n\n{ "format": "UBL", "status": "ready" }',
+    stage: 'Issues stand out',
+    title: 'Know what needs attention',
+    body: 'When something needs fixing, your team sees a plain-English explanation and the next step.',
+    item: 'Price mismatch found',
+    result: 'Clear action provided',
   },
 ];
 
+const businessOutcomes = [
+  ['Onboard retailers sooner', 'Start exchanging documents without a long implementation project.'],
+  ['Cut manual admin', 'Keep orders and invoices moving without portal hopping or re-keying.'],
+  ['Catch problems earlier', 'Give your team one clear place to see status and resolve exceptions.'],
+];
+
 const transactions = [
-  ['Purchase order', 'PO-10482', 'Mapped'],
+  ['Purchase order', 'PO-10482', 'Ready'],
   ['Invoice', 'INV-8821', 'Delivered'],
   ['Order response', 'OR-10482', 'Ready'],
 ];
@@ -50,7 +58,7 @@ const transactions = [
 
 <BaseLayout
   title="EDI Spark — Super simple EDI for suppliers"
-  description="Connect to UK and EMEA retailers through managed EDI, UBL mapping, APIs, A2A and MCP—without setup fees or annual contracts."
+  description="Connect to UK and EMEA retailers, reduce manual order admin and start quickly—without setup fees or annual contracts."
 >
   <header class="site-header" data-header>
     <a class="brand" href="#top" aria-label="EDI Spark home">
@@ -81,7 +89,7 @@ const transactions = [
     </nav>
   </header>
 
-  <main id="main-content" data-inspect={inspectSection}>
+  <main id="main-content">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="hero-context">Retailer EDI, without the traditional overhead.</p>
@@ -119,8 +127,8 @@ const transactions = [
           </div>
           <span class="route-line"><i></i></span>
           <div class="route-stop">
-            <span class="route-icon route-icon--document">UBL</span>
-            <span>Mapped</span>
+            <span class="route-icon route-icon--document">✓</span>
+            <span>Connected</span>
           </div>
           <span class="route-line"><i></i></span>
           <div class="route-stop">
@@ -155,11 +163,11 @@ const transactions = [
 
     <section class="mapping section section--indigo" id="product" aria-labelledby="mapping-title">
       <div class="mapping-intro">
-        <p class="section-intro">EDI goes in. Useful business data comes out.</p>
-        <h2 id="mapping-title">We handle the format. You handle the order.</h2>
+        <p class="section-intro">Retailer EDI, without the EDI work.</p>
+        <h2 id="mapping-title">Spend less time moving documents. More time fulfilling orders.</h2>
         <p>
-          Every message is received, validated and mapped to UBL before it reaches your team or
-          systems.
+          EDI Spark handles the exchange in the background and gives your team a simple way to keep
+          work moving.
         </p>
       </div>
 
@@ -174,7 +182,11 @@ const transactions = [
                 <p>{step.body}</p>
               </div>
             </div>
-            <pre aria-label={`${step.stage} example`}><code>{step.code}</code></pre>
+            <div class="outcome-example" aria-label={`${step.stage}: ${step.result}`}>
+              <span class="outcome-document" aria-hidden="true"></span>
+              <span><small>{step.item}</small><strong>{step.result}</strong></span>
+              <span class="outcome-check" aria-hidden="true">✓</span>
+            </div>
           </article>
         ))}
       </div>
@@ -226,34 +238,25 @@ const transactions = [
       </div>
     </section>
 
-    <section class="developers section section--ink" id="developers" aria-labelledby="developers-title">
-      <div class="developers-copy">
-        <p class="section-intro">A managed platform when you want it. Infrastructure when you need it.</p>
-        <h2 id="developers-title">Built for teams—and the agents working beside them.</h2>
-        <p>
-          Everything visible in the UI can become part of your integration architecture. Build with
-          APIs, connect agent-to-agent workflows, or expose controlled EDI capabilities through MCP.
-        </p>
-        <a class="text-arrow" href="https://example.com/edi-spark/developers">
-          Explore developer tools <span aria-hidden="true">→</span>
-        </a>
+    <section class="outcomes section section--ink" id="outcomes" aria-labelledby="outcomes-title">
+      <div class="outcomes-heading">
+        <p class="section-intro">The outcome is less EDI work—not more software to manage.</p>
+        <h2 id="outcomes-title">Make every retailer connection easier to run.</h2>
       </div>
-
-      <div class="developer-proof">
-        <div class="proof-tabs" role="list" aria-label="Developer capabilities">
-          <span class="active" role="listitem">API</span>
-          <span role="listitem">A2A</span>
-          <span role="listitem">MCP</span>
+      <div class="outcomes-list">
+        {businessOutcomes.map(([title, body], index) => (
+          <div class="outcome-row">
+            <span>{index + 1}</span>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </div>
+        ))}
+        <div class="developer-route" id="developers">
+          <p><strong>Building a custom integration?</strong> Your technical team can go deeper with APIs, A2A and MCP.</p>
+          <a class="text-arrow" href="https://example.com/edi-spark/developers">
+            Visit the developer platform <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <pre aria-label="EDI Spark API example"><code><span>POST</span> /v1/documents
-content-type: application/json
-
-&#123;
-  "type": "Invoice",
-  "format": "UBL",
-  "retailer": "connected-network"
-&#125;</code></pre>
-        <div class="proof-result"><i></i> Document accepted and mapped</div>
       </div>
     </section>
 
@@ -291,7 +294,7 @@ content-type: application/json
       <div class="enterprise-copy">
         <p>
           Larger suppliers and retailers can bring complex integration requirements to the same
-          API-native foundation—without creating a separate world for everyday users.
+          flexible foundation—without creating a separate world for everyday users.
         </p>
         <a class="button button--light" href={demoUrl}>Talk through your requirements</a>
       </div>
