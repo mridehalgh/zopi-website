@@ -8,8 +8,6 @@ const demoUrl = 'https://example.com/edi-spark/book-demo';
 const signInUrl = 'https://example.com/edi-spark/sign-in';
 
 const navigation = [
-  { label: 'Product', href: '/#product' },
-  { label: 'Solutions', href: '/#solutions' },
   { label: 'Partners', href: '/partners', current: true },
   { label: 'Developers', href: '/developers' },
   { label: 'Integrations', href: '/integrations' },
@@ -150,7 +148,8 @@ const wordmarkClass = (name: string) => {
           <p>Search by name or narrow the directory by partner type and region.</p>
         </div>
         <p class="directory-count" aria-live="polite" data-result-count>
-          <strong>{partners.length}</strong> partners
+          <strong data-result-number>{partners.length}</strong>
+          <span data-result-label>partners ready to connect</span>
         </p>
       </div>
 
@@ -209,6 +208,7 @@ const wordmarkClass = (name: string) => {
                       class="partner-row"
                       data-partner-row
                       data-name={[partner.name, ...partner.aliases].join(' ').toLowerCase()}
+                      data-partner-title={partner.name.toLowerCase()}
                       data-category={partner.category}
                       data-region={partner.region}
                     >
@@ -307,7 +307,8 @@ const wordmarkClass = (name: string) => {
       const regionFilter = directory.querySelector('[data-region-filter]');
       const partnerRows = [...directory.querySelectorAll('[data-partner-row]')];
       const partnerGroups = [...directory.querySelectorAll('[data-partner-group]')];
-      const count = directory.querySelector('[data-result-count]');
+      const countNumber = directory.querySelector('[data-result-number]');
+      const countLabel = directory.querySelector('[data-result-label]');
       const emptyState = directory.querySelector('[data-empty-state]');
       const resetButton = directory.querySelector('[data-reset-filters]');
       let activeCategory = 'all';
@@ -324,6 +325,7 @@ const wordmarkClass = (name: string) => {
           const matchesRegion = region === 'all' || row.dataset.region === region;
           const visible = matchesSearch && matchesCategory && matchesRegion;
           row.hidden = !visible;
+          row.classList.toggle('is-exact-match', Boolean(query) && row.dataset.partnerTitle === query && visible);
           if (visible) visibleCount += 1;
         });
 
@@ -332,7 +334,14 @@ const wordmarkClass = (name: string) => {
           group.hidden = !group.querySelector('[data-partner-row]:not([hidden])');
         });
 
-        if (count) count.innerHTML = `<strong>${visibleCount}</strong> ${visibleCount === 1 ? 'partner' : 'partners'}`;
+        if (countNumber) countNumber.textContent = String(visibleCount);
+        if (countLabel) {
+          countLabel.textContent = visibleCount === 1
+            ? 'partner ready to connect'
+            : visibleCount === 0
+              ? 'partners found'
+              : 'partners ready to connect';
+        }
         if (emptyState instanceof HTMLElement) emptyState.hidden = visibleCount !== 0;
         if (clearSearch instanceof HTMLButtonElement) clearSearch.hidden = !query;
       };

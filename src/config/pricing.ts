@@ -10,7 +10,7 @@ export const pricing = {
     minimumTermMonths: 0,
   },
   estimator: {
-    defaultDocuments: 1,
+    defaultDocuments: 2,
     maximumDocuments: 5000,
     step: 10,
   },

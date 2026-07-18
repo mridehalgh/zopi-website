@@ -9,8 +9,6 @@ const demoUrl = 'https://example.com/edi-spark/book-demo';
 const signInUrl = 'https://example.com/edi-spark/sign-in';
 
 const navigation = [
-  { label: 'Product', href: '/#product' },
-  { label: 'Solutions', href: '/#solutions' },
   { label: 'Partners', href: '/partners' },
   { label: 'Developers', href: '/developers' },
   { label: 'Integrations', href: '/integrations' },
@@ -213,7 +211,7 @@ const faqs = [
         </div>
 
         <div class="estimator__total">
-          <span>Estimated monthly total</span>
+          <span class="estimator__total-label"><i aria-hidden="true"></i>Estimated monthly total</span>
           <output
             for="document-volume document-volume-number"
             aria-live="polite"
@@ -387,12 +385,21 @@ const faqs = [
         if (baseFee) baseFee.textContent = money.format(monthlyFee);
         if (usageFee) usageFee.textContent = money.format(usage);
         if (formula) formula.textContent = `${integer.format(value)} × ${money.format(documentFee)}`;
-        if (total) total.textContent = money.format(estimate);
+        if (total) {
+          total.textContent = money.format(estimate);
+          if (total instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            total.classList.remove('is-updating');
+            requestAnimationFrame(() => total.classList.add('is-updating'));
+          }
+        }
         if (message) {
           message.textContent = value === maximum
-            ? `Exchanging more than ${integer.format(maximum)} documents? Enterprise pricing may be more competitive.`
-            : 'This estimate uses our standard pay-as-you-exchange pricing.';
+            ? `That is a serious exchange volume. Enterprise pricing may be more competitive.`
+            : value === 0
+              ? `A quiet month stays simple: just the ${money.format(monthlyFee)} platform fee.`
+              : `${integer.format(value)} documents, priced openly — no quote required.`;
         }
+        estimator.dataset.volumeState = value === maximum ? 'enterprise' : value === 0 ? 'quiet' : 'active';
         if (cta instanceof HTMLAnchorElement) {
           cta.textContent = value === maximum ? 'Discuss volume pricing' : `Start free for ${trialDays} days`;
           cta.href = value === maximum

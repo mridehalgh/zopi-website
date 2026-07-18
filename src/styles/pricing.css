@@ -347,6 +347,29 @@
   font-weight: 700;
 }
 
+.estimator__total-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.estimator__total-label i {
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--mint-deep);
+  border-radius: 50%;
+  transition: background-color 220ms ease, box-shadow 220ms var(--ease-out);
+}
+
+.estimator[data-volume-state='quiet'] .estimator__total-label i {
+  background: var(--indigo-500);
+}
+
+.estimator[data-volume-state='enterprise'] .estimator__total-label i {
+  background: var(--indigo-700);
+  box-shadow: 0 0 0 0.35rem var(--indigo-100);
+}
+
 .estimator__total output {
   color: var(--indigo-900);
   font-size: clamp(3.25rem, 5vw, 5.5rem);
@@ -354,6 +377,7 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.035em;
   line-height: 0.92;
+  transform-origin: left center;
 }
 
 .estimator__total small,
@@ -742,6 +766,21 @@
 @keyframes exchange-travel {
   from { transform: translateX(-120%); }
   to { transform: translateX(380%); }
+}
+
+@keyframes estimate-settle {
+  0% { transform: translateY(0.18rem); color: var(--indigo-700); }
+  100% { transform: translateY(0); color: var(--indigo-900); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .estimator__total output.is-updating { animation: estimate-settle 280ms var(--ease-out); }
+  .estimator[data-volume-state='enterprise'] .estimator__total-label i { animation: enterprise-signal 700ms var(--ease-out); }
+}
+
+@keyframes enterprise-signal {
+  0% { box-shadow: 0 0 0 0 oklch(0.45 0.18 270 / 0.35); }
+  100% { box-shadow: 0 0 0 0.35rem var(--indigo-100); }
 }
 
 @media (min-width: 58.01rem) and (max-height: 62rem) {
