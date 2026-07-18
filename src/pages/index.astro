@@ -1,0 +1,357 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const trialUrl = 'https://example.com/edi-spark/start-free';
+const demoUrl = 'https://example.com/edi-spark/book-demo';
+const signInUrl = 'https://example.com/edi-spark/sign-in';
+
+const navigation = [
+  { label: 'Product', href: '#product' },
+  { label: 'Solutions', href: '#solutions' },
+  { label: 'Developers', href: '#developers' },
+  { label: 'Pricing', href: '#pricing' },
+];
+
+const integrationGroups = [
+  ['Retailers', 'Major UK and EMEA networks'],
+  ['Commerce', 'Storefronts and marketplaces'],
+  ['Finance', 'Accounting and ERP platforms'],
+  ['Operations', 'Warehouse and fulfilment tools'],
+];
+
+const mappingSteps = [
+  {
+    stage: 'Receive',
+    title: 'Your order arrives as EDI',
+    body: 'EDI Spark receives and validates each retailer document, so your team never has to inspect raw EDI.',
+    code: "UNH+00001+ORDERS:D:96A:UN'\nBGM+220+PO-10482+9'\nDTM+137:20260718:102'",
+  },
+  {
+    stage: 'Understand',
+    title: 'Every field maps to UBL',
+    body: 'The original message becomes a consistent UBL document your systems and people can work with.',
+    code: '<Order>\n  <ID>PO-10482</ID>\n  <IssueDate>2026-07-18</IssueDate>\n</Order>',
+  },
+  {
+    stage: 'Deliver',
+    title: 'Send it wherever work happens',
+    body: 'Use the managed interface or route clean data through APIs, A2A workflows, MCP, or your existing SaaS stack.',
+    code: 'POST /v1/documents\ncontent-type: application/json\n\n{ "format": "UBL", "status": "ready" }',
+  },
+];
+
+const transactions = [
+  ['Purchase order', 'PO-10482', 'Mapped'],
+  ['Invoice', 'INV-8821', 'Delivered'],
+  ['Order response', 'OR-10482', 'Ready'],
+];
+---
+
+<BaseLayout
+  title="EDI Spark — Super simple EDI for suppliers"
+  description="Connect to UK and EMEA retailers through managed EDI, UBL mapping, APIs, A2A and MCP—without setup fees or annual contracts."
+>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="EDI Spark home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>EDI Spark</span>
+    </a>
+
+    <button
+      class="menu-button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      data-menu-button
+    >
+      <span class="sr-only">Open navigation</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation" data-navigation>
+      <div class="nav-links">
+        {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+      <div class="nav-actions">
+        <a class="text-link" href={signInUrl}>Sign in</a>
+        <a class="button button--compact" href={trialUrl}>Start free</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="hero-context">Retailer EDI, without the traditional overhead.</p>
+        <h1 id="hero-title">Super simple EDI for suppliers.</h1>
+        <p class="hero-lede">
+          Connect to retailers without setup fees, annual contracts or prior EDI knowledge.
+        </p>
+        <div class="button-group">
+          <a class="button" href={trialUrl}>Start free for 30 days</a>
+          <a class="button button--outline" href={demoUrl}>Book a demo</a>
+        </div>
+        <p class="trial-note">No setup fee. No 12-month contract.</p>
+      </div>
+
+      <div class="hero-ledger" aria-label="EDI Spark pricing and document exchange overview">
+        <div class="ledger-pricing">
+          <div class="ledger-row">
+            <span class="ledger-value">£9.95</span>
+            <span class="ledger-unit">per month</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-value">£0.25</span>
+            <span class="ledger-unit">per document</span>
+          </div>
+          <div class="ledger-row ledger-row--plain">
+            <span class="ledger-value">No</span>
+            <span class="ledger-unit">setup fee</span>
+          </div>
+        </div>
+
+        <div class="hero-route" aria-hidden="true">
+          <div class="route-stop">
+            <span class="route-icon">S</span>
+            <span>Supplier</span>
+          </div>
+          <span class="route-line"><i></i></span>
+          <div class="route-stop">
+            <span class="route-icon route-icon--document">UBL</span>
+            <span>Mapped</span>
+          </div>
+          <span class="route-line"><i></i></span>
+          <div class="route-stop">
+            <span class="route-icon">R</span>
+            <span>Retailer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reach section" id="solutions" aria-labelledby="reach-title">
+      <div class="section-heading reach-heading">
+        <p class="section-intro">One connection replaces a patchwork of portals and point solutions.</p>
+        <h2 id="reach-title">Connect once.<br />Reach everywhere.</h2>
+      </div>
+      <div class="reach-content">
+        <p class="reach-lede">
+          EDI Spark connects to more than 300 common SaaS products and the retailer networks your
+          customers already depend on.
+        </p>
+        <div class="integration-list">
+          {integrationGroups.map(([title, description]) => (
+            <div class="integration-row">
+              <span class="integration-symbol" aria-hidden="true"></span>
+              <strong>{title}</strong>
+              <span>{description}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mapping section section--indigo" id="product" aria-labelledby="mapping-title">
+      <div class="mapping-intro">
+        <p class="section-intro">EDI goes in. Useful business data comes out.</p>
+        <h2 id="mapping-title">We handle the format. You handle the order.</h2>
+        <p>
+          Every message is received, validated and mapped to UBL before it reaches your team or
+          systems.
+        </p>
+      </div>
+
+      <div class="mapping-story" data-mapping-story>
+        {mappingSteps.map((step, index) => (
+          <article class="mapping-step" data-mapping-step data-active={index === 0 ? 'true' : 'false'}>
+            <div class="mapping-copy">
+              <span class="step-number">{index + 1}</span>
+              <div>
+                <p class="step-stage">{step.stage}</p>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </div>
+            <pre aria-label={`${step.stage} example`}><code>{step.code}</code></pre>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="workspace section" aria-labelledby="workspace-title">
+      <div class="workspace-copy">
+        <p class="section-intro">A clear workspace for people who do not speak EDI.</p>
+        <h2 id="workspace-title">See every document. Know what happens next.</h2>
+        <p>
+          Follow orders, invoices and responses from arrival to delivery. Problems are explained in
+          plain English, with the context your team needs to resolve them.
+        </p>
+        <ul class="plain-list">
+          <li>Unlimited users</li>
+          <li>Technical support included</li>
+          <li>Complete document visibility</li>
+        </ul>
+      </div>
+
+      <div class="product-frame" aria-label="Example EDI Spark transaction workspace">
+        <div class="product-bar">
+          <span class="product-brand">EDI Spark</span>
+          <span class="product-status"><i></i> All systems ready</span>
+        </div>
+        <div class="product-body">
+          <div class="product-sidebar" aria-hidden="true">
+            <span class="active"></span><span></span><span></span><span></span>
+          </div>
+          <div class="transaction-view">
+            <div class="transaction-heading">
+              <div>
+                <span>Documents</span>
+                <strong>Today’s exchange</strong>
+              </div>
+              <span class="filter-chip">All documents</span>
+            </div>
+            <div class="transaction-list">
+              {transactions.map(([type, reference, status]) => (
+                <div class="transaction-row">
+                  <span class="document-glyph" aria-hidden="true"></span>
+                  <span><strong>{type}</strong><small>{reference}</small></span>
+                  <span class="transaction-status"><i></i>{status}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="developers section section--ink" id="developers" aria-labelledby="developers-title">
+      <div class="developers-copy">
+        <p class="section-intro">A managed platform when you want it. Infrastructure when you need it.</p>
+        <h2 id="developers-title">Built for teams—and the agents working beside them.</h2>
+        <p>
+          Everything visible in the UI can become part of your integration architecture. Build with
+          APIs, connect agent-to-agent workflows, or expose controlled EDI capabilities through MCP.
+        </p>
+        <a class="text-arrow" href="https://example.com/edi-spark/developers">
+          Explore developer tools <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="developer-proof">
+        <div class="proof-tabs" role="list" aria-label="Developer capabilities">
+          <span class="active" role="listitem">API</span>
+          <span role="listitem">A2A</span>
+          <span role="listitem">MCP</span>
+        </div>
+        <pre aria-label="EDI Spark API example"><code><span>POST</span> /v1/documents
+content-type: application/json
+
+&#123;
+  "type": "Invoice",
+  "format": "UBL",
+  "retailer": "connected-network"
+&#125;</code></pre>
+        <div class="proof-result"><i></i> Document accepted and mapped</div>
+      </div>
+    </section>
+
+    <section class="pricing section" id="pricing" aria-labelledby="pricing-title">
+      <div class="pricing-heading">
+        <p class="section-intro">Simple and predictable pricing.</p>
+        <h2 id="pricing-title">Pay for your mailbox. Then pay for what you exchange.</h2>
+      </div>
+      <div class="price-ledger">
+        <div class="price-row">
+          <span class="price-label">EDI Spark mailbox</span>
+          <span class="price-value">£9.95</span>
+          <span class="price-unit">per month</span>
+        </div>
+        <div class="price-row">
+          <span class="price-label">Documents exchanged</span>
+          <span class="price-value">£0.25</span>
+          <span class="price-unit">per document</span>
+        </div>
+        <div class="price-includes">
+          <span>No setup fee</span>
+          <span>No 12-month contract</span>
+          <span>Unlimited users</span>
+          <span>Technical support</span>
+        </div>
+        <a class="button" href={trialUrl}>Start free for 30 days</a>
+      </div>
+    </section>
+
+    <section class="enterprise section section--indigo" aria-labelledby="enterprise-title">
+      <div>
+        <p class="section-intro">More volume. More connections. The same clear experience.</p>
+        <h2 id="enterprise-title">Enterprise capability without enterprise friction.</h2>
+      </div>
+      <div class="enterprise-copy">
+        <p>
+          Larger suppliers and retailers can bring complex integration requirements to the same
+          API-native foundation—without creating a separate world for everyday users.
+        </p>
+        <a class="button button--light" href={demoUrl}>Talk through your requirements</a>
+      </div>
+    </section>
+
+    <section class="final-cta" id="start" aria-labelledby="final-title">
+      <div class="final-cta__copy">
+        <p class="section-intro">Your next retailer connection can be the easy one.</p>
+        <h2 id="final-title">Make EDI effortless.</h2>
+      </div>
+      <div class="final-cta__actions">
+        <a class="button button--ink" href={trialUrl}>Start free for 30 days</a>
+        <a class="text-arrow text-arrow--ink" href={demoUrl}>Book a demo <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="#top">EDI Spark</a>
+    <p>Effortless EDI for suppliers connecting to retailers.</p>
+    <div class="footer-links">
+      <a href="https://example.com/edi-spark/privacy">Privacy</a>
+      <a href="https://example.com/edi-spark/terms">Terms</a>
+      <a href={signInUrl}>Sign in</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('[data-menu-button]');
+    const navigation = document.querySelector('[data-navigation]');
+
+    const setMenu = (open) => {
+      if (!(menuButton instanceof HTMLButtonElement) || !(navigation instanceof HTMLElement)) return;
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.querySelector('.sr-only').textContent = open ? 'Close navigation' : 'Open navigation';
+      navigation.dataset.open = String(open);
+      document.body.classList.toggle('menu-open', open);
+    };
+
+    menuButton?.addEventListener('click', () => {
+      setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+    });
+
+    navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenu(false);
+    });
+
+    const steps = [...document.querySelectorAll('[data-mapping-step]')];
+    if ('IntersectionObserver' in window && steps.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          steps.forEach((step) => step.setAttribute('data-active', String(step === visible.target)));
+        },
+        { rootMargin: '-28% 0px -42%', threshold: [0.25, 0.55, 0.8] },
+      );
+      steps.forEach((step) => observer.observe(step));
+    }
+  </script>
+</BaseLayout>
