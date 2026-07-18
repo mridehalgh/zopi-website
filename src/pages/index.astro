@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const trialUrl = 'https://example.com/edi-spark/start-free';
 const demoUrl = 'https://example.com/edi-spark/book-demo';
 const signInUrl = 'https://example.com/edi-spark/sign-in';
+const inspectSection = Astro.url.searchParams.get('inspect') ?? '';
 
 const navigation = [
   { label: 'Product', href: '#product' },
@@ -80,7 +81,7 @@ const transactions = [
     </nav>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" data-inspect={inspectSection}>
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="hero-context">Retailer EDI, without the traditional overhead.</p>

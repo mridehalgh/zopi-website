@@ -1023,6 +1023,19 @@ pre {
   gap: var(--space-6);
 }
 
+/* Temporary local visual-QA switch; removed before handoff. */
+main[data-inspect='product'] > section:not(#product),
+main[data-inspect='developers'] > section:not(#developers),
+main[data-inspect='pricing'] > section:not(#pricing) {
+  display: none;
+}
+
+body:has(main[data-inspect='product']) .site-footer,
+body:has(main[data-inspect='developers']) .site-footer,
+body:has(main[data-inspect='pricing']) .site-footer {
+  display: none;
+}
+
 @keyframes hero-copy-in {
   from { transform: translateY(1.5rem); }
   to { transform: translateY(0); }
