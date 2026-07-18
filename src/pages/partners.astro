@@ -1,0 +1,374 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { featuredPartners, partnerLetters, partners } from '../data/partners';
+import '../styles/partners.css';
+
+const trialUrl = 'https://example.com/edi-spark/start-free';
+const demoUrl = 'https://example.com/edi-spark/book-demo';
+const signInUrl = 'https://example.com/edi-spark/sign-in';
+
+const navigation = [
+  { label: 'Product', href: '/#product' },
+  { label: 'Solutions', href: '/#solutions' },
+  { label: 'Partners', href: '/partners', current: true },
+  { label: 'Developers', href: '/developers' },
+  { label: 'Pricing', href: '/pricing' },
+];
+
+const categories = ['All partners', 'Retail', 'Logistics', 'Wholesale', 'Healthcare'];
+const regions = ['All regions', 'UK & Ireland', 'Europe', 'North America', 'Global'];
+const partnerGroups = partnerLetters.map((letter) => ({
+  letter,
+  partners: partners.filter((partner) => partner.letter === letter),
+}));
+const partnerByName = new Map(partners.map((partner) => [partner.name, partner]));
+const featuredPartnerRecords = featuredPartners
+  .map((name) => partnerByName.get(name))
+  .filter((partner) => partner !== undefined);
+const routePartnerRecords = ['Tesco', 'Asda', 'Amazon Vendor Central', 'Co-Op', 'Waitrose']
+  .map((name) => partnerByName.get(name))
+  .filter((partner) => partner !== undefined);
+
+const wordmarkClass = (name: string) => {
+  const variants = ['plain', 'wide', 'compact', 'heavy'];
+  return `wordmark wordmark--${variants[name.length % variants.length]}`;
+};
+---
+
+<BaseLayout
+  title="Trading partners — EDI Spark"
+  description={`Search ${partners.length} established EDI connections across retail, wholesale, healthcare and logistics.`}
+>
+  <header class="site-header" data-header>
+    <a class="brand" href="/" aria-label="EDI Spark home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>EDI Spark</span>
+    </a>
+
+    <button
+      class="menu-button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+      data-menu-button
+    >
+      <span class="sr-only">Open navigation</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation" data-navigation>
+      <div class="nav-links">
+        {navigation.map((item) => (
+          <a href={item.href} aria-current={item.current ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </div>
+      <div class="nav-actions">
+        <a class="text-link" href={signInUrl}>Sign in</a>
+        <a class="button button--compact" href={trialUrl}>Start free</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="partners-page">
+    <section class="partners-hero" aria-labelledby="partners-hero-title">
+      <div class="partners-hero__copy">
+        <p class="partners-context">Trading partners</p>
+        <h1 id="partners-hero-title"><span>Every trading partner.</span><span>One clear connection.</span></h1>
+        <p>
+          Connect to hundreds of retailers, wholesalers and logistics networks without building
+          each relationship from scratch.
+        </p>
+        <a class="button" href="#directory">Find a trading partner <span aria-hidden="true">↓</span></a>
+      </div>
+
+      <div class="partner-route" aria-label="One EDI Spark connection reaches your trading partners">
+        <div class="route-source">
+          <span class="route-source__icon" aria-hidden="true"><i></i><i></i><i></i></span>
+          <strong>Your business</strong>
+          <small>Supplier</small>
+        </div>
+        <div class="route-core">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <strong>EDI Spark</strong>
+          <small>One connection</small>
+        </div>
+        <div class="route-branches" aria-hidden="true">
+          <svg viewBox="0 0 220 300" preserveAspectRatio="none">
+            <path class="route-path" d="M0 150 C72 150 74 30 150 30 H220" />
+            <path class="route-path" d="M0 150 C72 150 74 90 150 90 H220" />
+            <path class="route-path" d="M0 150 H220" />
+            <path class="route-path" d="M0 150 C72 150 74 210 150 210 H220" />
+            <path class="route-path" d="M0 150 C72 150 74 270 150 270 H220" />
+            <path class="route-signal" pathLength="1" d="M0 150 C72 150 74 30 150 30 H220" />
+            <path class="route-signal" pathLength="1" d="M0 150 C72 150 74 90 150 90 H220" />
+            <path class="route-signal" pathLength="1" d="M0 150 H220" />
+            <path class="route-signal" pathLength="1" d="M0 150 C72 150 74 210 150 210 H220" />
+            <path class="route-signal" pathLength="1" d="M0 150 C72 150 74 270 150 270 H220" />
+          </svg>
+        </div>
+        <div class="route-partners" aria-hidden="true">
+          {routePartnerRecords.map((partner) => (
+            <span class="route-partner">
+              <img src={partner.logoPath} alt="" width="128" height="52" decoding="async" data-partner-logo />
+              <span class={wordmarkClass(partner.name)} hidden data-logo-fallback>{partner.name}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-partners" aria-labelledby="featured-title">
+      <div class="featured-partners__heading">
+        <h2 id="featured-title">Featured UK partners</h2>
+        <a href="#directory">View all {partners.length} <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="featured-wordmarks" aria-label="Featured trading partners">
+        {featuredPartnerRecords.map((partner) => (
+          <span class="featured-logo" aria-label={partner.name}>
+            <img
+              src={partner.logoPath}
+              alt=""
+              width="160"
+              height="64"
+              decoding="async"
+              data-logo-query={encodeURIComponent(partner.logoName)}
+              data-logo-file={partner.logoPath}
+              data-partner-logo
+            />
+            <span class={wordmarkClass(partner.name)} hidden data-logo-fallback>{partner.name}</span>
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <section class="partner-directory" id="directory" aria-labelledby="directory-title" data-directory>
+      <div class="directory-heading">
+        <div>
+          <h2 id="directory-title">All trading partners</h2>
+          <p>Search by name or narrow the directory by partner type and region.</p>
+        </div>
+        <p class="directory-count" aria-live="polite" data-result-count>
+          <strong>{partners.length}</strong> partners
+        </p>
+      </div>
+
+      <form class="directory-tools" role="search" data-directory-form>
+        <div class="partner-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="m16 16 4 4"></path>
+          </svg>
+          <label class="sr-only" for="partner-search">Search trading partners</label>
+          <input id="partner-search" type="search" placeholder="Search partners" autocomplete="off" data-partner-search />
+          <button type="button" hidden data-clear-search>Clear</button>
+        </div>
+
+        <fieldset class="category-filters">
+          <legend class="sr-only">Filter by partner type</legend>
+          {categories.map((category, index) => (
+            <button
+              type="button"
+              class="filter-button"
+              aria-pressed={index === 0 ? 'true' : 'false'}
+              data-category={category === 'All partners' ? 'all' : category}
+            >
+              {category}
+            </button>
+          ))}
+        </fieldset>
+
+        <label class="region-filter">
+          <span class="sr-only">Filter by region</span>
+          <select data-region-filter>
+            {regions.map((region) => <option value={region === 'All regions' ? 'all' : region}>{region}</option>)}
+          </select>
+        </label>
+      </form>
+
+      <nav class="alphabet-nav" aria-label="Browse partners by letter">
+        <span>Browse A–Z</span>
+        <a href="#partner-a" aria-current="true">All</a>
+        {partnerLetters.map((letter) => <a href={`#partner-${letter.toLowerCase()}`}>{letter}</a>)}
+      </nav>
+
+      <div class="directory-layout">
+        <div class="partner-index">
+          <div class="partner-columns" aria-hidden="true">
+            <span>Partner</span><span>Type</span><span>Region</span><span>Status</span>
+          </div>
+
+          <div class="partner-groups" data-partner-groups>
+            {partnerGroups.map((group) => (
+              <section class="partner-group" id={`partner-${group.letter.toLowerCase()}`} data-partner-group>
+                <h3>{group.letter}</h3>
+                <div>
+                  {group.partners.map((partner) => (
+                    <article
+                      class="partner-row"
+                      data-partner-row
+                      data-name={[partner.name, ...partner.aliases].join(' ').toLowerCase()}
+                      data-category={partner.category}
+                      data-region={partner.region}
+                    >
+                      <div class="partner-identity">
+                        <span class="partner-logo" aria-label={partner.name}>
+                          <img
+                            src={partner.logoPath}
+                            alt={`${partner.name} logo`}
+                            width="144"
+                            height="56"
+                            loading="lazy"
+                            decoding="async"
+                            data-logo-query={encodeURIComponent(partner.logoName)}
+                            data-logo-file={partner.logoPath}
+                            data-partner-logo
+                          />
+                          <span class={wordmarkClass(partner.name)} hidden data-logo-fallback>{partner.name}</span>
+                        </span>
+                        <strong>{partner.name}</strong>
+                      </div>
+                      <span class="partner-meta partner-meta--category">{partner.category}</span>
+                      <span class="partner-meta">{partner.region}</span>
+                      <span class="connection-status"><i></i>Connected</span>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div class="directory-empty" hidden data-empty-state>
+            <h3>No matching partners</h3>
+            <p>Try a shorter search or clear one of your filters. We can also establish a new connection.</p>
+            <button class="text-arrow text-arrow--ink" type="button" data-reset-filters>Clear filters <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+
+        <aside class="request-partner" aria-labelledby="request-title">
+          <span class="request-partner__symbol" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h2 id="request-title">Can’t find your partner?</h2>
+          <p>Tell us who you need to trade with. We’ll confirm the route and help establish the connection.</p>
+          <ul>
+            <li>We assess the partner requirements</li>
+            <li>We configure and test the exchange</li>
+            <li>You get a clear path to go live</li>
+          </ul>
+          <a class="button" href={demoUrl}>Request a connection</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="partners-cta" aria-labelledby="partners-cta-title">
+      <div>
+        <p>Found the partner you need?</p>
+        <h2 id="partners-cta-title">Make the next connection effortless.</h2>
+      </div>
+      <div class="partners-cta__actions">
+        <a class="button button--ink" href={trialUrl}>Start free for 30 days</a>
+        <a class="text-arrow text-arrow--ink" href={demoUrl}>Book a demo <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="/">EDI Spark</a>
+    <p>Effortless EDI for suppliers connecting to retailers.</p>
+    <div class="footer-links">
+      <a href="https://example.com/edi-spark/privacy">Privacy</a>
+      <a href="https://example.com/edi-spark/terms">Terms</a>
+      <a href={signInUrl}>Sign in</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('[data-menu-button]');
+    const navigation = document.querySelector('[data-navigation]');
+
+    const setMenu = (open) => {
+      if (!(menuButton instanceof HTMLButtonElement) || !(navigation instanceof HTMLElement)) return;
+      menuButton.setAttribute('aria-expanded', String(open));
+      const label = menuButton.querySelector('.sr-only');
+      if (label) label.textContent = open ? 'Close navigation' : 'Open navigation';
+      navigation.dataset.open = String(open);
+      document.body.classList.toggle('menu-open', open);
+    };
+
+    menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+    navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
+
+    const directory = document.querySelector('[data-directory]');
+    if (directory instanceof HTMLElement) {
+      const search = directory.querySelector('[data-partner-search]');
+      const clearSearch = directory.querySelector('[data-clear-search]');
+      const categoryButtons = [...directory.querySelectorAll('[data-category]')];
+      const regionFilter = directory.querySelector('[data-region-filter]');
+      const partnerRows = [...directory.querySelectorAll('[data-partner-row]')];
+      const partnerGroups = [...directory.querySelectorAll('[data-partner-group]')];
+      const count = directory.querySelector('[data-result-count]');
+      const emptyState = directory.querySelector('[data-empty-state]');
+      const resetButton = directory.querySelector('[data-reset-filters]');
+      let activeCategory = 'all';
+
+      const updateDirectory = () => {
+        const query = search instanceof HTMLInputElement ? search.value.trim().toLocaleLowerCase('en-GB') : '';
+        const region = regionFilter instanceof HTMLSelectElement ? regionFilter.value : 'all';
+        let visibleCount = 0;
+
+        partnerRows.forEach((row) => {
+          if (!(row instanceof HTMLElement)) return;
+          const matchesSearch = !query || (row.dataset.name ?? '').includes(query);
+          const matchesCategory = activeCategory === 'all' || row.dataset.category === activeCategory;
+          const matchesRegion = region === 'all' || row.dataset.region === region;
+          const visible = matchesSearch && matchesCategory && matchesRegion;
+          row.hidden = !visible;
+          if (visible) visibleCount += 1;
+        });
+
+        partnerGroups.forEach((group) => {
+          if (!(group instanceof HTMLElement)) return;
+          group.hidden = !group.querySelector('[data-partner-row]:not([hidden])');
+        });
+
+        if (count) count.innerHTML = `<strong>${visibleCount}</strong> ${visibleCount === 1 ? 'partner' : 'partners'}`;
+        if (emptyState instanceof HTMLElement) emptyState.hidden = visibleCount !== 0;
+        if (clearSearch instanceof HTMLButtonElement) clearSearch.hidden = !query;
+      };
+
+      search?.addEventListener('input', updateDirectory);
+      clearSearch?.addEventListener('click', () => {
+        if (!(search instanceof HTMLInputElement)) return;
+        search.value = '';
+        search.focus();
+        updateDirectory();
+      });
+      regionFilter?.addEventListener('change', updateDirectory);
+      categoryButtons.forEach((button) => button.addEventListener('click', () => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        activeCategory = button.dataset.category ?? 'all';
+        categoryButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        updateDirectory();
+      }));
+      resetButton?.addEventListener('click', () => {
+        activeCategory = 'all';
+        categoryButtons.forEach((item, index) => item.setAttribute('aria-pressed', String(index === 0)));
+        if (search instanceof HTMLInputElement) search.value = '';
+        if (regionFilter instanceof HTMLSelectElement) regionFilter.value = 'all';
+        updateDirectory();
+        search?.focus();
+      });
+    }
+
+    document.querySelectorAll('[data-partner-logo]').forEach((logo) => {
+      if (!(logo instanceof HTMLImageElement)) return;
+      const fallback = logo.nextElementSibling;
+      const showFallback = () => {
+        logo.hidden = true;
+        if (fallback instanceof HTMLElement) fallback.hidden = false;
+      };
+      logo.addEventListener('error', showFallback, { once: true });
+      if (logo.complete && logo.naturalWidth === 0) showFallback();
+    });
+  </script>
+</BaseLayout>

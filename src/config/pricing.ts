@@ -3,14 +3,14 @@ export const pricing = {
   locale: 'en-GB',
   vatIncluded: false,
   standard: {
-    monthlyFee: 69.95,
+    monthlyFee: 49.50,
     documentFee: 0.45,
     trialDays: 30,
     setupFee: 0,
     minimumTermMonths: 0,
   },
   estimator: {
-    defaultDocuments: 60,
+    defaultDocuments: 1,
     maximumDocuments: 5000,
     step: 10,
   },

@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "logos:download": "node scripts/download-partner-logos.mjs",
     "build": "astro build",
     "preview": "astro preview"
   },
