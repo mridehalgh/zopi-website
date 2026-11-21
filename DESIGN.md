@@ -116,9 +116,9 @@ The visual system borrows the clarity of shipping paperwork. Indigo and electric
 **Key Characteristics:**
 
 - Deep indigo mastheads and pale lilac reading surfaces
-- Electric violet exchange headings and lilac tool strips
+- Electric violet backplates with lilac document headings and tool strips
 - Strong Source Sans 3 headings and readable prose
-- Flat, ruled lists and document sheets with compact corners
+- Ruled lists and document sheets with a clipped upper corner
 - Luminous mint actions and exchange marks, with labelled green success states
 
 ## Colors
@@ -126,7 +126,7 @@ The visual system borrows the clarity of shipping paperwork. Indigo and electric
 ### Primary
 
 - **Deep Indigo** anchors marketing mastheads, section headings and the footer.
-- **Electric Violet** gives the exchange sheet a defining header. **Rich Indigo** supplies outline actions and their invert-on-hover state.
+- **Electric Violet** carries angular masthead backplates. **Rich Indigo** supplies outline actions and their invert-on-hover state.
 - **Link Violet** marks text links, control focus and the active navigation path. **Rule Violet** supports routing arrows and occasional structural lines.
 - **Pale Lavender** carries secondary text on indigo and electric violet.
 
@@ -162,15 +162,15 @@ Use locally hosted Source Sans 3 for display, prose and controls. Keep the type 
 
 Use the fluid page gutter and give adjacent content one consistent alignment line. Split marketing intros and enquiry layouts into unequal columns when supporting information earns its place. Group recurring records in a table or ruled list. Editorial sections pair a contents rail with a constrained text column.
 
-At wide widths a solid electric-violet diagonal connects the homepage masthead and exchange sheet. The shared header opens into a labelled menu at 65rem and below. Route-specific grids adapt between 54rem and 44rem, bringing the main action or form into the natural mobile reading order. Stack compact data by record while keeping labels and their values associated. The footer stacks at 44rem and below.
+The homepage puts the offer on a light field and the sample exchange over a wide indigo fold. The slope continues across the page on phones with the offer above the exchange. Pricing, directories and technical pages use diagonal backplates around their supporting forms and documents. Editorial mastheads borrow the angle in pale lilac. The shared header opens into a labelled menu at 65rem and below. Route-specific grids adapt between 54rem and 44rem, bringing the main action or form into the natural mobile reading order. Stack compact data by record while keeping labels and their values associated. The footer stacks at 44rem and below.
 
 ## Elevation & Depth
 
-Paper, sheet, lilac and indigo supply the layers. Keep sheets flat and use a full border or row rules to separate content. A global focus marker pairs a violet outline with a sheet-colored spacer to stay visible across pale and dark surfaces. Hover, selection and disclosures update immediately. A one-shot route line (450ms) indicates direction for visitors whose motion preference allows it.
+Paper, sheet, lilac and indigo supply the layers. Keep sheets flat and use a full border or row rules to separate content. A global focus marker pairs a violet outline with a sheet-colored spacer to stay visible across pale and dark surfaces. Selection and disclosures update immediately. Pointer presses compress buttons to 97% in 100ms and release over 160ms using cubic-bezier(0.23, 1, 0.32, 1). Reduced motion and keyboard presses retain color feedback. The exchange sends three packets in their documented directions once when the sheet enters view and on explicit replay. Each packet moves for 600ms with a 60ms stagger and cubic-bezier(0.77, 0, 0.175, 1). Reduced motion shows the full static diagram.
 
 ## Shapes
 
-Buttons and fields use tight corners (0.25rem). The exchange sheet has a compact 0.5rem corner. Many ruled panels and directory rows are rectangular. Use the spark wordmark intact. Simple line geometry connects the named exchange lanes through the central spark mark.
+Buttons and fields use tight corners (0.25rem). Clip the upper inline-end corner of highlighted document sheets, estimate forms and enquiry forms. Keep field edges and directory rows rectangular. Use the spark wordmark intact. Simple line geometry connects the named exchange lanes through the central spark mark.
 
 ## Components
 

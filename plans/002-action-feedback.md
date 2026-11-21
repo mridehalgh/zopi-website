@@ -17,7 +17,7 @@
 ## Target and steps
 
 1. Add shared `--ease-feedback: cubic-bezier(0.23, 1, 0.32, 1)`.
-2. For `.button` with reduced motion disabled, transition only `transform` over 160ms. On `:active` compress to `scale(0.97)` over 100ms. Exclude disabled controls. Keep ordinary hover and keyboard focus styling.
+2. For `.button` with reduced motion disabled, transition only `transform` over 160ms. On `:active` compress to `scale(0.97)` over 100ms. Exclude disabled controls and keyboard focus from the spatial transform. Keep ordinary hover and keyboard focus styling.
 3. For reduced motion, use color feedback on presses and no transform. Keep hover colors, focus, button sizing and link destinations intact.
 
 ## Conventions and boundaries

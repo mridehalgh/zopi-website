@@ -17,8 +17,8 @@ Persuade on the homepage, commercial and technical pages. Operate in lookup and 
 
 **Story** — Follow a sample order to the supplier and an invoice back to the retailer. Continue into pricing, directory lookup or the first connection conversation.
 
-**First viewport** — A diagonal electric-violet field backs the right side of the indigo masthead. The left holds the offer and the right holds the primary action and standard rate. A wide ruled document sheet crosses into the lilac body. On phones the main action and rate precede the sheet.
+**First viewport** — A light left field carries the offer, actions and linked rate. The right side is a full-bleed indigo fold that holds a clipped manifest. On phones the fold crosses the page below the actions and rate.
 
-**Form** — Freight consignment manifest, candidate four. seed:7b7b7ca73060804e. Supplier and retailer endpoints anchor each directional line around the EDI Spark mark. Lines extend once if motion is permitted. Explicit direction labels replace the lanes on small screens.
+**Form** — Freight consignment manifest, candidate four. seed:7b7b7ca73060804e. Supplier and retailer endpoints anchor each directional line around the EDI Spark mark. Packets travel through the lanes once in view and on Replay when motion is permitted. Small screens keep the lane geometry and add explicit direction labels.
 
 **Finish** — unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

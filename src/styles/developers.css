@@ -58,6 +58,7 @@
 }
 
 .api-exchange__bar {
+  padding-inline-end: max(1.15rem, var(--panel-corner));
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

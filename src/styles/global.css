@@ -213,7 +213,7 @@ p { text-wrap: pretty; }
 
 @media (prefers-reduced-motion: no-preference) {
   .button { transition: transform 160ms var(--ease-feedback); }
-  .button:active:not(:disabled):not([aria-disabled="true"]) { transform: scale(.97); transition-duration: 100ms; }
+  .button:active:not(:disabled):not([aria-disabled="true"]):not(:focus-visible) { transform: scale(.97); transition-duration: 100ms; }
 }
 
 .section { padding: var(--section-block) var(--page-gutter); }
