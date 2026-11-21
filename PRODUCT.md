@@ -26,11 +26,14 @@ EDI Spark is the simplest route into retailer EDI: quick to adopt without prior 
 
 ## Conversion & proof
 
-- Primary CTA: Start a free 30-day trial.
-- Secondary CTA: Book a demo.
-- The line a visitor remembers after 10 seconds: Effortless EDI. Pay only for what you exchange.
+- Primary CTA: Discuss your first connection. Enable the 30-day trial CTA only when the real trial destination and its terms are verified.
+- Secondary CTA: Discuss a demo; use direct booking when a verified scheduler is configured.
+- The line a visitor remembers after 10 seconds: Retailer EDI for UK suppliers. A monthly service fee plus a visible document rate.
 - Belief ladder: EDI Spark connects suppliers to the retailers and SaaS tools they use; setup is quick and does not require EDI expertise; pricing is transparent, flexible, and low-risk; the platform is technically serious, with UBL mapping, APIs, A2A, agentic workflows, and MCP; and it scales from smaller suppliers to enterprise operations.
-- Proof on hand: Connections to hundreds of trading partners, including every major UK retailer; integration with more than 300 common SaaS products; and demonstrable API, A2A, agentic, and MCP capabilities. As a new startup, EDI Spark should substantiate claims through visible product and technical evidence rather than imply an established customer history.
+- Evidence policy: Directory listings are enquiry starting points, not proof of live connectivity. Publish network totals, supported flows, API/SDK/A2A/MCP availability and security or service commitments only after verification. This is a new startup: use real product evidence when available, label illustrations, and do not imply an established customer history.
+- Production website: https://zopi.co.uk/ (owner supplied).
+- Enquiries: start@zopi.co.uk (owner supplied).
+- Pricing: retain £49.50/month + £0.45/document excluding VAT while Starter/Growth/Enterprise packaging is researched. No new tariffs or billing behaviour are approved by this website update.
 
 ## Brand Personality
 

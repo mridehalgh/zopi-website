@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../config/site';
+import { pricing } from '../config/pricing';
+---
+<BaseLayout title="Discuss your EDI connection — EDI Spark" description="Talk through your retailer connections, business software, document volumes and EDI requirements with EDI Spark.">
+  <SiteHeader />
+  <main id="main-content" class="information-page contact-page">
+    <section class="information-hero">
+      <p class="section-intro">Start with your requirements</p>
+      <h1 data-contact-title>Let’s talk about your next connection.</h1>
+      <p class="information-lede">Tell us who you trade with and which software you use. We’ll review the fit, the work involved and the next steps before you commit.</p>
+      <a class="contact-email" href={`mailto:${site.contactEmail}`} data-cta>{site.contactEmail}</a>
+      {site.bookingUrl && <p><a class="button" href={site.bookingUrl} data-cta>Book a conversation</a></p>}
+    </section>
+    <section class="information-body contact-grid" aria-labelledby="enquiry-title">
+      <div>
+        <h2 id="enquiry-title">Give us a little context.</h2>
+        <p>We’ll confirm retailer and software compatibility, onboarding responsibilities and commercial terms for your proposed scope.</p>
+        <p>Interested in the {pricing.standard.trialDays}-day trial? Ask about eligibility, included usage and when the trial would begin. Live access and timing need to be confirmed for your connection.</p>
+        <p>For a technical evaluation, include formats, integration requirements and testing needs. Please use anonymised examples and keep passwords, API keys and live documents out of your enquiry.</p>
+        <p><a href="/security">Security and service questions</a> · <a href="/privacy">How this website handles information</a></p>
+      </div>
+      <form data-enquiry-form data-recipient={site.contactEmail} hidden>
+        <p class="form-explanation">This prepares a draft in your email app. Nothing is submitted through this website.</p>
+        <label for="company">Company <span>(optional)</span></label>
+        <input id="company" name="company" autocomplete="organization" maxlength="120" />
+        <label for="connection">Retailers and software <span>(optional)</span></label>
+        <input id="connection" name="connection" maxlength="300" data-connection />
+        <label for="volume">Approximate documents per month <span>(optional)</span></label>
+        <input id="volume" name="volume" type="number" min="0" step="1" inputmode="numeric" />
+        <label for="requirements">What would you like to discuss? <span>(optional)</span></label>
+        <textarea id="requirements" name="requirements" rows="5" maxlength="1500"></textarea>
+        <button class="button button--ink" type="submit">Open email draft</button>
+        <p class="form-explanation" role="status" data-draft-status></p>
+      </form>
+      <noscript><p>Email your retailer, software and approximate volume to <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>.</p></noscript>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+<script>
+  import { track } from '../lib/analytics';
+  const form = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
+  const intents: Record<string, string> = {
+    trial: 'Discuss your first retailer connection.', demo: 'See whether EDI Spark fits your operation.',
+    enterprise: 'Discuss your enterprise requirements.', technical: 'Plan your technical evaluation.',
+    developer: 'Discuss documentation and test access.', connection: 'Check your retailer or software connection.',
+    switching: 'Talk through a move from your current provider.',
+  };
+  const params = new URLSearchParams(location.search);
+  const intent = params.get('intent') || '';
+  const title = document.querySelector('[data-contact-title]');
+  if (title && intents[intent]) title.textContent = intents[intent];
+  const connection = document.querySelector<HTMLInputElement>('[data-connection]');
+  if (connection) connection.value = (params.get('connection') || '').slice(0, 300);
+  if (form) {
+    form.hidden = false;
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const fields = new FormData(form);
+      const body = [
+        `Company: ${fields.get('company') || ''}`,
+        `Retailers and software: ${fields.get('connection') || ''}`,
+        `Monthly documents: ${fields.get('volume') || ''}`,
+        '', String(fields.get('requirements') || ''),
+      ].join('\n');
+      const subject = `EDI Spark: ${intents[intent] || 'Supplier enquiry'}`;
+      const mailto = `mailto:${form.dataset.recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      track('connection_requested', { placement: 'contact', destination: 'email_draft' });
+      const status = document.querySelector('[data-draft-status]');
+      if (status) status.textContent = 'Your email app should open with a draft. Review it and send it there. If it did not open, use the email address above.';
+    });
+  }
+</script>

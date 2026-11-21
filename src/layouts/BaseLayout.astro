@@ -1,12 +1,18 @@
 ---
 import '../styles/global.css';
+import { site } from '../config/site';
 
 interface Props {
   title: string;
   description: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.origin);
+const shareImage = new URL('/social-preview.png', site.origin).href;
+const guideLabels: Record<string, string> = { '/guides/edi-costs/': 'EDI costs', '/guides/retailer-edi-onboarding/': 'Retailer onboarding' };
+const guideLabel = guideLabels[Astro.url.pathname];
 ---
 
 <!doctype html>
@@ -15,10 +21,34 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonical.href} />
     <meta name="theme-color" content="#2c258d" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:alt" content="EDI Spark. Retailer EDI for UK suppliers." />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImage} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org', '@graph': [
+        { '@type': 'Organization', '@id': `${site.origin}#organization`, name: 'EDI Spark', url: site.origin },
+        { '@type': 'WebSite', '@id': `${site.origin}#website`, name: 'EDI Spark', url: site.origin },
+        ...(guideLabel ? [{ '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Supplier guides', item: new URL('/guides/', site.origin).href },
+          { '@type': 'ListItem', position: 2, name: guideLabel, item: canonical.href },
+        ] }] : []),
+      ],
+    }).replace(/</g, '\\u003c')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -30,5 +60,14 @@ const { title, description } = Astro.props;
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <slot />
+    {site.ga4Id && <aside class="analytics-consent" data-analytics-consent data-ga4-id={site.ga4Id} aria-label="Analytics preferences" hidden>
+      <p>Help us improve this website? Optional Google Analytics measures page visits and interactions. <a href="/privacy">Read our privacy notice</a>.</p>
+      <div><button class="button button--compact" data-consent="accepted" type="button">Allow analytics</button><button class="button button--outline button--compact" data-consent="declined" type="button">Decline</button></div>
+    </aside>}
+    {site.ga4Id && <button class="analytics-settings" data-analytics-settings type="button">Analytics preferences</button>}
+    <script>
+      import { initAnalytics } from '../lib/analytics';
+      initAnalytics();
+    </script>
   </body>
 </html>

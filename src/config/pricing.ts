@@ -10,9 +10,9 @@ export const pricing = {
     minimumTermMonths: 0,
   },
   estimator: {
-    defaultDocuments: 2,
+    defaultDocuments: 100,
     maximumDocuments: 5000,
-    step: 10,
+    step: 1,
   },
   switchingOffer: {
     freeDays: 60,
@@ -21,9 +21,18 @@ export const pricing = {
     monthlyFee: 0,
   },
   enterprise: {
-    priceLabel: 'Private pricing',
+    priceLabel: 'Tailored pricing',
   },
 } as const;
+
+export const estimateMonthlyCost = (documents: number) => {
+  if (!Number.isSafeInteger(documents) || documents < 0) {
+    throw new RangeError('Enter a non-negative whole number of documents.');
+  }
+  const totalPence = Math.round(pricing.standard.monthlyFee * 100) + Math.round(pricing.standard.documentFee * 100) * documents;
+  if (!Number.isSafeInteger(totalPence)) throw new RangeError('Volume is too large to estimate.');
+  return totalPence / 100;
+};
 
 export const formatPrice = (value: number, minimumFractionDigits = 2) =>
   new Intl.NumberFormat(pricing.locale, {

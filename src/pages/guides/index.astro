@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import '../../styles/guides.css';
+---
+<BaseLayout title="Supplier EDI guides — costs and onboarding | EDI Spark" description="Plan retailer EDI with practical guides to document costs, connection requirements, testing and supplier onboarding.">
+  <SiteHeader current="/guides" />
+  <main id="main-content" class="guide-page">
+    <div class="guide-intro">
+      <p class="guide-eyebrow">Supplier guides</p>
+      <h1>Understand the work before you connect.</h1>
+      <p>Practical starting points for suppliers choosing an EDI service. Use these guides to prepare your questions, estimate usage and agree the path to your first exchange.</p>
+    </div>
+    <div class="guide-cards">
+      <article><h2><a href="/guides/edi-costs">How EDI costs work</a></h2><p>Understand the mailbox fee, count business documents and work through example monthly estimates.</p><a href="/guides/edi-costs">Estimate your EDI costs →</a></article>
+      <article><h2><a href="/guides/retailer-edi-onboarding">Retailer EDI onboarding checklist</a></h2><p>Gather the information you need, agree responsibilities and understand what needs testing before going live.</p><a href="/guides/retailer-edi-onboarding">Prepare for onboarding →</a></article>
+    </div>
+    <aside class="guide-callout"><h2>Have a retailer or system in mind?</h2><p>Find it in the <a href="/partners">trading partner directory</a> or <a href="/integrations">business systems directory</a>, then ask us to assess the requirements. A directory listing does not confirm a ready-made connection.</p><a class="button" href="/contact?intent=connection">Discuss your connection</a></aside>
+  </main>
+  <SiteFooter />
+</BaseLayout>

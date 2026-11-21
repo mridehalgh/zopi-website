@@ -242,7 +242,7 @@ Hero copy rises 1.5rem over 700ms; the ledger enters from 3rem over 850ms; conne
 ### Do:
 
 - **Do** make complexity feel handled: lead with faster onboarding, less admin, fewer errors, and clearer document visibility.
-- **Do** prove coverage with hundreds of trading partners, every major UK retailer, and more than 300 SaaS integrations.
+- **Do** publish coverage claims only with verified connection evidence. Directory listings are enquiry starting points; do not imply live connectivity through logos, counts or status indicators.
 - **Do** make exchange tangible through real product UI, structured document flows, trading-network indexes, and transparent price ledgers.
 - **Do** let Exchange Indigo carry major structural surfaces and reserve Connection Mint for action, connection, and success.
 - **Do** keep the canonical prices and offer durations from `src/config/pricing.ts`, plus the no-setup-fee and no-annual-contract terms, close to conversion actions.

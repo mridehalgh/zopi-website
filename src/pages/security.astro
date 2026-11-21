@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Security and service evaluation — EDI Spark" description="Review security, data handling, support and operational requirements before connecting live retailer EDI.">
+  <SiteHeader />
+  <main id="main-content" class="information-page">
+    <section class="information-hero"><p class="section-intro">Before you connect live orders</p><h1>Put the operational details on the table.</h1><p class="information-lede">Your retailer connections carry business-critical information. Review the service and its responsibilities with us before agreeing a live exchange.</p><a class="button" href="/contact?intent=technical">Discuss security and service</a></section>
+    <section class="information-body" aria-labelledby="review-title">
+      <h2 id="review-title">What to review with your team</h2>
+      <dl class="information-list">
+        <div><dt>Data handling</dt><dd>Ask where documents and backups are stored, who processes them, how access is controlled, and what retention and deletion arrangements would apply.</dd></div>
+        <div><dt>Security evidence</dt><dd>Request the evidence your procurement process needs, including relevant policies, testing and any independently verified certifications. This website does not make a certification claim.</dd></div>
+        <div><dt>Support and escalation</dt><dd>Agree support channels, operating hours, incident contacts and escalation responsibilities. Any response-time or availability commitment belongs in your agreement.</dd></div>
+        <div><dt>Delivery and recovery</dt><dd>Review how document receipt, validation, delivery, retries and exceptions would be handled, including the checks needed before a retailer connection goes live.</dd></div>
+        <div><dt>Migration and exit</dt><dd>Discuss testing, cutover, access to records and the steps required if you later change providers. Avoid changing a live route until responsibilities are agreed.</dd></div>
+      </dl>
+      <p>Share your requirements first. We will confirm which arrangements and supporting information are available for the proposed service; the items above are evaluation questions, not service guarantees.</p>
+      <p><a href="/enterprise">Enterprise evaluation</a> · <a href="/contact">Company and procurement enquiries</a></p>
+    </section>
+  </main><SiteFooter />
+</BaseLayout>

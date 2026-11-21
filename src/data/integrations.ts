@@ -17,6 +17,7 @@ export interface Integration {
   description: string;
   capabilities: string[];
   featured?: boolean;
+  connectionEvidence?: { sourceUrl: string; summary: string };
 }
 
 export const integrations: Integration[] = [

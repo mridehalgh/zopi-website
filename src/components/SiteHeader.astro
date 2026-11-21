@@ -1,0 +1,61 @@
+---
+import { site, trialHref } from '../config/site';
+interface Props { current?: string }
+const { current } = Astro.props;
+const navigation = [
+  ['Trading partners', '/partners'],
+  ['Integrations', '/integrations'],
+  ['Pricing', '/pricing'],
+  ['Enterprise', '/enterprise'],
+  ['Developers', '/developers'],
+];
+---
+<header class="site-header" data-header>
+  <a class="brand" href="/" aria-label="EDI Spark home">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span>EDI Spark</span>
+  </a>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-navigation" data-menu-button>
+    <span class="sr-only">Open navigation</span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+  </button>
+  <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation" data-navigation>
+    <div class="nav-links">
+      {navigation.map(([label, href]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
+    </div>
+    <div class="nav-actions">
+      {site.signInUrl && <a class="text-link" href={site.signInUrl}>Sign in</a>}
+      <a class="button button--compact" href={trialHref} data-cta="trial">{site.trialUrl ? 'Start free' : 'Let’s talk'}</a>
+    </div>
+  </nav>
+</header>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const navigation = document.querySelector<HTMLElement>('[data-navigation]');
+  const setMenu = (open: boolean) => {
+    if (!button || !navigation) return;
+    button.setAttribute('aria-expanded', String(open));
+    const label = button.querySelector('.sr-only');
+    if (label) label.textContent = open ? 'Close navigation' : 'Open navigation';
+    navigation.dataset.open = String(open);
+    document.body.classList.toggle('menu-open', open);
+  };
+  button?.addEventListener('click', () => setMenu(button.getAttribute('aria-expanded') !== 'true'));
+  navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      button.focus();
+    }
+    if (event.key === 'Tab' && button?.getAttribute('aria-expanded') === 'true' && navigation) {
+      const links = [...navigation.querySelectorAll<HTMLAnchorElement>('a[href]')];
+      const last = links.at(-1);
+      if (event.shiftKey && document.activeElement === button && last) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); button.focus();
+      }
+    }
+  });
+  window.matchMedia('(min-width: 58.01rem)').addEventListener('change', () => setMenu(false));
+</script>
+<noscript><style>.menu-button{display:none!important}@media(max-width:58rem){.site-header{position:relative;flex-wrap:wrap}.site-navigation{position:static!important;display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;transform:none!important;height:auto!important;padding:1rem!important}.nav-links{flex-wrap:wrap}}</style></noscript>

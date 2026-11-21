@@ -1,6 +1,18 @@
 export type PartnerCategory = 'Retail' | 'Logistics' | 'Wholesale' | 'Healthcare' | 'Other';
 export type PartnerRegion = 'UK & Ireland' | 'Europe' | 'North America' | 'Global';
 
+
+export interface Partner {
+  name: string;
+  category: PartnerCategory;
+  region: PartnerRegion;
+  letter: string;
+  aliases: string[];
+  logoName: string;
+  logoPath: string;
+  connectionEvidence?: { sourceUrl: string; summary: string };
+}
+
 const partnerNames = [
   'Albert Heijn',
   'Aldi UK',
@@ -399,7 +411,7 @@ function logoFileName(name: string) {
 
 const canonicalPartnerNames = [...new Set(partnerNames.map(canonicalName))];
 
-export const partners = canonicalPartnerNames
+export const partners: Partner[] = canonicalPartnerNames
   .sort((a, b) => a.localeCompare(b, 'en-GB'))
   .map((name) => ({
     name,

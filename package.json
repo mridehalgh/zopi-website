@@ -6,9 +6,13 @@
     "dev": "astro dev",
     "logos:download": "node scripts/download-partner-logos.mjs",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "node scripts/check-site.mjs"
   },
   "dependencies": {
     "astro": "^7.4.4"
+  },
+  "engines": {
+    "node": ">=22.23.4"
   }
 }

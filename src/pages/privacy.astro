@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../config/site';
+---
+<BaseLayout title="Website privacy — EDI Spark" description="How the EDI Spark marketing website handles contact drafts, optional analytics and external resources.">
+  <SiteHeader /><main id="main-content" class="information-page">
+    <section class="information-hero"><p class="section-intro">Website information</p><h1>Privacy on this website.</h1><p class="information-lede">This notice describes the marketing website. Data processing for an EDI service must be covered separately before you exchange live documents.</p></section>
+    <article class="information-body prose">
+      <h2>Contacting EDI Spark</h2><p>The enquiry builder prepares an email in your own email application. Its fields are not submitted to a website form service or saved by the builder. Your email provider and our receiving email service handle the message if you choose to send it. You can also email <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> directly.</p>
+      <p>Do not include live business documents, credentials or sensitive personal information in an initial enquiry. Ask us for company identity, contact handling and any procurement information you need before sharing such information.</p>
+      <h2>Optional analytics</h2>
+      {site.ga4Id ? <p>This site offers Google Analytics only after you choose “Allow analytics”. It measures page visits and selected interactions, such as pricing estimates and connection links. The implementation excludes enquiry fields and directory search text from these events. Google Analytics may store analytics cookies after consent. You can change your choice using “Analytics preferences”.</p> : <p>Google Analytics is not enabled in this build. The website does not load its analytics script or send analytics events.</p>}
+      <p>If analytics preferences are offered, your choice is stored in your browser under <code>edispark:analytics</code>. The preference is used to remember whether optional analytics may load. Blocking browser storage makes the choice apply only to the current page session.</p>
+      <h2>External resources and hosting</h2><p>This website loads its typeface from Google Fonts. Your browser requests those font resources from Google. The website host also receives the technical requests needed to serve pages and assets. Hosting log retention and service-specific processing arrangements should be confirmed with us before you provide sensitive information.</p>
+      <h2>External destinations</h2><p>Email, booking and any product access links may take you to separate services. Review their applicable information before using them.</p>
+      <h2>Questions and requests</h2><p>Email <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> with questions about this website or information you have sent. We will need to confirm applicable service-specific arrangements separately.</p>
+    </article>
+  </main><SiteFooter />
+</BaseLayout>

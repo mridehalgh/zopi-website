@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { pricing, pricingDisplay } from '../config/pricing';
+---
+<BaseLayout title="Website and service information — EDI Spark" description="Read the scope of EDI Spark website information and what must be agreed before starting a service.">
+  <SiteHeader /><main id="main-content" class="information-page">
+    <section class="information-hero"><p class="section-intro">Before starting a service</p><h1>Agree the scope before you connect.</h1><p class="information-lede">This website introduces EDI Spark. A live service needs confirmed compatibility, commercial terms and an agreement for your requirements.</p></section>
+    <article class="information-body prose">
+      <h2>Pricing information</h2><p>The advertised standard pricing is {pricingDisplay.monthlyFee} per month plus {pricingDisplay.documentFee} per billable document, excluding VAT. The standard offer has no setup fee or annual commitment. Bespoke integration work and enterprise requirements need a written scope and quotation before acceptance.</p>
+      <h2>Trials and switching</h2><p>The advertised trial is {pricing.standard.trialDays} days. The switching offer is {pricing.switchingOffer.freeDays} days for eligible migrations. Before starting either, confirm availability, included work and usage, the start date, payment requirements, cancellation, and what happens at expiry. Do not assume the offers are cumulative or that a trial includes immediate production access.</p>
+      <h2>Connections and examples</h2><p>A retailer or software listing is an enquiry route, not confirmation of a live connection or an endorsement by that organisation. Compatibility, supported document flows and testing depend on the agreed scope. Workspace illustrations and technical examples are explanatory; they do not establish a live API contract or guaranteed product behaviour.</p>
+      <h2>Service agreements</h2><p>Confirm the contracting entity, document billing rules, support scope, data processing, service levels, cancellation and any implementation requirements before accepting a service. Enterprise terms may differ from the advertised standard offer.</p>
+      <p><a class="button button--ink" href="/contact">Ask about service terms</a></p>
+    </article>
+  </main><SiteFooter />
+</BaseLayout>

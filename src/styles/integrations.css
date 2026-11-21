@@ -230,6 +230,7 @@
 }
 
 .integration-filters {
+  min-width: 0;
   position: sticky;
   top: 7.5rem;
 }
@@ -676,7 +677,7 @@
 
   .results-heading,
   .system-row {
-    grid-template-columns: minmax(12rem, 1fr) minmax(15rem, 1.2fr) minmax(11rem, 0.9fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 0.9fr);
   }
 
   .results-heading span:last-child,
@@ -733,7 +734,7 @@
 
   .integration-browser,
   .connection-options {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .integration-filters {
