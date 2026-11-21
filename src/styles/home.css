@@ -156,6 +156,54 @@
 .exchange-sheet figcaption a { color: var(--indigo-700); font-weight: 700; }
 .exchange-sheet figcaption a:hover { color: var(--indigo-950); }
 
+.home-ai {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 8rem);
+  padding: clamp(3.25rem, 6.5vw, 6.5rem) max(var(--page-gutter), calc((100% - 82rem) / 2));
+  color: var(--sheet);
+  background: var(--indigo-950);
+}
+
+.home-ai h2 {
+  max-width: 14ch;
+  margin-bottom: 1rem;
+  font-size: var(--text-h2);
+  line-height: 1;
+  letter-spacing: -.034em;
+  text-wrap: wrap;
+}
+
+.home-ai__intro p { max-width: 43ch; margin-bottom: 1.3rem; color: var(--on-indigo-muted); font-size: 1.125rem; }
+
+.home-ai__record {
+  --cut: clamp(1.3rem, 3.2vw, 2.25rem);
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  background: var(--sheet);
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+
+.home-ai__record figcaption {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .2rem 1rem;
+  padding: .72rem max(var(--cut), 1rem) .72rem 1rem;
+  color: var(--indigo-950);
+  background: var(--docket);
+  font-weight: 700;
+}
+
+.home-ai__record figcaption span { font-variant-numeric: tabular-nums; }
+.home-ai__record blockquote { margin: 0; padding: 1rem; color: var(--indigo-950); font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 700; line-height: 1.15; }
+.home-ai__record dl { margin: 0; }
+.home-ai__record dl div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(6.7rem, .65fr); gap: .65rem; padding: .54rem 1rem; border-top: 1px solid var(--rule); }
+.home-ai__record dt { color: var(--muted); }
+.home-ai__record dd { margin: 0; font-weight: 700; }
+
 .home-section {
   display: grid;
   grid-template-columns: minmax(0, .86fr) minmax(0, 1fr);
@@ -227,7 +275,7 @@
 }
 
 @media (max-width: 50rem) {
-  .home-section, .home-steps { grid-template-columns: 1fr; }
+  .home-ai, .home-section, .home-steps { grid-template-columns: 1fr; }
   .home-steps li:nth-child(n) { transform: none; }
   .home-close .button { justify-self: start; }
 }

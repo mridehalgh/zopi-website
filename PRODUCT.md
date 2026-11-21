@@ -24,6 +24,8 @@ Success means a supplier can understand the offer quickly, connect to the retail
 
 EDI Spark is the simplest route into retailer EDI: quick to adopt without prior EDI expertise, setup fees, annual contracts, or opaque pricing, while remaining technically capable enough for enterprise and developer-led integrations.
 
+AI for EDI is a core product story. Show how an approved assistant can answer a real operational question using the exchange records EDI Spark already holds. Put the source and the next step beside the answer, and present access through the MCP pilot.
+
 ## Conversion & proof
 
 - Primary CTA: Discuss your first connection. Enable the 30-day trial CTA only when the real trial destination and its terms are verified.

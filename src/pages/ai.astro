@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/ai.css';
+
+const pilotEnquiry = '/contact?intent=technical';
+
+const examples = [
+  {
+    id: 'readiness', label: 'Check readiness',
+    question: 'Why can’t I send this B&Q acknowledgement?',
+    answer: 'The pinned B&Q route requires a vendor number. This document is missing it.',
+    context: 'B&Q ACK v1.4 · TRADACOMS', tool: 'check_outbound_readiness',
+    status: 'Blocked', finding: 'Vendor number required', reference: 'BQ_VENDOR_NUMBER_REQUIRED',
+    next: 'Add the vendor number in Documents and run a fresh readiness check.',
+  },
+  {
+    id: 'order', label: 'Follow an order',
+    question: 'Did we respond to purchase order PO-10482?',
+    answer: 'An Order Response was sent. The exchange has a transport receipt, and retailer acceptance is still unrecorded.',
+    context: 'PO-10482 · Order Response OR-10482', tool: 'get_document_workflow · trace_exchange',
+    status: 'Sent', finding: 'Transport receipt recorded', reference: 'Retailer acceptance · Not recorded',
+    next: 'Open the response in EDI Spark to inspect its exchange history.',
+  },
+  {
+    id: 'transfer', label: 'Trace a transfer',
+    question: 'What happened to AS2 transfer TX-2407?',
+    answer: 'The AS2 transfer has a recorded MDN. The receipt confirms the transfer result. Business acceptance is unrecorded.',
+    context: 'TX-2407 · Outbound AS2 transfer', tool: 'trace_transfer',
+    status: 'Receipt recorded', finding: 'AS2 MDN available', reference: 'Business acceptance · Not recorded',
+    next: 'Follow the linked exchange in EDI Spark to check the document outcome.',
+  },
+];
+
+const workflows = [
+  ['Order lifecycle', 'Did we respond to this purchase order?', 'Find the right order and partner. See whether its response was drafted, finalised, sent or acknowledged.'],
+  ['Despatch & receipt', 'What shipped, and what arrived short?', 'Follow split despatches across document sets. Compare referenced lines and quantities and see where a match is missing or ambiguous.'],
+  ['Invoice & remittance', 'What explains this invoice balance?', 'Compare the invoice with recorded remittance allocations. See what’s been allocated and where the records leave a gap.'],
+  ['Outbound readiness', 'Why can’t I send this?', 'Check a document against its pinned route or test a mapping revision. See which rule and field need attention.'],
+  ['Reviewed drafting', 'Can you prepare the next document?', 'Open a prefilled Order Response or correction. Review copied quantities, prices and references in EDI Spark before saving.'],
+  ['AS2 transfers', 'What happened to this file?', 'Trace standalone and document-linked transfers. Inspect attempts, receipts and retry evidence, then follow the linked business exchange.'],
+];
+---
+
+<BaseLayout
+  title="AI for retailer EDI — EDI Spark"
+  description="Ask your assistant what happened to a retailer order, why a document is blocked or where an AS2 transfer landed. Get answers grounded in EDI Spark records through MCP."
+>
+  <SiteHeader current="/ai" />
+  <main id="main-content" class="ai-page">
+    <section class="ai-hero" aria-labelledby="ai-title">
+      <div class="ai-hero__intro">
+        <h1 id="ai-title">Ask your EDI <span>what happened.</span></h1>
+        <div class="ai-hero__pitch">
+          <p>Ask whether a retailer got your response, what held up a despatch, or why a document won’t send. EDI Spark gives your assistant the records to answer, and shows you the next step.</p>
+          <div class="button-group">
+            <a class="button" href={pilotEnquiry} data-cta="ai_pilot">Discuss pilot access</a>
+            <a class="text-arrow ai-hero__example" href="#ai-example">Try an exchange</a>
+          </div>
+        </div>
+      </div>
+
+      <section class="ai-demo-stage" id="ai-example" aria-labelledby="ai-demo-title" tabindex="-1">
+        <div class="ai-demo" data-ai-demo>
+          <header class="ai-demo__bar">
+            <h2 id="ai-demo-title">Trace an exchange</h2>
+            <span>Illustrative records</span>
+          </header>
+          <fieldset class="ai-demo__choices" data-ai-choices hidden>
+            <legend class="sr-only">Choose a demo example</legend>
+            {examples.map(({ id, label }, index) => (
+              <label><input type="radio" name="ai-demo" value={id} checked={index === 0} aria-controls={`ai-case-${id}`} /><span>{label}</span></label>
+            ))}
+          </fieldset>
+          <p class="sr-only" role="status" data-ai-announcement></p>
+          {examples.map(({ id, label, question, answer, context, tool, status, finding, reference, next }, index) => (
+            <div class="ai-case" id={`ai-case-${id}`} data-ai-case={id} data-ai-label={label} hidden={index !== 0}>
+              <div class="ai-thread">
+                <p class="ai-trace-label">Question</p>
+                <h3>{question}</h3>
+                <p class="ai-thread__answer">{answer}</p>
+              </div>
+              <div class="ai-source">
+                <p class="ai-trace-label">Source record</p>
+                <div class="ai-evidence">
+                  <div class="ai-evidence__head">
+                    <p>EDI Spark evidence</p>
+                    <strong class:list={['ai-evidence__status', id === 'readiness' && 'ai-evidence__status--blocked']}>{status}</strong>
+                  </div>
+                  <dl>
+                    <div><dt>Record</dt><dd>{context}</dd></div>
+                    <div><dt>Finding</dt><dd><strong>{finding}</strong><span>{id === 'readiness' ? <code>{reference}</code> : reference}</span></dd></div>
+                    <div><dt>Tool</dt><dd><code>{tool}</code></dd></div>
+                  </dl>
+                </div>
+              </div>
+              <div class="ai-case__next">
+                <p class="ai-trace-label">Next step</p>
+                <p>{next}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="ai-document-story" aria-labelledby="ai-document-title">
+      <div class="ai-document-story__intro">
+        <h2 id="ai-document-title">Follow the order all the way through.</h2>
+        <p>Start with the purchase order number. See the response, shipment and invoice that belong to it, with each document’s recorded state.</p>
+      </div>
+      <figure class="ai-document-story__visual">
+        <img class="ai-document-story__photo" src="/product/ai-retail-dispatch.webp" width="1440" height="960" alt="A warehouse operator scans a shipping label at a dispatch bench." decoding="async" />
+        <div class="ai-document-story__record">
+          <img src="/product/retail-document-workspace.webp" width="1120" height="690" alt="Illustrative EDI Spark document history for purchase order PO-10482, with the order response, despatch advice and invoice listed underneath." decoding="async" />
+        </div>
+        <figcaption>One order reference ties the business documents together.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ai-workflows ai-section" aria-labelledby="ai-workflows-title">
+      <div class="ai-workflows__intro">
+        <h2 id="ai-workflows-title">What you can ask</h2>
+        <p>Start with the question you’d ask a colleague. The assistant can follow the documents and transfer records your organisation has on file.</p>
+      </div>
+      <ul class="ai-workflow-list" role="list">
+        {workflows.map(([category, question, outcome]) => (
+          <li>
+            <p class="ai-workflow-list__category">{category}</p>
+            <h3>{question}</h3>
+            <p>{outcome}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="ai-pilot ai-section" aria-labelledby="ai-pilot-title">
+      <div class="ai-pilot__intro">
+        <h2 id="ai-pilot-title">Connect your assistant</h2>
+        <p>The MCP pilot gives an approved assistant access to evidence and previews in your workspace. Review drafts, inspect files and send documents in EDI Spark.</p>
+        <a class="button" href={pilotEnquiry} data-cta="ai_pilot">Discuss pilot access</a>
+      </div>
+      <div class="ai-pilot__content">
+        <ol class="ai-pilot__steps">
+          <li><strong>Open AI in your workspace.</strong> Admins and owners can find setup instructions once the pilot is enabled.</li>
+          <li><strong>Connect an approved client.</strong> Sign in to EDI Spark, check the active organisation and approve the requested access.</li>
+          <li><strong>Ask about an exchange.</strong> Find evidence, run a preview or open the source record to take the next step.</li>
+        </ol>
+        <details class="ai-pilot__technical">
+          <summary>Technical requirements</summary>
+          <p>The pilot uses <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">MCP 2026-07-28</a> over stateless Streamable HTTP. Clients must be registered in advance and use OAuth with S256 PKCE and the exact registered redirect URI.</p>
+          <p>Access is scoped to document evidence, previews or AS2 evidence. Commercial reconciliation values require a separate grant. Exchange traces report transport receipt, functional acknowledgement and business acceptance separately. Bank settlement and ERP posting need evidence from those systems.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<script>
+  const demo = document.querySelector<HTMLElement>('[data-ai-demo]');
+  const choices = demo?.querySelector<HTMLFieldSetElement>('[data-ai-choices]');
+  const cases = demo?.querySelectorAll<HTMLElement>('[data-ai-case]');
+  const announcement = demo?.querySelector<HTMLElement>('[data-ai-announcement]');
+
+  if (choices && cases && announcement) {
+    const showCase = (choice: HTMLInputElement) => {
+      for (const example of cases) {
+        example.hidden = example.dataset.aiCase !== choice.value;
+        if (!example.hidden) announcement.textContent = `${example.dataset.aiLabel} example shown.`;
+      }
+    };
+    const selected = choices.querySelector<HTMLInputElement>('input:checked');
+    if (selected) showCase(selected);
+    choices.addEventListener('change', event => {
+      if (event.target instanceof HTMLInputElement) {
+        showCase(event.target);
+        demo?.setAttribute('data-interacted', '');
+      }
+    });
+    choices.hidden = false;
+  }
+</script>
