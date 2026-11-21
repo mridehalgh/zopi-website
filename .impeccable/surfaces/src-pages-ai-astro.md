@@ -7,24 +7,20 @@ related_targets: ["src/pages/index.astro"]
 
 # AI product page
 
-Persuade. Show UK suppliers how an approved assistant can answer an EDI question from retained evidence, then offer a route to pilot access.
+Persuade. Show UK suppliers how an approved assistant can answer an EDI question from retained evidence, then show how to connect an assistant.
 
 ## Direction contract
 
 **Thesis** — An annotated exchange puts a real operational question beside the evidence needed to answer it.
 
-**Own world** — Dispatch Manifest stationery, with a light ground, deep indigo and violet around the sample exchange, and mint for the next step.
+**Own world** — Dark plum conversation beside a dispatch photograph. A paper-coloured source slip shows the two records used in the answer.
 
-**Story** — Read the question, follow the relevant record, see the recovery step, and choose another example or discuss the pilot.
+**Story** — Open with the shortage on PO-10482. The next section shows a separate question about the same order, with example conversations from ChatGPT and Claude beside an EDI Spark document view. All seven workflows pair a visible chat exchange with its EDI Spark record and a short next step. Use the in-app assistant for the blocked document and order draft examples, and ChatGPT for the other workflows. Each source link focuses and highlights the matching evidence. Setup details use a disclosure.
 
-**First viewport** — A short proposition above a full-width exchange trace. Three ruled stations expose the question, the source record and the next step in the same view.
-
-**Form** — Annotated dispatch record paired with a dispatch-floor photograph and the illustrative document history for PO-10482. On mobile, show the scenario choices, question, evidence and next step in order. A short response transition follows a scenario change and respects reduced motion. seed: none (pinned)
+**First viewport** — “Talk to your EDI.” introduces a worked conversation. The follow-up identifies the affected line. Seven examples advance every 12 seconds while the stage is in view, with manual selection and pause controls. Reduced motion keeps manual selection available. The source slip settles into place once per selection, with a static reduced-motion version.
 
 **Finish** — Check the rendered page and scenario controls at desktop and mobile sizes, including the first example without JavaScript.
 
 ## Image provenance
 
-`public/product/ai-retail-dispatch.webp` is a generated editorial illustration of a UK retail dispatch bench, produced with built-in ImageGen and encoded as a 1440 × 960 WebP. `public/product/retail-document-workspace.webp` is an existing EDI Spark illustration using sample data.
-
-ImageGen prompt: Landscape editorial commercial photograph, 3:2, for a modern British retail supply-chain software landing page, an authentic UK retail supplier dispatch station, documentary photography with exceptional art direction. Tight composition from slightly above desk height: a pair of natural hands in a muted cobalt blue work jacket holds a commercial barcode scanner over a small white shipping label on a kraft carton beside a neatly stacked pale lavender dispatch docket on a light grey workbench. Two more small kraft cartons at right with softly defocused industrial shelves behind. Cool morning daylight, off-white and lilac-grey highlights, crisp cobalt fabric and a little natural kraft, subtle texture, refined editorial crop, restrained contemporary industrial colour. Hands and device in centre-right and plenty of breathing room, all objects plausible, no visible faces, no visible laptop or interface, no logos, no legible text, no invented graphical overlays, no need to be a hero layout. Real sensor grain, tangible paper and hand feel, no stock photo grin, no glowing futurism. This is a single photo edge to edge.
+`public/product/ai-dispatch-floor.webp` is a generated editorial illustration of a UK distribution centre at the start of a shift, produced with built-in ImageGen and encoded as a 1400 × 934 WebP. The ChatGPT and EDI Spark panels are HTML illustrations using sample records.
