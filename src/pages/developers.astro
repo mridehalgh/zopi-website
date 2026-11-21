@@ -42,53 +42,48 @@ const exampleUbl = `<Order>
   <main id="main-content" class="developers-page">
     <section class="developer-hero" aria-labelledby="developer-hero-title">
       <div class="developer-hero__copy">
-        <p class="developer-context">EDI Spark for developers</p>
-        <h1 id="developer-hero-title">Retailer EDI.<br />Your data model.</h1>
+        <h1 id="developer-hero-title">Retailer EDI. Your data model.</h1>
         <p class="developer-hero__lede">
           Bring retailer documents into the applications you build. Start with your source files,
           target schema and the exchange your team needs to support.
         </p>
         <div class="button-group">
-          <a class="button button--api" href="/contact?intent=technical">Discuss your integration</a>
-          <a class="button button--outline" href="#mapping-example">See a mapping example</a>
+          <a class="button" href="/contact?intent=technical">Discuss your integration</a>
+          <a class="button button--developer-outline" href="#mapping-example">See a mapping example</a>
         </div>
       </div>
-      <div class="api-exchange" id="mapping-example" aria-labelledby="example-label">
-        <div class="api-exchange__bar">
+      <figure class="api-exchange" id="mapping-example" aria-labelledby="example-label">
+        <figcaption class="api-exchange__bar">
           <strong id="example-label">Illustrative mapping</strong>
-          <span>JSON → UBL</span>
-        </div>
+          <span>Order PO-123456</span>
+        </figcaption>
         <div class="api-exchange__panes">
-          <div class="code-pane">
-            <span class="code-pane__label">Application JSON example</span>
+          <section class="code-pane" aria-labelledby="mapping-source">
+            <h2 id="mapping-source">Input <span>Application JSON</span></h2>
             <pre><code>{exampleJson}</code></pre>
-          </div>
-          <div class="code-pane code-pane--response">
-            <span class="code-pane__label">UBL order fragment</span>
+          </section>
+          <section class="code-pane" aria-labelledby="mapping-target">
+            <h2 id="mapping-target">Output <span>UBL order fragment</span></h2>
             <pre><code>{exampleUbl}</code></pre>
-          </div>
+          </section>
         </div>
-        <div class="api-exchange__event">
-          <p>Example fields only. This is not a complete UBL document or an API request contract.</p>
-        </div>
-      </div>
+        <p class="api-exchange__note">This sample shows a UBL fragment. Confirm the complete document and API contract during technical discovery.</p>
+      </figure>
     </section>
 
     <section class="workflow-section" aria-labelledby="assessment-title">
       <div class="workflow-heading">
-        <p class="developer-context">Plan the whole exchange</p>
         <h2 id="assessment-title">Agree the integration before writing the glue.</h2>
         <p>
           A working connection needs more than a payload. We assess the mapping, delivery and
           operational requirements with your team, including what happens when a document fails.
         </p>
       </div>
-      <ol class="workflow-list">
+      <ol class="workflow-list" role="list">
         {assessmentSteps.map(([title, body], index) => (
           <li>
-            <span>{index + 1}</span>
-            <div><strong>{title}</strong><p>{body}</p></div>
-            <i aria-hidden="true"></i>
+            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div><h3>{title}</h3><p>{body}</p></div>
           </li>
         ))}
       </ol>
@@ -96,7 +91,6 @@ const exampleUbl = `<Order>
 
     <section class="endpoint-index" aria-labelledby="access-title">
       <div class="endpoint-index__heading">
-        <p class="developer-context">Technical discovery</p>
         <h2 id="access-title">Get the details for your use case.</h2>
         <p>
           Tell us your stack, trading partners and document types. We can discuss the documentation
@@ -107,25 +101,25 @@ const exampleUbl = `<Order>
         <a class="endpoint-row" href={site.docsUrl ?? '/contact?intent=developer'} data-cta="documentation">
           <strong>Documentation &amp; test access</strong>
           <span>Request the current integration details and discuss a test environment.</span>
-          <span>{site.docsUrl ? 'Read documentation' : 'Request access'}</span><b aria-hidden="true">→</b>
+          <span>{site.docsUrl ? 'Read documentation' : 'Request access'}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17m-7-7 7 7-7 7" /></svg>
         </a>
         <a class="endpoint-row" href="/contact?intent=technical">
           <strong>Agent workflows</strong>
           <span>Discuss A2A or MCP requirements, available access and approval boundaries.</span>
-          <span>Discuss requirements</span><b aria-hidden="true">→</b>
+          <span>Discuss requirements</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17m-7-7 7 7-7 7" /></svg>
         </a>
         <a class="endpoint-row" href="/enterprise">
           <strong>Larger integration programmes</strong>
           <span>Assess network, procurement and operational requirements together.</span>
-          <span>Enterprise EDI</span><b aria-hidden="true">→</b>
+          <span>Enterprise EDI</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17m-7-7 7 7-7 7" /></svg>
         </a>
       </div>
     </section>
 
     <section class="developer-cta" aria-labelledby="developer-cta-title">
       <div>
-        <p class="developer-context">Bring a sample document</p>
         <h2 id="developer-cta-title">Let’s map your next connection.</h2>
+        <p>Bring a sample document to discuss.</p>
       </div>
       <div class="developer-cta__actions">
         <a class="button button--ink" href="/contact?intent=technical">Discuss your integration</a>

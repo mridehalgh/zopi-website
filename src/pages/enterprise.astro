@@ -5,10 +5,10 @@ import SiteFooter from '../components/SiteFooter.astro';
 import '../styles/enterprise.css';
 
 const requirements = [
-  ['Trading network & volume', 'Which retailers and suppliers you trade with, the documents they require and your typical and peak monthly volumes.'],
-  ['Business systems & mapping', 'The ERP, finance and warehouse systems involved, your source formats and any partner-specific validation rules.'],
-  ['Service & data requirements', 'Your support and escalation needs, data handling requirements and service levels for assessment.'],
-  ['Procurement & commercial terms', 'Your buying process, contract requirements and the cost of the proposed scope, including any implementation work.'],
+  { title: 'Trading network & volume', body: 'Which retailers and suppliers you trade with, the documents they require and your typical and peak monthly volumes.', href: '/partners', link: 'Browse trading partners' },
+  { title: 'Business systems & mapping', body: 'The ERP, finance and warehouse systems involved, your source formats and any partner-specific validation rules.', href: '/integrations', link: 'Review integration options' },
+  { title: 'Service & data requirements', body: 'Your support and escalation needs, data handling requirements and service levels for assessment.', href: '/security', link: 'Review security and service questions' },
+  { title: 'Procurement & commercial terms', body: 'Your buying process, contract requirements and the cost of the proposed scope, including any implementation work.', href: '/pricing', link: 'See standard pricing' },
 ];
 const stages = [
   ['Assess the scope', 'Share your partner list, system landscape, volumes and operating constraints. We review the proposed fit and identify questions to resolve.'],
@@ -25,65 +25,65 @@ const stages = [
   <main id="main-content" class="enterprise-page">
     <section class="enterprise-hero" aria-labelledby="enterprise-title">
       <div>
-        <p class="enterprise-eyebrow">EDI Spark for enterprise</p>
-        <h1 id="enterprise-title">A clear plan for a complex trading network.</h1>
+        <h1 id="enterprise-title">Plan your enterprise EDI rollout.</h1>
         <p class="enterprise-lede">
           Bring your retailer connections, business systems and operating requirements together.
           We’ll assess the scope with your team before proposing an approach and commercial terms.
         </p>
-        <div class="button-group">
-          <a class="button" href="/contact?intent=enterprise">Discuss your requirements</a>
-          <a class="text-arrow text-arrow--ink" href="/pricing">See standard pricing <span aria-hidden="true">→</span></a>
+        <div class="enterprise-actions">
+          <a class="button" href="/contact?intent=enterprise" data-cta="enterprise">Discuss your requirements</a>
+          <a href="/developers">For technical teams</a>
         </div>
       </div>
       <aside class="enterprise-brief" aria-labelledby="brief-title">
-        <p class="enterprise-eyebrow">Start with your operation</p>
-        <h2 id="brief-title">One brief.<br />The whole exchange.</h2>
-        <ul>
-          <li><span>01</span> Trading partners and documents</li>
-          <li><span>02</span> Systems and integration routes</li>
-          <li><span>03</span> Volumes and service requirements</li>
-          <li><span>04</span> Timeline and commercial scope</li>
-        </ul>
+        <h2 id="brief-title">Start with your scope</h2>
+        <dl>
+          <div><dt>Trading</dt><dd>Partner list and document flows</dd></div>
+          <div><dt>Systems</dt><dd>ERP, finance and warehouse systems</dd></div>
+          <div><dt>Volume</dt><dd>Typical and peak usage</dd></div>
+          <div><dt>Timing</dt><dd>Target dates and contract milestones</dd></div>
+        </dl>
+        <p>Bring what you know. Use anonymised examples when sharing document structure.</p>
       </aside>
     </section>
 
-    <section class="enterprise-section" aria-labelledby="requirements-title">
+    <nav class="enterprise-jump" aria-label="On this page">
+      <a href="#requirements-title">Requirements</a><a href="#rollout-title">Rollout stages</a><a href="#questions-title">Frequently asked questions</a>
+    </nav>
+
+    <section class="enterprise-section enterprise-scope" aria-labelledby="requirements-title">
       <div class="enterprise-section__heading">
-        <p class="enterprise-eyebrow">Requirements first</p>
-        <h2 id="requirements-title">Shape the service around the work.</h2>
+        <h2 id="requirements-title">What we’ll review together.</h2>
         <p>
           Enterprise fit depends on your network and operating needs. These are the areas we review
           before confirming what can be delivered.
         </p>
       </div>
       <div class="enterprise-requirements">
-        {requirements.map(([title, body]) => (
-          <article><h3>{title}</h3><p>{body}</p></article>
+        {requirements.map(({ title, body, href, link }) => (
+          <article><h3>{title}</h3><div><p>{body}</p><a href={href}>{link}</a></div></article>
         ))}
       </div>
     </section>
 
-    <section class="enterprise-section enterprise-section--dark" aria-labelledby="rollout-title">
+    <section class="enterprise-section enterprise-rollout" aria-labelledby="rollout-title">
       <div class="enterprise-section__heading">
-        <p class="enterprise-eyebrow">From assessment to cutover</p>
-        <h2 id="rollout-title">Make the dependencies visible early.</h2>
+        <h2 id="rollout-title">From assessment to cutover.</h2>
         <p>
           Retailer testing, internal teams and existing contracts can all affect a change.
           A proposed rollout should account for each of them.
         </p>
       </div>
       <ol class="enterprise-stages">
-        {stages.map(([title, body], index) => (
-          <li><span>{index + 1}</span><div><h3>{title}</h3><p>{body}</p></div></li>
+        {stages.map(([title, body]) => (
+          <li><h3>{title}</h3><p>{body}</p></li>
         ))}
       </ol>
     </section>
 
-    <section class="enterprise-section" aria-labelledby="questions-title">
+    <section class="enterprise-section enterprise-faq" aria-labelledby="questions-title">
       <div class="enterprise-section__heading">
-        <p class="enterprise-eyebrow">Before you commit</p>
-        <h2 id="questions-title">Clear commercial and technical answers.</h2>
+        <h2 id="questions-title">Questions before you commit.</h2>
       </div>
       <div class="enterprise-questions">
         <details>
@@ -106,8 +106,8 @@ const stages = [
     </section>
 
     <section class="enterprise-close" aria-labelledby="enterprise-close-title">
-      <div><p class="enterprise-eyebrow">Your next trading programme</p><h2 id="enterprise-close-title">Start with the requirements.</h2></div>
-      <a class="button button--ink" href="/contact?intent=enterprise">Discuss your requirements</a>
+      <h2 id="enterprise-close-title">Start with the requirements.</h2>
+      <a class="button" href="/contact?intent=enterprise" data-cta="enterprise">Discuss your requirements</a>
     </section>
   </main>
   <SiteFooter />

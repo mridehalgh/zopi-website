@@ -1,202 +1,393 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-18T20:00:42Z",
+  "generatedAt": "2026-11-21T16:32:41Z",
   "title": "Design System: EDI Spark",
   "extensions": {
     "colorMeta": {
-      "exchange-indigo-deep": {
+      "electric": {
         "role": "primary",
-        "displayName": "Exchange Indigo Deep",
-        "canonical": "oklch(0.18 0.1 270)",
-        "tonalRamp": ["oklch(0.15 0.1 270)", "oklch(0.25 0.1 270)", "oklch(0.35 0.1 270)", "oklch(0.45 0.1 270)", "oklch(0.58 0.09 270)", "oklch(0.7 0.07 270)", "oklch(0.83 0.045 270)", "oklch(0.95 0.02 270)"]
+        "displayName": "Electric Violet",
+        "tonalRamp": [
+          "oklch(0.15 0.095 277.6)",
+          "oklch(0.25 0.154 277.6)",
+          "oklch(0.35 0.201 277.6)",
+          "oklch(0.45 0.237 277.6)",
+          "oklch(0.58 0.237 277.6)",
+          "oklch(0.70 0.190 277.6)",
+          "oklch(0.83 0.142 277.6)",
+          "oklch(0.95 0.059 277.6)"
+        ]
       },
-      "exchange-indigo": {
+      "indigo-950": {
         "role": "primary",
-        "displayName": "Exchange Indigo",
-        "canonical": "oklch(0.27 0.15 270)",
-        "tonalRamp": ["oklch(0.15 0.12 270)", "oklch(0.25 0.15 270)", "oklch(0.35 0.16 270)", "oklch(0.45 0.16 270)", "oklch(0.58 0.14 270)", "oklch(0.7 0.1 270)", "oklch(0.83 0.055 270)", "oklch(0.95 0.02 270)"]
+        "displayName": "Deep Indigo",
+        "tonalRamp": [
+          "oklch(0.15 0.057 276.4)",
+          "oklch(0.25 0.093 276.4)",
+          "oklch(0.35 0.121 276.4)",
+          "oklch(0.45 0.142 276.4)",
+          "oklch(0.58 0.142 276.4)",
+          "oklch(0.70 0.114 276.4)",
+          "oklch(0.83 0.085 276.4)",
+          "oklch(0.95 0.036 276.4)"
+        ]
       },
-      "exchange-indigo-action": {
+      "indigo-900": {
         "role": "primary",
-        "displayName": "Exchange Indigo Action",
-        "canonical": "oklch(0.45 0.18 270)",
-        "tonalRamp": ["oklch(0.15 0.1 270)", "oklch(0.25 0.14 270)", "oklch(0.35 0.17 270)", "oklch(0.45 0.18 270)", "oklch(0.58 0.16 270)", "oklch(0.7 0.12 270)", "oklch(0.83 0.07 270)", "oklch(0.95 0.025 270)"]
+        "displayName": "Rich Indigo",
+        "tonalRamp": [
+          "oklch(0.15 0.071 276.2)",
+          "oklch(0.25 0.116 276.2)",
+          "oklch(0.35 0.152 276.2)",
+          "oklch(0.45 0.178 276.2)",
+          "oklch(0.58 0.178 276.2)",
+          "oklch(0.70 0.143 276.2)",
+          "oklch(0.83 0.107 276.2)",
+          "oklch(0.95 0.045 276.2)"
+        ]
       },
-      "exchange-indigo-mid": {
+      "indigo-700": {
         "role": "primary",
-        "displayName": "Exchange Indigo Mid",
-        "canonical": "oklch(0.62 0.15 270)",
-        "tonalRamp": ["oklch(0.15 0.08 270)", "oklch(0.25 0.11 270)", "oklch(0.35 0.14 270)", "oklch(0.45 0.15 270)", "oklch(0.58 0.15 270)", "oklch(0.7 0.12 270)", "oklch(0.83 0.07 270)", "oklch(0.95 0.025 270)"]
+        "displayName": "Link Violet",
+        "tonalRamp": [
+          "oklch(0.15 0.089 277.0)",
+          "oklch(0.25 0.144 277.0)",
+          "oklch(0.35 0.189 277.0)",
+          "oklch(0.45 0.222 277.0)",
+          "oklch(0.58 0.222 277.0)",
+          "oklch(0.70 0.177 277.0)",
+          "oklch(0.83 0.133 277.0)",
+          "oklch(0.95 0.055 277.0)"
+        ]
       },
-      "exchange-indigo-pale": {
-        "role": "neutral",
-        "displayName": "Exchange Indigo Pale",
-        "canonical": "oklch(0.94 0.025 270)",
-        "tonalRamp": ["oklch(0.15 0.025 270)", "oklch(0.25 0.025 270)", "oklch(0.35 0.025 270)", "oklch(0.45 0.025 270)", "oklch(0.58 0.025 270)", "oklch(0.7 0.025 270)", "oklch(0.83 0.025 270)", "oklch(0.95 0.025 270)"]
+      "indigo-500": {
+        "role": "primary",
+        "displayName": "Rule Violet",
+        "tonalRamp": [
+          "oklch(0.15 0.044 291.8)",
+          "oklch(0.25 0.072 291.8)",
+          "oklch(0.35 0.094 291.8)",
+          "oklch(0.45 0.110 291.8)",
+          "oklch(0.58 0.110 291.8)",
+          "oklch(0.70 0.088 291.8)",
+          "oklch(0.83 0.066 291.8)",
+          "oklch(0.95 0.028 291.8)"
+        ]
       },
-      "clear-white": {
-        "role": "neutral",
-        "displayName": "Clear White",
-        "canonical": "oklch(1 0 0)",
-        "tonalRamp": ["oklch(0.15 0 0)", "oklch(0.25 0 0)", "oklch(0.35 0 0)", "oklch(0.45 0 0)", "oklch(0.58 0 0)", "oklch(0.7 0 0)", "oklch(0.83 0 0)", "oklch(0.95 0 0)"]
+      "on-indigo-muted": {
+        "role": "primary",
+        "displayName": "Pale Lavender",
+        "tonalRamp": [
+          "oklch(0.15 0.016 293.2)",
+          "oklch(0.25 0.027 293.2)",
+          "oklch(0.35 0.035 293.2)",
+          "oklch(0.45 0.041 293.2)",
+          "oklch(0.58 0.041 293.2)",
+          "oklch(0.70 0.033 293.2)",
+          "oklch(0.83 0.024 293.2)",
+          "oklch(0.95 0.010 293.2)"
+        ]
       },
-      "quiet-surface": {
-        "role": "neutral",
-        "displayName": "Quiet Surface",
-        "canonical": "oklch(0.96 0.012 270)",
-        "tonalRamp": ["oklch(0.15 0.012 270)", "oklch(0.25 0.012 270)", "oklch(0.35 0.012 270)", "oklch(0.45 0.012 270)", "oklch(0.58 0.012 270)", "oklch(0.7 0.012 270)", "oklch(0.83 0.012 270)", "oklch(0.95 0.012 270)"]
-      },
-      "technical-ink": {
-        "role": "neutral",
-        "displayName": "Technical Ink",
-        "canonical": "oklch(0.18 0.035 270)",
-        "tonalRamp": ["oklch(0.15 0.035 270)", "oklch(0.25 0.035 270)", "oklch(0.35 0.035 270)", "oklch(0.45 0.035 270)", "oklch(0.58 0.03 270)", "oklch(0.7 0.025 270)", "oklch(0.83 0.018 270)", "oklch(0.95 0.01 270)"]
-      },
-      "supporting-ink": {
-        "role": "neutral",
-        "displayName": "Supporting Ink",
-        "canonical": "oklch(0.45 0.025 270)",
-        "tonalRamp": ["oklch(0.15 0.025 270)", "oklch(0.25 0.025 270)", "oklch(0.35 0.025 270)", "oklch(0.45 0.025 270)", "oklch(0.58 0.025 270)", "oklch(0.7 0.025 270)", "oklch(0.83 0.02 270)", "oklch(0.95 0.01 270)"]
-      },
-      "connection-mint": {
+      "mint": {
         "role": "secondary",
-        "displayName": "Connection Mint",
-        "canonical": "oklch(0.88 0.13 155)",
-        "tonalRamp": ["oklch(0.15 0.07 155)", "oklch(0.25 0.1 155)", "oklch(0.35 0.13 155)", "oklch(0.45 0.15 155)", "oklch(0.58 0.15 155)", "oklch(0.7 0.14 155)", "oklch(0.83 0.13 155)", "oklch(0.95 0.06 155)"]
+        "displayName": "Action Mint",
+        "tonalRamp": [
+          "oklch(0.15 0.045 153.1)",
+          "oklch(0.25 0.073 153.1)",
+          "oklch(0.35 0.095 153.1)",
+          "oklch(0.45 0.112 153.1)",
+          "oklch(0.58 0.112 153.1)",
+          "oklch(0.70 0.089 153.1)",
+          "oklch(0.83 0.067 153.1)",
+          "oklch(0.95 0.028 153.1)"
+        ]
       },
-      "connection-mint-deep": {
+      "mint-hover": {
         "role": "secondary",
-        "displayName": "Connection Mint Deep",
-        "canonical": "oklch(0.54 0.15 155)",
-        "tonalRamp": ["oklch(0.15 0.07 155)", "oklch(0.25 0.1 155)", "oklch(0.35 0.13 155)", "oklch(0.45 0.15 155)", "oklch(0.58 0.15 155)", "oklch(0.7 0.14 155)", "oklch(0.83 0.1 155)", "oklch(0.95 0.045 155)"]
+        "displayName": "Action Mint Hover",
+        "tonalRamp": [
+          "oklch(0.15 0.057 152.5)",
+          "oklch(0.25 0.093 152.5)",
+          "oklch(0.35 0.121 152.5)",
+          "oklch(0.45 0.142 152.5)",
+          "oklch(0.58 0.142 152.5)",
+          "oklch(0.70 0.114 152.5)",
+          "oklch(0.83 0.085 152.5)",
+          "oklch(0.95 0.036 152.5)"
+        ]
+      },
+      "mint-deep": {
+        "role": "secondary",
+        "displayName": "Success Green",
+        "tonalRamp": [
+          "oklch(0.15 0.035 155.2)",
+          "oklch(0.25 0.056 155.2)",
+          "oklch(0.35 0.074 155.2)",
+          "oklch(0.45 0.087 155.2)",
+          "oklch(0.58 0.087 155.2)",
+          "oklch(0.70 0.069 155.2)",
+          "oklch(0.83 0.052 155.2)",
+          "oklch(0.95 0.022 155.2)"
+        ]
       },
       "danger": {
         "role": "tertiary",
-        "displayName": "Action Danger",
-        "canonical": "oklch(0.55 0.19 25)",
-        "tonalRamp": ["oklch(0.15 0.09 25)", "oklch(0.25 0.13 25)", "oklch(0.35 0.17 25)", "oklch(0.45 0.19 25)", "oklch(0.58 0.18 25)", "oklch(0.7 0.14 25)", "oklch(0.83 0.08 25)", "oklch(0.95 0.03 25)"]
+        "displayName": "Error Red",
+        "tonalRamp": [
+          "oklch(0.15 0.065 19.7)",
+          "oklch(0.25 0.106 19.7)",
+          "oklch(0.35 0.138 19.7)",
+          "oklch(0.45 0.163 19.7)",
+          "oklch(0.58 0.163 19.7)",
+          "oklch(0.70 0.130 19.7)",
+          "oklch(0.83 0.098 19.7)",
+          "oklch(0.95 0.041 19.7)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Lilac Paper",
+        "tonalRamp": [
+          "oklch(0.15 0.005 290.8)",
+          "oklch(0.25 0.009 290.8)",
+          "oklch(0.35 0.011 290.8)",
+          "oklch(0.45 0.013 290.8)",
+          "oklch(0.58 0.013 290.8)",
+          "oklch(0.70 0.011 290.8)",
+          "oklch(0.83 0.008 290.8)",
+          "oklch(0.95 0.003 290.8)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet",
+        "tonalRamp": [
+          "oklch(0.15 0.001 67.8)",
+          "oklch(0.25 0.001 67.8)",
+          "oklch(0.35 0.001 67.8)",
+          "oklch(0.45 0.002 67.8)",
+          "oklch(0.58 0.002 67.8)",
+          "oklch(0.70 0.001 67.8)",
+          "oklch(0.83 0.001 67.8)",
+          "oklch(0.95 0.000 67.8)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Paper Rule",
+        "tonalRamp": [
+          "oklch(0.15 0.015 294.1)",
+          "oklch(0.25 0.024 294.1)",
+          "oklch(0.35 0.032 294.1)",
+          "oklch(0.45 0.037 294.1)",
+          "oklch(0.58 0.037 294.1)",
+          "oklch(0.70 0.030 294.1)",
+          "oklch(0.83 0.022 294.1)",
+          "oklch(0.95 0.009 294.1)"
+        ]
+      },
+      "docket": {
+        "role": "neutral",
+        "displayName": "Docket Lilac",
+        "tonalRamp": [
+          "oklch(0.15 0.017 293.0)",
+          "oklch(0.25 0.027 293.0)",
+          "oklch(0.35 0.036 293.0)",
+          "oklch(0.45 0.042 293.0)",
+          "oklch(0.58 0.042 293.0)",
+          "oklch(0.70 0.034 293.0)",
+          "oklch(0.83 0.025 293.0)",
+          "oklch(0.95 0.011 293.0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(0.15 0.023 290.3)",
+          "oklch(0.25 0.037 290.3)",
+          "oklch(0.35 0.048 290.3)",
+          "oklch(0.45 0.057 290.3)",
+          "oklch(0.58 0.057 290.3)",
+          "oklch(0.70 0.045 290.3)",
+          "oklch(0.83 0.034 290.3)",
+          "oklch(0.95 0.014 290.3)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Supporting Ink",
+        "tonalRamp": [
+          "oklch(0.15 0.020 296.2)",
+          "oklch(0.25 0.033 296.2)",
+          "oklch(0.35 0.043 296.2)",
+          "oklch(0.45 0.051 296.2)",
+          "oklch(0.58 0.051 296.2)",
+          "oklch(0.70 0.041 296.2)",
+          "oklch(0.83 0.030 296.2)",
+          "oklch(0.95 0.013 296.2)"
+        ]
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Hero claims only; compact, balanced, and decisive." },
-      "headline": { "displayName": "Headline", "purpose": "Major business-outcome arguments and section titles." },
-      "title": { "displayName": "Title", "purpose": "Workflow steps and prominent component titles." },
-      "body": { "displayName": "Body", "purpose": "Plain-English explanation capped near 65–75 characters per line." },
-      "label": { "displayName": "Label", "purpose": "Navigation, controls, statuses, and compact metadata." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Main marketing headings."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Major section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Prominent component titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Copy, prominent supporting text and field values."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation and interface labels."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Primary and alternate button labels."
+      }
     },
     "shadows": [
-      { "name": "signal-ring", "value": "0 0 0 0.35rem var(--indigo-100)", "purpose": "Tight tonal ring around a small integration status dot only." }
-    ],
-    "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Shared exponential ease for entrances and responsive movement." },
-      { "name": "state-fast", "value": "180ms", "purpose": "Button, arrow, and row hover feedback." },
-      { "name": "menu", "value": "220ms", "purpose": "Mobile navigation opacity and vertical transition." },
-      { "name": "hero-copy", "value": "700ms", "purpose": "Short upward entrance for hero copy." },
-      { "name": "hero-ledger", "value": "850ms 80ms", "purpose": "Offset horizontal entrance for the pricing ledger." },
-      { "name": "route-pulse", "value": "2.4s", "purpose": "Continuous document movement along the connection route." },
-      { "name": "reduced-motion", "value": "0.01ms", "purpose": "Near-instant alternative for every animation and transition." }
+      {
+        "name": "focus-spacer",
+        "value": "0 0 0 .22rem var(--sheet, #fffefd)",
+        "purpose": "Separates the focus outline from the control and its background."
+      }
     ],
     "breakpoints": [
-      { "name": "wide-adjustment", "value": "72rem" },
-      { "name": "single-column", "value": "58rem" },
-      { "name": "compact-mobile", "value": "40rem" }
+      {
+        "name": "header-menu",
+        "value": "65rem"
+      },
+      {
+        "name": "directory-and-pricing-split",
+        "value": "52rem"
+      },
+      {
+        "name": "homepage-and-contact-split",
+        "value": "50rem"
+      },
+      {
+        "name": "editorial-contents",
+        "value": "46rem"
+      },
+      {
+        "name": "footer-stack",
+        "value": "44rem"
+      }
+    ],
+    "motion": [
+      {
+        "name": "route-reveal",
+        "value": "450ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "One directional line entrance when motion is permitted. Show the full line immediately under reduced motion."
+      }
     ]
   },
   "components": [
     {
       "name": "Primary Button",
       "kind": "button",
-      "refersTo": "button-primary",
-      "description": "Primary trial action on light surfaces.",
-      "html": "<button class=\"ds-btn-primary\">Start free</button>",
-      "css": ".ds-btn-primary { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--ink); background: var(--mint); border: 1px solid transparent; border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), background-color 180ms ease; } .ds-btn-primary:hover { background: oklch(0.84 0.15 155); transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.25rem; } .ds-btn-primary:active { transform: translateY(0) scale(0.98); }"
+      "description": "Main next step on a marketing page.",
+      "html": "<button class=\"ds-button-primary\" type=\"button\">Discuss your first connection</button>",
+      "css": ".ds-button-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: .75rem 1.2rem; color: var(--ink, #1c1634); background: var(--mint, #a4f5bc); border: 1px solid transparent; border-radius: var(--radius-sm, .25rem); font: 700 1rem/1.15 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); text-align: center; cursor: pointer; } .ds-button-primary:hover { color: var(--ink, #1c1634); background: var(--mint-hover, #86f0a7); border-color: transparent; } .ds-button-primary:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); } .ds-button-primary:disabled { opacity: .55; cursor: default; }",
+      "refersTo": "button-primary"
     },
     {
       "name": "Outline Button",
       "kind": "button",
-      "refersTo": "button-outline",
-      "description": "Secondary demo action on light surfaces.",
-      "html": "<button class=\"ds-btn-outline\">Book a demo</button>",
-      "css": ".ds-btn-outline { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--indigo-900); background: transparent; border: 1px solid var(--indigo-700); border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), color 180ms ease, background-color 180ms ease; } .ds-btn-outline:hover { color: var(--white); background: var(--indigo-700); transform: translateY(-2px); } .ds-btn-outline:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.25rem; } .ds-btn-outline:active { transform: translateY(0) scale(0.98); }"
+      "description": "Alternative action on paper.",
+      "html": "<button class=\"ds-button-outline\" type=\"button\">Discuss a demo</button>",
+      "css": ".ds-button-outline { display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: .75rem 1.2rem; color: var(--indigo-900, #291c91); background: transparent; border: 1px solid currentColor; border-radius: var(--radius-sm, .25rem); font: 700 1rem/1.15 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); text-align: center; cursor: pointer; } .ds-button-outline:hover { color: var(--sheet, #fffefd); background: var(--indigo-900, #291c91); border-color: var(--indigo-900, #291c91); } .ds-button-outline:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); } .ds-button-outline:disabled { opacity: .55; cursor: default; }",
+      "refersTo": "button-outline"
     },
     {
-      "name": "Light Button",
+      "name": "Sheet Button",
       "kind": "button",
-      "refersTo": "button-light",
-      "description": "High-contrast action for deep-indigo sections.",
-      "html": "<button class=\"ds-btn-light\">Talk to us</button>",
-      "css": ".ds-btn-light { min-height: 3.5rem; padding: 0.85rem 1.5rem; color: var(--indigo-950); background: var(--white); border: 1px solid transparent; border-radius: var(--radius-sm); font: 700 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; transition: transform 180ms var(--ease-out), background-color 180ms ease; } .ds-btn-light:hover { background: var(--mint); transform: translateY(-2px); } .ds-btn-light:focus-visible { outline: 0.2rem solid var(--mint); outline-offset: 0.25rem; } .ds-btn-light:active { transform: translateY(0) scale(0.98); }"
+      "description": "Light alternate button for a dark surface.",
+      "html": "<button class=\"ds-button-light\" type=\"button\">Discuss a demo</button>",
+      "css": ".ds-button-light { display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: .75rem 1.2rem; color: var(--indigo-950, #1d146c); background: var(--sheet, #fffefd); border: 1px solid transparent; border-radius: var(--radius-sm, .25rem); font: 700 1rem/1.15 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); text-align: center; cursor: pointer; } .ds-button-light:hover { color: var(--indigo-950, #1d146c); background: var(--docket, #e5e0ff); border-color: transparent; } .ds-button-light:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); } .ds-button-light:disabled { opacity: .55; cursor: default; }",
+      "refersTo": "button-light"
     },
     {
-      "name": "Filter Chip",
-      "kind": "chip",
-      "refersTo": "filter-chip",
-      "description": "Compact product filter; the only full-pill primitive.",
-      "html": "<button class=\"ds-filter-chip\">All documents</button>",
-      "css": ".ds-filter-chip { padding: 0.45rem 0.75rem; color: var(--indigo-900); background: var(--indigo-100); border: 0; border-radius: 999px; font: 600 0.86rem/1.2 'Source Sans 3', 'Segoe UI', sans-serif; transition: background-color 180ms ease; } .ds-filter-chip:hover { background: oklch(0.9 0.045 270); } .ds-filter-chip:focus-visible { outline: 0.2rem solid var(--mint-deep); outline-offset: 0.2rem; }"
+      "name": "Indigo Button",
+      "kind": "button",
+      "description": "Action within a local utility or form.",
+      "html": "<button class=\"ds-button-ink\" type=\"button\">Open email draft</button>",
+      "css": ".ds-button-ink { display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: .75rem 1.2rem; color: var(--sheet, #fffefd); background: var(--indigo-950, #1d146c); border: 1px solid transparent; border-radius: var(--radius-sm, .25rem); font: 700 1rem/1.15 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); text-align: center; cursor: pointer; } .ds-button-ink:hover { color: var(--sheet, #fffefd); background: var(--indigo-700, #3d2ac4); border-color: transparent; } .ds-button-ink:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); } .ds-button-ink:disabled { opacity: .55; cursor: default; }",
+      "refersTo": "button-ink"
     },
     {
-      "name": "Desktop Navigation",
+      "name": "Directory Search",
+      "kind": "input",
+      "description": "Search field inside a lilac filter bar.",
+      "html": "<label class=\"ds-search\"><span>Search trading partners</span><span class=\"ds-search__field\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m15.5 15.5 4 4\"/></svg><input type=\"search\" placeholder=\"Search name, type or region\"></span></label>",
+      "css": ".ds-search { display: grid; gap: .25rem; padding: .75rem; color: var(--ink, #1c1634); background: var(--docket, #e5e0ff); font: 700 1rem/1.55 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); } .ds-search__field { position: relative; display: flex; min-width: 0; } .ds-search svg { position: absolute; top: 50%; left: .75rem; width: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.5; transform: translateY(-50%); pointer-events: none; } .ds-search input { width: 100%; min-height: 2.875rem; padding: .625rem .75rem .625rem 2.35rem; color: var(--ink, #1c1634); background: var(--sheet, #fffefd); border: 1px solid var(--muted, #595170); border-radius: var(--radius-sm, .25rem); font: 400 1rem/1.55 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); } .ds-search input::placeholder { color: var(--muted, #595170); } .ds-search input:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); }",
+      "refersTo": "directory-field"
+    },
+    {
+      "name": "Primary Navigation",
       "kind": "nav",
-      "refersTo": "navigation",
-      "description": "White ruled navigation with a precise animated underline.",
-      "html": "<nav class=\"ds-nav\"><strong>EDI Spark</strong><a href=\"#\">Product</a><a href=\"#\">Pricing</a><button>Start free</button></nav>",
-      "css": ".ds-nav { display: flex; min-height: 5.75rem; align-items: center; gap: 2rem; padding: 0 2rem; color: var(--ink); background: var(--white); border-bottom: 1px solid var(--indigo-100); font: 600 1rem/1.1 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-nav strong { margin-right: auto; color: var(--indigo-900); font-size: 1.4rem; } .ds-nav a { position: relative; min-height: 2.75rem; display: inline-flex; align-items: center; color: inherit; text-decoration: none; } .ds-nav a::after { content: ''; position: absolute; inset: auto 0 0.25rem; height: 2px; background: var(--indigo-700); transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease-out); } .ds-nav a:hover::after, .ds-nav a:focus-visible::after { transform: scaleX(1); } .ds-nav button { min-height: 2.9rem; padding: 0.7rem 1.2rem; color: var(--ink); background: var(--mint); border: 0; border-radius: var(--radius-sm); font-weight: 700; }"
+      "description": "Sheet header links with a visible current route.",
+      "html": "<nav class=\"ds-navigation\" aria-label=\"Primary navigation\"><a href=\"/partners\" aria-current=\"page\">Trading partners</a><a href=\"/integrations\">Integrations</a><a href=\"/pricing\">Pricing</a></nav>",
+      "css": ".ds-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; min-height: 4.5rem; padding: .45rem 1rem; color: var(--ink, #1c1634); background: var(--sheet, #fffefd); border-bottom: 1px solid var(--rule, #d9d4ef); font: 600 1rem/1.55 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); } .ds-navigation a { display: inline-flex; align-items: center; min-height: 2.75rem; color: inherit; text-decoration: none; text-underline-offset: .21em; } .ds-navigation a:is(:hover, [aria-current]) { text-decoration: underline; } .ds-navigation a[aria-current] { color: var(--indigo-700, #3d2ac4); } .ds-navigation a:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); }",
+      "refersTo": "navigation"
     },
     {
-      "name": "Transaction Row",
+      "name": "Exchange Manifest",
       "kind": "custom",
-      "description": "Ruled product-evidence row with tabular reference and positive status.",
-      "html": "<div class=\"ds-transaction\"><span class=\"ds-document\"></span><span><strong>Purchase order</strong><small>PO-10482</small></span><em><i></i>Ready</em></div>",
-      "css": ".ds-transaction { display: grid; min-height: 6rem; grid-template-columns: 2.5rem 1fr auto; gap: 1rem; align-items: center; color: var(--ink); background: var(--white); border-top: 1px solid var(--indigo-100); border-bottom: 1px solid var(--indigo-100); font-family: 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-transaction > span:nth-child(2) { display: flex; flex-direction: column; } .ds-transaction small { color: var(--muted); font-variant-numeric: tabular-nums; } .ds-transaction em { display: inline-flex; align-items: center; gap: 0.5rem; color: oklch(0.38 0.11 155); font-size: 0.88rem; font-style: normal; font-weight: 600; } .ds-transaction em i { width: 0.55rem; height: 0.55rem; background: var(--mint-deep); border-radius: 50%; } .ds-document { width: 1.75rem; height: 2.2rem; border: 1px solid var(--indigo-700); border-radius: 2px; }"
+      "description": "A ruled document row with visible exchange direction and status.",
+      "html": "<figure class=\"ds-manifest\"><header>From order to invoice</header><div class=\"ds-manifest__columns\" aria-hidden=\"true\"><span>Document</span><span>Supplier</span><span>EDI Spark</span><span>Retailer</span><span>Status</span></div><div class=\"ds-manifest__row\"><strong>Purchase order</strong><span>PO-10482</span><span class=\"ds-manifest__route\"><span class=\"ds-manifest__direction\">Retailer to supplier</span><svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" aria-hidden=\"true\"><path d=\"M10 1v18M1 10h18M3.6 3.6l12.8 12.8m0-12.8L3.6 16.4\"/></svg></span><strong class=\"ds-manifest__status\">Received</strong></div><figcaption>Illustrative record</figcaption></figure>",
+      "css": ".ds-manifest { margin: 0; color: var(--ink, #1c1634); background: var(--sheet, #fffefd); border: 1px solid var(--rule, #d9d4ef); border-radius: var(--radius-md, .5rem); overflow: clip; font: 400 1rem/1.55 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); } .ds-manifest header { padding: 1.15rem .9rem; color: var(--sheet, #fffefd); background: var(--electric, #4228d1); border-bottom: 1px solid var(--rule, #d9d4ef); font-size: 1.4rem; font-weight: 700; } .ds-manifest__row { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; min-height: 4.3rem; padding: .65rem .9rem; border-bottom: 1px solid var(--rule, #d9d4ef); font-variant-numeric: tabular-nums; } .ds-manifest__row span, .ds-manifest figcaption { color: var(--muted, #595170); font-size: .94rem; } .ds-manifest__status { display: flex; gap: .4rem; align-items: center; color: var(--mint-deep, #1c5b38); } .ds-manifest__status::before { width: .44rem; height: .44rem; border-radius: 50%; background: currentColor; content: \"\"; } .ds-manifest figcaption { padding: .65rem .9rem; } .ds-manifest__columns { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: .5rem .9rem; color: var(--indigo-900, #291c91); background: var(--docket, #e5e0ff); border-bottom: 1px solid var(--rule, #d9d4ef); font-size: .9rem; font-weight: 700; } .ds-manifest__route { position: relative; display: grid; place-items: center; min-width: 6rem; color: var(--indigo-700, #3d2ac4); } .ds-manifest__direction { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } .ds-manifest__route::before { position: absolute; inset-inline: .3rem; height: 1px; background: currentColor; content: \"\"; } .ds-manifest__route::after { position: absolute; inset-inline-start: .42rem; width: .4rem; height: .4rem; border: solid currentColor; border-width: 1px 1px 0 0; content: \"\"; transform: rotate(-135deg); } .ds-manifest__route svg { z-index: 1; width: 1.5rem; height: 1.5rem; padding: .23rem; background: var(--mint, #a4f5bc); border-radius: 50%; } @media (max-width: 50rem) { .ds-manifest__columns, .ds-manifest__route::before, .ds-manifest__route::after, .ds-manifest__route svg { display: none; } .ds-manifest__direction { position: static; width: auto; height: auto; clip-path: none; white-space: normal; } }",
+      "refersTo": "manifest"
     },
     {
-      "name": "Price Ledger",
+      "name": "Guide Index Row",
       "kind": "custom",
-      "description": "Transparent consumption pricing expressed as an aligned ruled ledger.",
-      "html": "<div class=\"ds-price\"><span>Platform</span><strong>{monthly fee}</strong><small>per month</small></div>",
-      "css": ".ds-price { display: grid; grid-template-columns: 1fr auto; gap: 0 2rem; align-items: end; padding: 2.5rem 0; color: var(--ink); background: var(--white); border-top: 2px solid var(--indigo-900); border-bottom: 1px solid var(--indigo-100); font-family: 'Source Sans 3', 'Segoe UI', sans-serif; } .ds-price > span { align-self: center; font-size: 1.25rem; font-weight: 600; } .ds-price strong { color: var(--indigo-900); font-size: clamp(3.75rem, 7vw, 6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 0.85; font-variant-numeric: tabular-nums; } .ds-price small { grid-column: 2; color: var(--muted); text-align: right; }"
+      "description": "A single navigation target for the guide title and summary.",
+      "html": "<article class=\"ds-guide\"><a href=\"/guides/edi-costs\"><strong>How EDI costs work</strong><span>Understand the mailbox fee and count business documents.</span></a></article>",
+      "css": ".ds-guide { border-block: 1px solid var(--rule, #d9d4ef); border-top: 2px solid var(--indigo-950, #1d146c); font: 400 1rem/1.55 var(--font-sans, 'Source Sans 3', 'Segoe UI', sans-serif); } .ds-guide a { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .7rem 2rem; padding: 1.25rem 0; color: var(--indigo-950, #1d146c); text-decoration: none; } .ds-guide a::after { grid-column: 2; grid-row: 1 / 3; width: .7rem; height: .7rem; border-top: 2px solid; border-right: 2px solid; transform: rotate(45deg); content: \"\"; } .ds-guide strong { font-size: 1.55rem; line-height: 1.12; } .ds-guide span { grid-row: 2; color: var(--muted, #595170); font-size: 1.1rem; } .ds-guide a:is(:hover, :focus-visible) strong { text-decoration: underline; text-underline-offset: .17em; } .ds-guide a:focus-visible { outline: .16rem solid var(--indigo-700, #3d2ac4); outline-offset: .22rem; box-shadow: 0 0 0 .22rem var(--sheet, #fffefd); }"
     }
   ],
   "narrative": {
-    "northStar": "The Clear Exchange",
-    "overview": "EDI Spark feels like a brightly lit logistics control room after the paperwork has disappeared: calm, legible, and quietly powerful, with every connection understandable at a glance. The system gives suppliers immediate relief through plain language and large, decisive hierarchy, then proves capability through structured ledgers, transaction views, network indexes, and precise commercial detail.\n\nThe composition is architectural rather than card-led. Committed indigo fields represent dependable exchange infrastructure; white and pale indigo surfaces create breathing room; mint marks successful movement and action. Long sections use rules, asymmetric splits, and generous fluid spacing to establish pace. Desktop layouts become direct single-column stories below 58rem, while the core hierarchy and proof remain intact.\n\nThis system explicitly rejects the dated enterprise-software look associated with OpenText and TrueCommerce, jargon-heavy EDI sites, generic AI/SaaS styling, secretive pricing, and any suggestion of long or consultant-led setup.",
+    "northStar": "The Dispatch Manifest",
+    "overview": "The visual system borrows the clarity of shipping paperwork. Indigo and electric violet give the exchange a strong visual identity. Pale lilac, ruled columns and explicit labels make document flows, rates and catalogues easy to scan. Reading pages use a pale masthead and a section index.",
     "keyCharacteristics": [
-      "Committed violet-indigo infrastructure balanced by true white and a pale indigo surface",
-      "Mint used as a purposeful signal for action, connection, and success",
-      "One open humanist typeface with strong scale contrast and plain-English rhythm",
-      "Product evidence, trading-network coverage, and transparent pricing as the visual material",
-      "Flat, rule-led compositions with compact corners and almost no decorative elevation",
-      "Responsive motion that confirms exchange without gating access to content"
+      "Deep indigo mastheads and pale lilac reading surfaces",
+      "Electric violet exchange headings and lilac tool strips",
+      "Strong Source Sans 3 headings and readable prose",
+      "Flat, ruled lists and document sheets with compact corners",
+      "Luminous mint actions and exchange marks, with labelled green success states"
     ],
     "rules": [
-      { "name": "The Committed Indigo Rule", "body": "Indigo must carry major structural surfaces, not appear as a timid accent scattered across a generic white SaaS page.", "section": "colors" },
-      { "name": "The Signal Mint Rule", "body": "Mint means action, connection, or a successful state. If an element has none of those meanings, it does not earn mint.", "section": "colors" },
-      { "name": "The Infrastructure, Not AI Rule", "body": "Purple gradients, neon glows, cosmic imagery, and synthetic AI symbolism are prohibited.", "section": "colors" },
-      { "name": "The Plain-English Hierarchy Rule", "body": "Outcome first, evidence second, implementation detail on demand. Never simulate authority with dense jargon or walls of small text.", "section": "typography" },
-      { "name": "The One Human Voice Rule", "body": "Source Sans 3 is the brand voice. Monospace is reserved for genuine protocol or code data, never as decorative shorthand for technical credibility.", "section": "typography" },
-      { "name": "The Numerical Confidence Rule", "body": "Prices and document references use tabular numerals so transparent commercial information reads as stable infrastructure.", "section": "typography" },
-      { "name": "The Grounded Surface Rule", "body": "Sections and product evidence stay flat at rest. A shadow is allowed only when an element has genuinely moved above the page or when a compact ring communicates state.", "section": "elevation" },
-      { "name": "The One Depth Mechanism Rule", "body": "Never combine a border with a wide decorative shadow. Use a rule, a tonal change, or elevation—one mechanism at a time.", "section": "elevation" }
+      {
+        "name": "The Signal Color Rule",
+        "body": "Use mint for action, selection and the exchange marker. Pair successful status color with a visible label.",
+        "section": "colors"
+      },
+      {
+        "name": "The Numeral Alignment Rule",
+        "body": "Use tabular numerals for prices and comparable counts.",
+        "section": "typography"
+      }
     ],
     "dos": [
-      "Do make complexity feel handled: lead with faster onboarding, less admin, fewer errors, and clearer document visibility.",
-      "Do prove coverage with hundreds of trading partners, every major UK retailer, and more than 300 SaaS integrations.",
-      "Do make exchange tangible through real product UI, structured document flows, trading-network indexes, and transparent price ledgers.",
-      "Do let Exchange Indigo carry major structural surfaces and reserve Connection Mint for action, connection, and success.",
-      "Do keep the canonical prices and offer durations from src/config/pricing.ts, plus the no-setup-fee and no-annual-contract terms, close to conversion actions.",
-      "Do preserve semantic structure, visible keyboard focus, WCAG 2.2 AA contrast, and the global reduced-motion alternative.",
-      "Do route technical evaluators toward API, A2A, agentic, MCP, and UBL detail without forcing that vocabulary into the supplier journey."
+      "Do Put the primary action and strongest evidence early in the page.",
+      "Do Keep pricing and example values identifiable and easy to compare.",
+      "Do Use semantic headings, persistent labels, visible focus and readable contrast."
     ],
     "donts": [
-      "Don't reproduce the dated enterprise-software look associated with OpenText or TrueCommerce.",
-      "Don't build a jargon-heavy EDI website that asks suppliers to understand implementation before business value.",
-      "Don't use generic AI/SaaS styling: purple gradients, neon glows, glass cards, decorative network orbs, interchangeable rounded-card grids, or synthetic AI imagery are forbidden.",
-      "Don't hide pricing or suggest long setup times, consultant-led implementation, secretive sales qualification, or inflexible annual contracts.",
-      "Don't imply an established customer history. This is a new startup; establish trust through specific, supportable product and integration evidence.",
-      "Don't use product-free decoration where real coverage, interface evidence, or technical artifacts can establish trust.",
-      "Don't repeat tiny uppercase eyebrows, decorative numbered section markers, gradient text, side-stripe accents, wide ghost-card shadows, or decorative grid backgrounds as scaffolding.",
-      "Don't exceed 0.75rem corner radii on functional containers. Full pills are reserved for filters and compact statuses."
+      "Don't Imply a live retailer connection through an illustration or directory listing.",
+      "Don't Use neon gradients, glass effects or decorative technology imagery.",
+      "Don't Add visual ornament that competes with document names, prices and statuses."
     ]
   }
 }

@@ -16,7 +16,8 @@ const navigation = [
     <span>EDI Spark</span>
   </a>
   <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-navigation" data-menu-button>
-    <span class="sr-only">Open navigation</span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    Menu
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M1 5h14M1 11h14" /></svg>
   </button>
   <nav id="site-navigation" class="site-navigation" aria-label="Primary navigation" data-navigation>
     <div class="nav-links">
@@ -29,33 +30,25 @@ const navigation = [
   </nav>
 </header>
 <script>
-  const button = document.querySelector<HTMLButtonElement>('[data-menu-button]');
-  const navigation = document.querySelector<HTMLElement>('[data-navigation]');
-  const setMenu = (open: boolean) => {
-    if (!button || !navigation) return;
-    button.setAttribute('aria-expanded', String(open));
-    const label = button.querySelector('.sr-only');
-    if (label) label.textContent = open ? 'Close navigation' : 'Open navigation';
-    navigation.dataset.open = String(open);
-    document.body.classList.toggle('menu-open', open);
-  };
-  button?.addEventListener('click', () => setMenu(button.getAttribute('aria-expanded') !== 'true'));
-  navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
-      setMenu(false);
-      button.focus();
-    }
-    if (event.key === 'Tab' && button?.getAttribute('aria-expanded') === 'true' && navigation) {
-      const links = [...navigation.querySelectorAll<HTMLAnchorElement>('a[href]')];
-      const last = links.at(-1);
-      if (event.shiftKey && document.activeElement === button && last) {
-        event.preventDefault(); last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault(); button.focus();
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const button = header?.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const navigation = header?.querySelector<HTMLElement>('[data-navigation]');
+  if (header && button && navigation) {
+    const setMenu = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      navigation.dataset.open = String(open);
+    };
+    button.addEventListener('click', () => setMenu(button.getAttribute('aria-expanded') !== 'true'));
+    header.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        setMenu(false);
+        button.focus();
       }
-    }
-  });
-  window.matchMedia('(min-width: 58.01rem)').addEventListener('change', () => setMenu(false));
+    });
+    window.matchMedia('(max-width: 65rem)').addEventListener('change', ({ matches }) => {
+      if (matches && navigation.contains(document.activeElement)) button.focus();
+      setMenu(false);
+    });
+    header.dataset.menuReady = '';
+  }
 </script>
-<noscript><style>.menu-button{display:none!important}@media(max-width:58rem){.site-header{position:relative;flex-wrap:wrap}.site-navigation{position:static!important;display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;transform:none!important;height:auto!important;padding:1rem!important}.nav-links{flex-wrap:wrap}}</style></noscript>

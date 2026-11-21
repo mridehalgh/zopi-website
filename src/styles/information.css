@@ -1,0 +1,331 @@
+.information-page {
+  background: var(--paper);
+}
+
+.information-wrap {
+  width: min(100%, 85rem);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.information-hero {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(2.75rem, 6vw, 5rem) clamp(2.25rem, 5vw, 4.5rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.information-hero:not(.contact-intro)::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--docket);
+  clip-path: polygon(93% 0, 100% 0, 100% 100%, 69% 100%);
+  content: '';
+}
+
+.contact-page {
+  background: var(--paper);
+  background-image: linear-gradient(121deg, var(--paper) 62%, var(--docket) 62%);
+}
+
+.contact-grid form { clip-path: polygon(0 0, calc(100% - 1.6rem) 0, 100% 1.6rem, 100% 100%, 0 100%); }
+
+.information-hero h1 {
+  max-width: 19ch;
+  margin-block: 0 .38em;
+  color: var(--indigo-950);
+  font-size: clamp(2.45rem, 5.6vw, 4.75rem);
+  font-weight: 700;
+  line-height: .99;
+  letter-spacing: -.035em;
+}
+
+.information-lede {
+  max-width: 63ch;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: clamp(1.15rem, 2vw, 1.42rem);
+  line-height: 1.5;
+}
+
+.information-hero .button {
+  margin-top: 1.75rem;
+}
+
+.information-body {
+  padding-block: clamp(2.5rem, 6vw, 5.5rem);
+}
+
+.information-body h2 {
+  margin: 0 0 .7em;
+  color: var(--indigo-950);
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -.02em;
+}
+
+.information-body a:not(.button),
+.contents-nav a {
+  color: var(--indigo-700);
+}
+
+.information-body a:not(.button):hover,
+.contents-nav a:hover {
+  text-decoration-thickness: .14em;
+}
+
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(10rem, 15rem) minmax(0, 72ch);
+  align-items: start;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.contents-nav {
+  position: sticky;
+  top: 2rem;
+  border-top: 2px solid var(--indigo-950);
+}
+
+.contents-nav p {
+  margin: .8rem 0 .5rem;
+  color: var(--indigo-950);
+  font-weight: 700;
+}
+
+.contents-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contents-nav li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.contents-nav a {
+  display: block;
+  padding-block: .6rem;
+  text-decoration-color: transparent;
+  text-underline-offset: .17em;
+}
+
+.contents-nav a:is(:hover, :focus-visible) {
+  text-decoration-color: currentColor;
+}
+
+.information-prose {
+  min-width: 0;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+
+.information-prose section + section {
+  margin-top: 2.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.information-prose section :last-child {
+  margin-bottom: 0;
+}
+
+.information-prose [id] {
+  scroll-margin-top: 1rem;
+}
+
+.information-list {
+  max-width: 65rem;
+  margin: 1.6rem 0 2rem;
+  border-top: 2px solid var(--indigo-950);
+  font-size: 1.125rem;
+}
+
+.information-list > div {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) minmax(0, 2.6fr);
+  gap: 1rem 2rem;
+  padding-block: 1.35rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.information-list dt {
+  color: var(--indigo-950);
+  font-weight: 700;
+}
+
+.information-list dd {
+  max-width: 63ch;
+  margin: 0;
+}
+
+.information-note {
+  max-width: 65ch;
+  color: var(--muted);
+}
+
+.information-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  margin-bottom: 0;
+}
+
+.contact-intro {
+  max-width: 35rem;
+}
+
+.contact-page .information-hero {
+  padding: 0;
+  border: 0;
+}
+
+.contact-page .information-hero h1 {
+  font-size: clamp(2.45rem, 5vw, 4.3rem);
+}
+
+.contact-page .information-lede {
+  max-width: 37ch;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .96fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.contact-page .contact-email {
+  display: inline-block;
+  margin-top: 1.25rem;
+  color: var(--indigo-700);
+  font-size: 1.2rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.contact-booking {
+  margin-bottom: 0;
+}
+
+.contact-context {
+  max-width: 68ch;
+  grid-column: 1;
+}
+
+.contact-grid form:not([hidden]) {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  justify-items: start;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border: 1px solid var(--rule);
+  background: var(--sheet);
+}
+
+.contact-grid form h2 {
+  margin-bottom: .4em;
+}
+
+.contact-grid label {
+  font-weight: 700;
+}
+
+.contact-grid label span {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.contact-grid input,
+.contact-grid textarea {
+  width: 100%;
+  margin: .45rem 0 1.15rem;
+  padding: .7rem .8rem;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius-sm);
+  background: var(--sheet);
+  color: var(--ink);
+  caret-color: var(--indigo-700);
+  font: inherit;
+}
+
+.contact-grid textarea {
+  margin-bottom: .55rem;
+  resize: vertical;
+}
+
+.contact-grid [role='status'] {
+  margin: .9rem 0 0;
+}
+
+.contact-grid [role='status']:empty {
+  margin: 0;
+}
+
+.form-explanation {
+  max-width: 50ch;
+  color: var(--muted);
+}
+
+.contact-grid #draft-safety {
+  font-size: .94rem;
+}
+
+.information-404 .information-hero {
+  display: grid;
+  align-content: center;
+  min-height: 60svh;
+}
+
+.information-404 .information-links {
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.information-404 .button {
+  margin-top: 0;
+}
+
+@media (max-width: 50rem) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid form:not([hidden]) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .contact-context {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 46rem) {
+  .information-hero:not(.contact-intro)::before { clip-path: polygon(100% 59%, 100% 100%, 77% 100%); }
+  .contact-page { background-image: linear-gradient(125deg, var(--paper) 58%, var(--docket) 58%); }
+  .reading-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contents-nav {
+    position: static;
+  }
+
+  .contents-nav ul {
+    columns: 2 9rem;
+    column-gap: 1rem;
+  }
+
+  .contents-nav li {
+    break-inside: avoid;
+  }
+
+  .information-list > div {
+    grid-template-columns: 1fr;
+    gap: .35rem;
+  }
+}

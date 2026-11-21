@@ -20,26 +20,83 @@ const faqs = [
   <SiteHeader current="/pricing" />
   <main id="main-content" class="pricing-page">
     <section class="pricing-hero" aria-labelledby="pricing-hero-title">
-      <div class="pricing-hero__copy"><p class="pricing-context">Standard supplier pricing</p><h1 id="pricing-hero-title">{pricingDisplay.monthlyFee} a month.<br />{pricingDisplay.documentFee} per document.</h1><p class="pricing-hero__lede">See the monthly service fee and document usage together. Estimate a typical month, then confirm the connection and support scope you need.</p><ul class="hero-assurances"><li>Standard setup included</li><li>No annual contract</li><li>Prices exclude VAT</li></ul><p class="pricing-volume-note">Higher volumes or a larger network? <a href="/contact?intent=enterprise">Discuss a volume agreement</a>.</p></div>
-      <div class="estimator" data-price-estimator>
-        <div class="estimator__heading"><p>See your monthly cost</p><span>Count documents sent and received, rather than orders.</span></div>
+      <div class="pricing-hero__copy">
+        <h1 id="pricing-hero-title">Price your retailer EDI.</h1>
+        <dl class="standard-rates" aria-label="Standard supplier rates">
+          <div><dt>Monthly service</dt><dd>{pricingDisplay.monthlyFee}</dd></div>
+          <div><dt>Per document</dt><dd>{pricingDisplay.documentFee}</dd></div>
+        </dl>
+        <p class="pricing-rate-note">Standard setup included. No annual contract. Prices exclude VAT.</p>
+      </div>
+      <section class="estimator" data-price-estimator aria-labelledby="estimator-title">
+        <div class="estimator__heading"><h2 id="estimator-title">Monthly cost estimate</h2><p>Standard recurring price, excluding VAT</p></div>
         <noscript><p class="estimator-help">This example uses {pricing.estimator.defaultDocuments} documents. Enable JavaScript to adjust the calculator, or use the worked estimates below.</p><style>.estimator__controls{display:none!important}</style></noscript>
         <div class="estimator__controls">
-          <div class="estimator__label-row"><label for="document-volume-number">Documents per month</label><div class="estimator__number-wrap"><input id="document-volume-number" name="document-volume-number" type="number" min="0" step="1" value={pricing.estimator.defaultDocuments} inputmode="numeric" aria-describedby="volume-help estimate-error" data-volume-number /><span>documents</span></div></div>
-          <label class="sr-only" for="document-volume">Adjust monthly document volume</label><input id="document-volume" type="range" min="0" max={pricing.estimator.maximumDocuments} step={pricing.estimator.step} value={pricing.estimator.defaultDocuments} aria-describedby="volume-help" data-volume-range />
-          <div class="estimator__range-labels"><span>0</span><span>{pricing.estimator.maximumDocuments.toLocaleString('en-GB')}</span></div><p id="volume-help" class="estimator-help">The slider covers 0–5,000 documents. Enter a larger volume in the number field.</p>
-          <div class="estimate-presets" aria-label="Example volumes">{presets.map((volume) => <button type="button" data-volume-preset={volume}>{volume.toLocaleString('en-GB')} documents</button>)}</div><p id="estimate-error" class="estimate-error" role="status" data-estimate-error></p>
+          <div class="estimator__label-row">
+            <label for="document-volume-number">Documents per month</label>
+            <input id="document-volume-number" name="document-volume-number" type="number" min="0" step="1" value={pricing.estimator.defaultDocuments} inputmode="numeric" aria-describedby="volume-help estimate-error" data-volume-number />
+          </div>
+          <label class="sr-only" for="document-volume">Adjust monthly document volume</label>
+          <input id="document-volume" type="range" min="0" max={pricing.estimator.maximumDocuments} step={pricing.estimator.step} value={pricing.estimator.defaultDocuments} aria-describedby="volume-help" data-volume-range />
+          <div class="estimator__range-labels" aria-hidden="true"><span>0</span><span>{pricing.estimator.maximumDocuments.toLocaleString('en-GB')}</span></div>
+          <p id="volume-help" class="estimator-help">Count documents sent and received. For more than {pricing.estimator.maximumDocuments.toLocaleString('en-GB')}, type the amount above.</p>
+          <div class="estimate-presets" role="group" aria-label="Example volumes">
+            {presets.map((volume) => <button type="button" aria-label={`${volume.toLocaleString('en-GB')} documents`} aria-pressed={volume === pricing.estimator.defaultDocuments ? 'true' : 'false'} data-volume-preset={volume}>{volume.toLocaleString('en-GB')}<span> documents</span></button>)}
+          </div>
+          <p id="estimate-error" class="estimate-error" role="status" data-estimate-error></p>
         </div>
-        <div class="estimator__breakdown"><div class="estimator__row"><span>Monthly service</span><strong>{pricingDisplay.monthlyFee}</strong></div><div class="estimator__row"><span>Document usage<small data-usage-formula>{pricing.estimator.defaultDocuments} × {pricingDisplay.documentFee}</small></span><strong data-usage-fee>{formatPrice(pricing.estimator.defaultDocuments * pricing.standard.documentFee)}</strong></div></div>
-        <div class="estimator__total"><span class="estimator__total-label"><i aria-hidden="true"></i>Estimated monthly total</span><output for="document-volume document-volume-number" aria-live="polite" data-total>{formatPrice(estimateMonthlyCost(pricing.estimator.defaultDocuments))}</output><small>Excluding VAT · standard recurring price</small></div>
-        <p class="estimator__message" data-estimator-message>Confirm your integration scope and billable-document policy before starting.</p><a class="button estimator__cta" href={trialHref} data-cta="trial">{trialLabel}</a><a class="text-arrow text-arrow--ink" href="/contact?intent=enterprise">Ask about volume pricing <span aria-hidden="true">→</span></a>
+        <dl class="estimator__breakdown">
+          <div class="estimator__row"><dt>Monthly service</dt><dd>{pricingDisplay.monthlyFee}</dd></div>
+          <div class="estimator__row"><dt>Document usage <small data-usage-formula>{pricing.estimator.defaultDocuments} × {pricingDisplay.documentFee}</small></dt><dd data-usage-fee>{formatPrice(pricing.estimator.defaultDocuments * pricing.standard.documentFee)}</dd></div>
+        </dl>
+        <div class="estimator__total"><span id="estimate-total-label">Monthly total <small>ex VAT</small></span><output for="document-volume document-volume-number" aria-labelledby="estimate-total-label" data-total>{formatPrice(estimateMonthlyCost(pricing.estimator.defaultDocuments))}</output></div>
+        <p class="estimator__message" data-estimator-message>Confirm your integration scope and billable-document policy before starting.</p>
+        <div class="estimator__actions"><a class="button estimator__cta" href={trialHref} data-cta="trial">{trialLabel}</a><a href="/contact?intent=enterprise" data-cta="enterprise">Ask about volume pricing</a></div>
+      </section>
+    </section>
+    <section class="pricing-section price-examples" aria-labelledby="examples-title">
+      <div>
+        <h2 id="examples-title">Compare a quiet month with a busy one.</h2>
+        <p>An order, a despatch advice and an invoice count as three separate documents. Check your retailer’s workflow and the billing policy when estimating usage.</p>
+        <a href="/guides/edi-costs">Read the EDI cost guide</a>
+      </div>
+      <div class="price-example-table">
+        <table>
+          <caption>Standard monthly estimates</caption>
+          <thead><tr><th scope="col">Documents</th><th scope="col">Service fee</th><th scope="col">Total ex VAT</th></tr></thead>
+          <tbody>{[0, ...presets].map((documents) => <tr><th scope="row">{documents.toLocaleString('en-GB')}</th><td>{pricingDisplay.monthlyFee}</td><td>{formatPrice(estimateMonthlyCost(documents))}</td></tr>)}</tbody>
+        </table>
+        <p>Figures exclude separately agreed third-party or bespoke integration costs.</p>
       </div>
     </section>
-    <section class="price-examples section" aria-labelledby="examples-title"><div class="section-heading"><p class="section-intro">A few useful reference points</p><h2 id="examples-title">Estimate a quiet month and a busy one.</h2><p>These are standard recurring estimates, excluding VAT and any separately agreed third-party or bespoke integration costs.</p></div><div class="price-example-table"><table><caption>Monthly estimates at the advertised standard rate</caption><thead><tr><th scope="col">Documents</th><th scope="col">Service fee</th><th scope="col">Total ex VAT</th></tr></thead><tbody>{presets.map((documents) => <tr><th scope="row">{documents.toLocaleString('en-GB')}</th><td>{pricingDisplay.monthlyFee}</td><td>{formatPrice(estimateMonthlyCost(documents))}</td></tr>)}</tbody></table><p>An order, a despatch advice and an invoice are three separate documents. Confirm your retailer’s workflow and the billing policy when estimating usage.</p><a class="text-arrow text-arrow--ink" href="/guides/edi-costs">Read the EDI cost guide <span aria-hidden="true">→</span></a></div></section>
-    <section class="pricing-routes section" aria-labelledby="plans-title"><div class="section-heading"><p class="section-intro">Choose the right conversation</p><h2 id="plans-title">Start small.<br />Plan for your volume.</h2></div><div class="pricing-route-list"><article><h3>Managed supplier EDI</h3><p>Standard pricing for suppliers beginning retailer EDI. Discuss your connection, the {pricing.standard.trialDays}-day trial and the work included before you start.</p><strong>{pricingDisplay.monthlyFee}/month + {pricingDisplay.documentFee}/document</strong><a class="button" href={trialHref} data-cta="trial">{trialLabel}</a></article><article><h3>Enterprise and regular volume</h3><p>For larger networks, integration requirements and service terms that need a tailored scope. Request a proposal based on your expected and peak usage.</p><strong>Tailored commercial terms</strong><a class="button button--outline" href="/enterprise">Explore enterprise EDI</a></article><p class="developer-pricing-route">Evaluating APIs or automation? <a href={site.sandboxUrl ?? '/contact?intent=developer'} data-cta>{site.sandboxUrl ? 'Open the developer sandbox' : 'Discuss developer test access'}</a> or <a href="/developers">review the technical evaluation guide</a>.</p></div></section>
-    <section class="switch-offer" aria-labelledby="switch-title"><div class="route-node route-node--switch" aria-hidden="true">↔</div><div class="switch-offer__copy"><div class="switch-offer__title"><p>Moving from an existing provider?</p><h2 id="switch-title">Ask about {pricing.switchingOffer.freeDays} days free.</h2></div><div class="switch-offer__details"><p>Eligibility, included work and trial overlap are confirmed before onboarding. Agree testing and cutover responsibilities before changing a live route.</p></div></div><a class="button button--ink" href="/contact?intent=switching">Discuss a switch</a></section>
-    <section class="pricing-terms" aria-labelledby="terms-title"><div class="pricing-terms__heading"><h2 id="terms-title">Know what you’re agreeing to.</h2><p>Settle the scope, usage rules and next steps before starting a trial or moving a live connection.</p><a class="text-arrow text-arrow--ink" href="/terms">Read service information <span aria-hidden="true">→</span></a></div><div class="pricing-faqs">{faqs.map((item) => <details><summary>{item.question}<span aria-hidden="true"></span></summary><p>{item.answer}</p></details>)}</div></section>
-    <section class="pricing-cta" aria-labelledby="pricing-cta-title"><div><p>Bring your retailer, software and expected volume.</p><h2 id="pricing-cta-title">Put a clear scope behind the price.</h2></div><div class="pricing-cta__actions"><a class="button button--ink" href={trialHref} data-cta="trial">{trialLabel}</a></div></section>
+    <section class="pricing-section pricing-routes" aria-labelledby="plans-title">
+      <h2 id="plans-title">Choose the scope that fits.</h2>
+      <div class="pricing-route-list">
+        <article>
+          <h3>Managed supplier EDI</h3>
+          <p>Standard pricing for suppliers beginning retailer EDI. Discuss your connection, the {pricing.standard.trialDays}-day trial and the work included before you start.</p>
+          <a class="button" href={trialHref} data-cta="trial">{trialLabel}</a>
+        </article>
+        <article>
+          <h3>Enterprise and regular volume</h3>
+          <p>For larger networks or tailored integration and service terms. Request a proposal based on expected and peak usage.</p>
+          <a class="button button--outline" href="/enterprise">Explore enterprise EDI</a>
+        </article>
+      </div>
+      <p class="developer-pricing-route">Evaluating APIs or automation? <a href={site.sandboxUrl ?? '/contact?intent=developer'} data-cta="developer">{site.sandboxUrl ? 'Open the developer sandbox' : 'Discuss developer test access'}</a> or <a href="/developers">review the technical evaluation guide</a>.</p>
+    </section>
+    <section class="switch-offer" aria-labelledby="switch-title">
+      <h2 id="switch-title">Switching providers? Ask about {pricing.switchingOffer.freeDays} days free.</h2>
+      <div><p>Confirm eligibility, included work and trial overlap before onboarding. Agree testing and cutover responsibilities before changing a live route.</p><a class="button button--outline" href="/contact?intent=switching" data-cta="switching">Discuss a switch</a></div>
+    </section>
+    <section class="pricing-section pricing-terms" aria-labelledby="terms-title">
+      <div><h2 id="terms-title">Questions about pricing and terms.</h2><a href="/terms">Read service information</a></div>
+      <div class="pricing-faqs">{faqs.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
+    </section>
+    <section class="pricing-cta" aria-labelledby="pricing-cta-title">
+      <div><h2 id="pricing-cta-title">Put a clear scope behind the price.</h2><p>Bring your retailer, software and expected volume.</p></div>
+      <a class="button" href={trialHref} data-cta="trial">{trialLabel}</a>
+    </section>
   </main><SiteFooter />
   <script>
     import { pricing, estimateMonthlyCost, formatPrice } from '../config/pricing';
@@ -53,8 +110,9 @@ const faqs = [
       const formula = estimator.querySelector<HTMLElement>('[data-usage-formula]')!;
       const error = estimator.querySelector<HTMLElement>('[data-estimate-error]')!;
       const message = estimator.querySelector<HTMLElement>('[data-estimator-message]')!;
+      const presets = [...estimator.querySelectorAll<HTMLButtonElement>('[data-volume-preset]')];
       const update = (rawValue: string) => {
-        let value = Number(rawValue);
+        const value = Number(rawValue);
         try {
           if (!rawValue.trim()) throw new RangeError('Enter a whole number of documents to see an estimate.');
           const cost = estimateMonthlyCost(value);
@@ -62,7 +120,6 @@ const faqs = [
           number.removeAttribute('aria-invalid');
           error.textContent = '';
           range.value = String(Math.min(value, pricing.estimator.maximumDocuments));
-          range.style.setProperty('--range-progress', `${Math.min(value / pricing.estimator.maximumDocuments, 1) * 100}%`);
           usage.textContent = formatPrice(cost - pricing.standard.monthlyFee);
           formula.textContent = `${value.toLocaleString('en-GB')} × ${formatPrice(pricing.standard.documentFee)}`;
           total.textContent = formatPrice(cost);
@@ -70,8 +127,7 @@ const faqs = [
             ? 'This is the full standard-rate estimate for your entered volume. Ask about a tailored volume agreement.'
             : value === 0 ? `At zero documents, the ${formatPrice(pricing.standard.monthlyFee)} monthly service fee still applies.`
             : 'Confirm your integration scope and billable-document policy before starting.';
-          estimator.dataset.volumeState = value > pricing.estimator.maximumDocuments ? 'enterprise' : value === 0 ? 'quiet' : 'active';
-          estimator.querySelectorAll<HTMLButtonElement>('[data-volume-preset]').forEach((button) => button.setAttribute('aria-pressed', String(Number(button.dataset.volumePreset) === value)));
+          presets.forEach((button) => button.setAttribute('aria-pressed', String(Number(button.dataset.volumePreset) === value)));
           return value;
         } catch (issue) {
           const text = issue instanceof Error ? issue.message : 'Enter a valid document volume.';
@@ -80,8 +136,9 @@ const faqs = [
           error.textContent = text;
           total.textContent = '—';
           usage.textContent = '—';
-          formula.textContent = 'Enter a valid volume';
+          formula.textContent = '';
           message.textContent = 'The monthly total will appear when the volume is valid.';
+          presets.forEach((button) => button.setAttribute('aria-pressed', 'false'));
           return null;
         }
       };
@@ -93,7 +150,7 @@ const faqs = [
       number.addEventListener('change', () => measure(update(number.value)));
       range.addEventListener('input', () => { number.value = range.value; update(range.value); });
       range.addEventListener('change', () => measure(update(range.value)));
-      estimator.querySelectorAll<HTMLButtonElement>('[data-volume-preset]').forEach((button) => button.addEventListener('click', () => { number.value = button.dataset.volumePreset!; measure(update(number.value)); }));
+      presets.forEach((button) => button.addEventListener('click', () => { number.value = button.dataset.volumePreset!; measure(update(number.value)); }));
       update(number.value);
     }
   </script>

@@ -44,16 +44,25 @@ for (const path of files) {
   assert.match(html, /<main\b[^>]*id="main-content"/);
   assert.match(html, /<title>[^<]+<\/title>/);
   assert.match(html, /<meta name="description" content="[^"]+"/);
-  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
-  assert.equal(new URL(canonical).origin, new URL(origin).origin);
-  assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `${path}: sitemap membership`);
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  const is404 = path === join(root, '404.html');
+  const pageUrl = is404 ? new URL('/404.html', origin).href : canonical;
+  if (is404) {
+    assert.match(html, /<meta name="robots" content="noindex, follow"/);
+    assert.equal(canonical, undefined, '404 page has no canonical URL');
+    assert.doesNotMatch(sitemap, /\/404(?:\.html|\/)?<\/loc>/);
+  } else {
+    assert.ok(canonical, `${path}: canonical URL`);
+    assert.equal(new URL(canonical).origin, new URL(origin).origin);
+    assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `${path}: sitemap membership`);
+  }
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length, `${path}: unique IDs`);
   for (const match of html.matchAll(/<(?:a|link)\b[^>]*\bhref="([^"]+)"/g)) {
     const href = match[1].replaceAll('&amp;', '&');
     assert.ok(!/example\.com|\.example\b/.test(href), `Placeholder link in ${path}`);
     if (/^(mailto:|tel:)/.test(href)) { assert.ok(!/^mailto:(?:\?|$)/.test(href)); continue; }
-    const url = new URL(href, canonical);
+    const url = new URL(href, pageUrl);
     if (url.origin !== new URL(origin).origin) continue;
     const target = join(root, decodeURIComponent(url.pathname));
     const info = await stat(target).catch(() => null);

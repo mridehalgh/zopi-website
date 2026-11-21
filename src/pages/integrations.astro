@@ -2,11 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { pricing } from '../config/pricing';
+import { demoHref, site, trialHref, trialLabel } from '../config/site';
 import { integrationCategories, integrations } from '../data/integrations';
 import '../styles/integrations.css';
-
-const trialUrl = '/contact?intent=trial';
-const demoUrl = '/contact?intent=demo';
 
 const categoryCounts = new Map(
   integrationCategories.map((category) => [
@@ -33,56 +32,33 @@ const markFor = (name: string) => name
   <main id="main-content" class="integrations-page">
     <section class="integrations-hero" aria-labelledby="integrations-title">
       <div class="integrations-hero__copy">
-        <p class="integrations-context">Business integrations</p>
-        <h1 id="integrations-title">Find the EDI route for your business systems.</h1>
+        <h1 id="integrations-title">Find the right EDI connection.</h1>
         <p class="integrations-hero__lede">
-          Explore systems used for orders, invoices, despatch notices and inventory.
-          Tell us your product version and workflow so we can assess the right connection route.
+          Find your business system and tell us your product version and workflow.
+          We’ll assess how it could exchange orders, invoices, despatch notices and inventory.
         </p>
         <div class="button-group">
           <a class="button" href="#directory">Browse integrations</a>
-          <a class="button button--hero-outline" href={trialUrl}>Discuss a trial</a>
+          <a class="button button--hero-outline" href={trialHref} data-cta="trial">{site.trialUrl ? trialLabel : 'Discuss a trial'}</a>
         </div>
       </div>
 
-      <div class="exchange-rail" aria-label="Illustration of potential sales, operations, accounting and shipping document flows">
-        <div class="rail-node rail-node--sell">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6h3l3 14h13l3-9H9M12 26h.01M23 26h.01" /></svg>
-          <span>Sell</span>
-        </div>
-        <div class="rail-node rail-node--operate">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27V10l11-5 11 5v17M10 27v-8h12v8M10 13h2M15 13h2M20 13h2" /></svg>
-          <span>Operate</span>
-        </div>
-        <div class="rail-core" aria-label="EDI Spark">
-          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        </div>
-        <div class="rail-node rail-node--account">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" /><path d="M19.5 11.5c-1-1-6-1.5-6 1.5 0 4 7 2 7 6 0 3-5.5 3.5-8 1.5M16 7v4M16 21v4" /></svg>
-          <span>Account</span>
-        </div>
-        <div class="rail-node rail-node--ship">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 8h16v14H3zM19 13h5l5 5v4H19zM8 25a3 3 0 1 0 0-.1M24 25a3 3 0 1 0 0-.1" /></svg>
-          <span>Ship</span>
-        </div>
-        <div class="rail-line" aria-hidden="true"><span></span><i></i><i></i><i></i></div>
-        <p>Orders <i></i> Invoices <i></i> Dispatch <i></i> Inventory</p>
-      </div>
+      <dl class="integration-manifest">
+        <div><dt>Document flows</dt><dd>Orders, invoices, despatch notices, inventory</dd></div>
+        <div><dt>Connection routes</dt><dd>API, files, automation or private applications</dd></div>
+      </dl>
     </section>
 
     <section class="integration-directory" id="directory" aria-labelledby="directory-title" data-integration-directory>
       <div class="directory-intro">
-        <div>
-          <h2 id="directory-title">Find your system</h2>
-          <p>Systems to discuss for EDI and B2B operations. Listings describe potential use cases, not verified connectors; compatibility and scope require assessment.</p>
-        </div>
+        <h2 id="directory-title">Find your system</h2>
         <p class="integration-count" aria-live="polite" data-integration-count>
-          <strong>{integrations.length}</strong> systems listed
+          <strong data-integration-number>{integrations.length}</strong> <span data-integration-label>systems listed</span>
         </p>
       </div>
 
       <div class="integration-browser">
-        <aside class="integration-filters" aria-label="Integration filters">
+        <div class="integration-filters" role="search" aria-label="Find an integration" hidden data-integration-tools>
           <div class="integration-search">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
             <label class="sr-only" for="integration-search">Search integrations</label>
@@ -90,26 +66,18 @@ const markFor = (name: string) => name
             <button type="button" hidden data-clear-integration-search>Clear</button>
           </div>
 
-          <div class="category-list" role="group" aria-label="Filter by category">
-            <button type="button" aria-pressed="true" data-integration-category="all">
-              <span>All systems</span><strong>{integrations.length}</strong>
-            </button>
-            {integrationCategories.map((category) => (
-              <button type="button" aria-pressed="false" data-integration-category={category}>
-                <span>{category}</span><strong>{categoryCounts.get(category)}</strong>
-              </button>
-            ))}
-          </div>
+          <label class="integration-category">
+            <span>Category</span>
+            <select data-integration-category>
+              <option value="all">All systems ({integrations.length})</option>
+              {integrationCategories.map((category) => (
+                <option value={category}>{category} ({categoryCounts.get(category)})</option>
+              ))}
+            </select>
+          </label>
+        </div>
 
-          <div class="custom-connection">
-            <span aria-hidden="true">{`{ }`}</span>
-            <div>
-              <strong>Not listed?</strong>
-              <p>Ask us to assess it.</p>
-            </div>
-            <a href={demoUrl} aria-label="Discuss a custom connection">→</a>
-          </div>
-        </aside>
+        <p class="integration-listing-note">Listings describe potential use cases for EDI and B2B operations. Compatibility and scope require assessment before a connector can be confirmed.</p>
 
         <div class="integration-results">
           <div class="results-heading" aria-hidden="true">
@@ -119,7 +87,7 @@ const markFor = (name: string) => name
           <div class="integration-rows" data-integration-rows>
             {integrations.map((integration) => (
               <article
-              class="system-row"
+                class="system-row"
                 data-integration-row
                 data-integration-name={integration.name.toLocaleLowerCase('en-GB')}
                 data-category={integration.category}
@@ -127,25 +95,33 @@ const markFor = (name: string) => name
               >
                 <div class="integration-identity">
                   <span class="integration-mark" aria-hidden="true">{markFor(integration.name)}</span>
-                  <div><h3><a href={`/contact?intent=connection&connection=${encodeURIComponent(integration.name)}`} data-analytics-event="directory_item_selected" data-directory="integrations" data-item-slug={integration.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}>{integration.name}</a></h3><small>{integration.category}</small></div>
+                  <div><h3>{integration.name}</h3><small>{integration.category}</small></div>
                 </div>
                 <p>{integration.description}</p>
                 <ul aria-label={`${integration.name} potential document flows`}>
                   {integration.capabilities.map((capability) => <li>{capability}</li>)}
                 </ul>
-                <a class="integration-status" href={`/contact?intent=connection&connection=${encodeURIComponent(integration.name)}`} data-analytics-event="directory_item_selected" data-directory="integrations" data-item-slug={integration.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')} aria-label={`Assess an integration with ${integration.name}`}>Requires assessment</a>
+                <a
+                  class="integration-status"
+                  href={`/contact?intent=connection&connection=${encodeURIComponent(integration.name)}`}
+                  data-analytics-event="directory_item_selected"
+                  data-directory="integrations"
+                  data-item-slug={integration.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}
+                  aria-label={`Request assessment for ${integration.name}`}
+                >Request assessment</a>
               </article>
             ))}
           </div>
 
           <div class="integration-empty" hidden data-integration-empty>
-            <h3>No route showing—yet.</h3>
+            <h3>No matching systems</h3>
             <p>Try another term or clear the category. Ask us to review your system’s API or file options.</p>
             <a href="/contact?intent=connection">Ask about your system</a>
             <button type="button" data-reset-integrations>Clear filters</button>
           </div>
         </div>
       </div>
+      <p class="custom-connection">Can’t find your system? <a href="/contact?intent=connection">Ask about a custom connection</a></p>
     </section>
 
     <section class="connection-options" aria-labelledby="connection-options-title">
@@ -166,12 +142,11 @@ const markFor = (name: string) => name
 
     <section class="integrations-cta" aria-labelledby="integrations-cta-title">
       <div>
-        <p>Ready to connect your stack?</p>
         <h2 id="integrations-cta-title">Discuss the systems you need to connect.</h2>
       </div>
       <div class="integrations-cta__actions">
-        <a class="button button--ink" href={trialUrl}>Discuss a 30-day trial</a>
-        <a class="text-arrow text-arrow--ink" href={demoUrl}>Request a demo <span aria-hidden="true">→</span></a>
+        <a class="button button--ink" href={trialHref} data-cta="trial">{site.trialUrl ? trialLabel : `Discuss a ${pricing.standard.trialDays}-day trial`}</a>
+        <a class="text-arrow text-arrow--ink" href={demoHref} data-cta="demo">{site.bookingUrl ? 'Book a demo' : 'Discuss a demo'} <span aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
@@ -184,35 +159,17 @@ const markFor = (name: string) => name
     if (directory instanceof HTMLElement) {
       const search = directory.querySelector('[data-integration-search]');
       const clearSearch = directory.querySelector('[data-clear-integration-search]');
-      const categoryButtons = [...directory.querySelectorAll('[data-integration-category]')];
+      const category = directory.querySelector('[data-integration-category]');
+      const tools = directory.querySelector('[data-integration-tools]');
+      if (tools instanceof HTMLElement) tools.hidden = false;
       const rows = [...directory.querySelectorAll('[data-integration-row]')];
-      const count = directory.querySelector('[data-integration-count]');
+      const count = directory.querySelector('[data-integration-number]');
+      const countLabel = directory.querySelector('[data-integration-label]');
       const empty = directory.querySelector('[data-integration-empty]');
       const reset = directory.querySelector('[data-reset-integrations]');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      let activeCategory = 'all';
-
-      const signalUpdate = () => {
-        if (reduceMotion.matches) return;
-        const visibleRows = rows.filter((row) => row instanceof HTMLElement && !row.hidden).slice(0, 8);
-        visibleRows.forEach((row, index) => {
-          if (!(row instanceof HTMLElement)) return;
-          row.classList.remove('is-filtered-in');
-          row.style.setProperty('--row-delay', `${index * 35}ms`);
-          void row.offsetWidth;
-          row.classList.add('is-filtered-in');
-          row.addEventListener('animationend', () => row.classList.remove('is-filtered-in'), { once: true });
-        });
-        if (count instanceof HTMLElement) {
-          count.classList.remove('is-updated');
-          void count.offsetWidth;
-          count.classList.add('is-updated');
-          count.addEventListener('animationend', () => count.classList.remove('is-updated'), { once: true });
-        }
-      };
-
       const updateDirectory = () => {
         const query = search instanceof HTMLInputElement ? search.value.trim().toLocaleLowerCase('en-GB') : '';
+        const activeCategory = category instanceof HTMLSelectElement ? category.value : 'all';
         let visible = 0;
 
         rows.forEach((row) => {
@@ -224,10 +181,10 @@ const markFor = (name: string) => name
           if (!row.hidden) visible += 1;
         });
 
-        if (count) count.innerHTML = `<strong>${visible}</strong> ${visible === 1 ? 'system' : 'systems'} listed`;
+        if (count) count.textContent = String(visible);
+        if (countLabel) countLabel.textContent = visible === 1 ? 'system found' : 'systems found';
         if (empty instanceof HTMLElement) empty.hidden = visible !== 0;
         if (clearSearch instanceof HTMLButtonElement) clearSearch.hidden = !query;
-        signalUpdate();
       };
 
       search?.addEventListener('input', updateDirectory);
@@ -245,15 +202,9 @@ const markFor = (name: string) => name
         search.focus();
         updateDirectory();
       });
-      categoryButtons.forEach((button) => button.addEventListener('click', () => {
-        if (!(button instanceof HTMLButtonElement)) return;
-        activeCategory = button.dataset.integrationCategory ?? 'all';
-        categoryButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-        updateDirectory();
-      }));
+      category?.addEventListener('change', updateDirectory);
       reset?.addEventListener('click', () => {
-        activeCategory = 'all';
-        categoryButtons.forEach((item, index) => item.setAttribute('aria-pressed', String(index === 0)));
+        if (category instanceof HTMLSelectElement) category.value = 'all';
         if (search instanceof HTMLInputElement) search.value = '';
         updateDirectory();
         search?.focus();
@@ -261,7 +212,3 @@ const markFor = (name: string) => name
     }
   </script>
 </BaseLayout>
-<style>
-  .integration-identity a, .integration-status { text-decoration: underline; text-underline-offset: .18em; }
-  .integration-status { white-space: normal; }
-</style>

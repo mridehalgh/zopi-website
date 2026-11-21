@@ -1,15 +1,16 @@
 ---
+import '../styles/home.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { pricing, pricingDisplay } from '../config/pricing';
 import { trialHref, trialLabel, demoHref, site } from '../config/site';
 const steps = [
-  { stage: 'Your retailers and software', title: 'Start with the connections you need.', body: 'Share your retailer requirements and the systems you use. We review document types, integration options and any work needed for your setup.', item: 'Retailer + business system', result: 'Scope the connection' },
-  { stage: 'Mapping and testing', title: 'Agree who handles each step.', body: 'Confirm the mapping, configuration and retailer test requirements. You provide the account details and approvals; responsibilities and costs are agreed before work begins.', item: 'Documents + validation rules', result: 'Agree the test plan' },
-  { stage: 'Approval and go-live', title: 'Check the exchange before switching on.', body: 'Review the test results and agree the cutover. Retailer approval and your internal systems can affect timing, so the go-live plan accounts for both.', item: 'Test results + retailer approval', result: 'Plan the live exchange' },
+  { stage: 'Your retailers and software', body: 'Share your retailer requirements and the systems you use. We review document types, integration options and any work needed for your setup.' },
+  { stage: 'Mapping and testing', body: 'Confirm the mapping, configuration and retailer test requirements. You provide the account details and approvals; responsibilities and costs are agreed before work begins.' },
+  { stage: 'Approval and go-live', body: 'Review the test results and agree the cutover. Retailer approval and your internal systems can affect timing, so the go-live plan accounts for both.' },
 ];
-const transactions = [['Purchase order', 'PO-10482', 'Received'], ['Order response', 'OR-10482', 'Ready'], ['Invoice', 'INV-8821', 'Delivered']];
+const transactions = [['Purchase order', 'PO-10482', 'Retailer to supplier', 'Received'], ['Order response', 'OR-10482', 'Supplier to retailer', 'Ready'], ['Invoice', 'INV-8821', 'Supplier to retailer', 'Delivered']];
 const faqs = [
   ['Do we need an EDI specialist?', 'The managed service is designed for supplier teams. We review your retailer requirements and agree who handles configuration, mapping and testing. Your team provides business decisions, access and approvals.'],
   ['Will it work with our retailers and software?', 'Start with the trading partner and integration directories, then ask us to confirm your specific route. A listing is a starting point for assessment; supported documents, software versions and delivery methods need to be checked.'],
@@ -19,53 +20,177 @@ const faqs = [
 ---
 <BaseLayout title="EDI Spark — Retailer EDI for UK suppliers" description={`Receive retailer orders, send invoices and connect your business software. Standard pricing is ${pricingDisplay.monthlyFee}/month + ${pricingDisplay.documentFee}/document, excluding VAT.`}>
   <SiteHeader />
-  <main id="main-content">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="hero-context">Managed document exchange</p>
-        <h1 id="hero-title">Retailer EDI for UK suppliers.</h1>
-        <p class="hero-lede">Receive orders, send invoices and keep your business software in sync. EDI Spark manages the exchange so your team can focus on fulfilling orders.</p>
-        <div class="button-group"><a class="button" href={trialHref} data-cta="trial">{trialLabel}</a><a class="button button--outline" href={demoHref} data-cta="demo">{site.bookingUrl ? 'Book a demo' : 'Discuss a demo'}</a></div>
-        <p class="trial-note">{pricingDisplay.monthlyFee}/month + {pricingDisplay.documentFee}/document, excluding VAT.<br />Standard offer: setup included, no annual contract.</p>
-        <a class="text-arrow text-arrow--ink" href="#how-it-works">See how getting connected works <span aria-hidden="true">↓</span></a>
-      </div>
-      <div class="hero-ledger" aria-label="Standard pricing, excluding VAT">
-        <div class="ledger-pricing">
-          <div class="ledger-row"><span class="ledger-value">{pricingDisplay.monthlyFee}</span><span class="ledger-unit">per month</span></div>
-          <div class="ledger-row"><span class="ledger-value">+ {pricingDisplay.documentFee}</span><span class="ledger-unit">per document</span></div>
-          <div class="ledger-row ledger-row--plain"><span class="ledger-value">£0</span><span class="ledger-unit">standard setup fee</span></div>
+  <main id="main-content" class="home-page">
+    <section class="home-hero" id="top" aria-labelledby="hero-title">
+      <div class="home-hero__content">
+        <h1 id="hero-title">Retailer EDI <span>for UK suppliers.</span></h1>
+        <p>Receive orders, send invoices and keep your business software in sync. We manage the exchange so you can get orders out the door.</p>
+        <div class="button-group">
+          <a class="button" href={trialHref} data-cta="trial">{trialLabel}</a>
+          <a class="text-arrow" href={demoHref} data-cta="demo">{site.bookingUrl ? 'Book a demo' : 'Discuss a demo'}</a>
         </div>
-        <div class="hero-route" aria-hidden="true"><div class="route-stop"><span class="route-icon">S</span><span>Supplier</span></div><span class="route-line"><i></i></span><div class="route-stop"><span class="route-icon route-icon--document">↔</span><span>Exchange</span></div><span class="route-line"><i></i></span><div class="route-stop"><span class="route-icon">R</span><span>Retailer</span></div></div>
+        <a class="home-hero__rate" href="/pricing">
+          <strong>{pricingDisplay.monthlyFee}</strong>/month + <strong>{pricingDisplay.documentFee}</strong>/document <span>excluding VAT</span>
+        </a>
+      </div>
+      <div class="home-exchange">
+        <figure class="exchange-sheet" data-exchange-sheet>
+          <header class="exchange-sheet__head">
+            <div>
+              <h2>From order to invoice</h2>
+              <p>Sample document exchange</p>
+            </div>
+            <button class="exchange-replay" type="button" aria-label="Replay exchange" data-exchange-replay hidden>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 9a6.5 6.5 0 1 1 2.2 5.9M3.5 9V4.5M3.5 9H8" /></svg>
+              Replay
+            </button>
+          </header>
+          <div class="exchange-columns" aria-hidden="true">
+            <span>Document</span>
+            <span class="exchange-columns__route"><span>Supplier</span><span>EDI Spark</span><span>Retailer</span></span>
+            <span>Status</span>
+          </div>
+          <ul class="exchange-rows" role="list" aria-label="Sample documents">
+            {transactions.map(([type, reference, direction, status], index) =>
+              <li class:list={['exchange-row', { 'exchange-row--incoming': index === 0 }]}>
+                <div class="exchange-record">
+                  <svg class="exchange-document" viewBox="0 0 24 28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 1.5h10l6 6V26H4zM14 1.5V8h6M8 14h8M8 18h8" /></svg>
+                  <div class="exchange-row__type"><strong>{type}</strong><span>{reference}</span></div>
+                </div>
+                <div class="exchange-route">
+                  <span>{direction}</span>
+                  <div class="exchange-route__line" aria-hidden="true">
+                    <i class="exchange-packet" data-exchange-packet></i>
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.65"><path d="M10 1v18M1 10h18M3.6 3.6l12.8 12.8m0-12.8L3.6 16.4" /></svg>
+                  </div>
+                </div>
+                <span class:list={['exchange-status', { 'exchange-status--complete': index !== 1 }]}>{status}</span>
+              </li>
+            )}
+          </ul>
+          <figcaption><span>Illustrative records. Confirm the route for your retailer with us.</span><a href="#how-it-works">How to get connected</a></figcaption>
+        </figure>
       </div>
     </section>
-    <section class="reach section" id="connections" aria-labelledby="reach-title">
-      <div class="section-heading reach-heading"><p class="section-intro">Your trading relationships come first</p><h2 id="reach-title">Find your retailer.<br />Bring your software.</h2></div>
-      <div class="reach-content"><p class="reach-lede">Tell us which customers you supply and where your orders need to go. We’ll review the connection method, document requirements and setup for your operation.</p>
-        <div class="connection-paths"><a href="/partners"><strong>Trading partners</strong><span>Find a retailer and check your requirements</span><span aria-hidden="true">→</span></a><a href="/integrations"><strong>Business software</strong><span>Explore ERP, finance and warehouse systems</span><span aria-hidden="true">→</span></a></div>
-        <p class="trial-note">Connection availability and scope are confirmed before onboarding.</p>
+
+    <section class="home-section home-connections" id="connections" aria-labelledby="reach-title">
+      <div>
+        <h2 id="reach-title">Find your retailer. Bring your software.</h2>
+        <p>Tell us which customers you supply and where your orders need to go. We’ll review the connection method, document requirements and setup for your operation.</p>
+      </div>
+      <div class="home-link-list">
+        <a href="/partners">
+          <strong>Trading partners</strong><span>Find a retailer and check your requirements</span>
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 9h13m-5-5 5 5-5 5" /></svg>
+        </a>
+        <a href="/integrations">
+          <strong>Business software</strong><span>Explore ERP, finance and warehouse systems</span>
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 9h13m-5-5 5 5-5 5" /></svg>
+        </a>
+        <p>Connection availability and scope are confirmed before onboarding.</p>
       </div>
     </section>
-    <section class="workspace section" aria-labelledby="workspace-title">
-      <div class="workspace-copy"><p class="section-intro">Follow the document, from order to invoice</p><h2 id="workspace-title">Know where the work stands.</h2><p>A shared view of orders, responses and invoices helps your team see what has arrived, what is ready and what needs attention.</p><p>Discuss your own workflow with us and ask to see the product steps relevant to your retailer and software.</p><a class="text-arrow text-arrow--ink" href={demoHref} data-cta="demo">Discuss your workflow <span aria-hidden="true">→</span></a></div>
-      <figure class="workspace-example"><div class="product-frame" aria-label="Illustrative document workspace using sample data"><div class="product-bar"><span class="product-brand">EDI Spark</span><span>Sample workspace</span></div><div class="product-body"><div class="product-sidebar" aria-hidden="true"><span class="active"></span><span></span><span></span><span></span></div><div class="transaction-view"><div class="transaction-heading"><div><span>Documents</span><strong>Today’s exchange</strong></div><span class="filter-chip">All documents</span></div><div class="transaction-list">{transactions.map(([type, reference, status]) => <div class="transaction-row"><span class="document-glyph" aria-hidden="true"></span><span><strong>{type}</strong><small>{reference}</small></span><span class="transaction-status"><i></i>{status}</span></div>)}</div></div></div></div><figcaption>Illustrative workspace with sample data. Ask for a walkthrough of your proposed workflow.</figcaption></figure>
+
+    <section class="home-section home-onboarding" id="how-it-works" aria-labelledby="mapping-title">
+      <div class="home-onboarding__lead">
+        <h2 id="mapping-title">A clear path to your first exchange.</h2>
+        <a class="text-arrow" href="/guides/retailer-edi-onboarding">Read the onboarding checklist</a>
+      </div>
+      <ol class="home-steps">
+        {steps.map((step) =>
+          <li>
+            <h3>{step.stage}</h3>
+            <p>{step.body}</p>
+          </li>
+        )}
+      </ol>
     </section>
-    <section class="mapping section section--indigo" id="how-it-works" aria-labelledby="mapping-title">
-      <div class="mapping-intro"><p class="section-intro">How getting connected works</p><h2 id="mapping-title">A clear path to your first exchange.</h2><p>From your retailer’s requirements to an agreed live connection, make the work and its owners clear at each stage.</p><a class="text-arrow" href="/guides/retailer-edi-onboarding">Read the onboarding checklist <span aria-hidden="true">→</span></a></div>
-      <div class="mapping-story">{steps.map((step, index) => <article class="mapping-step" data-mapping-step data-active={index === 0 ? 'true' : 'false'}><div class="mapping-copy"><span class="step-number">{index + 1}</span><div><p class="step-stage">{step.stage}</p><h3>{step.title}</h3><p>{step.body}</p></div></div><div class="outcome-example"><span class="outcome-document" aria-hidden="true"></span><span><small>{step.item}</small><strong>{step.result}</strong></span><span aria-hidden="true">→</span></div></article>)}</div>
+
+    <section class="home-section home-pricing" id="pricing" aria-labelledby="pricing-title">
+      <div>
+        <h2 id="pricing-title">Estimate the bill before you begin.</h2>
+        <p>Count the documents exchanged in both directions. An order can generate several documents.</p>
+        <a class="button button--ink" href="/pricing">Open the pricing calculator</a>
+      </div>
+      <div>
+        <h3>Included with the standard offer</h3>
+        <ul>
+          <li>Standard setup</li>
+          <li>Technical support</li>
+          <li>Unlimited users</li>
+          <li>No annual contract</li>
+        </ul>
+        <p>Confirm your integration and support scope before starting.</p>
+      </div>
     </section>
-    <section class="pricing section" id="pricing" aria-labelledby="pricing-title"><div class="pricing-heading"><p class="section-intro">A visible service fee and document rate</p><h2 id="pricing-title">Estimate the bill before you begin.</h2><p>Count the documents your workflow exchanges, including both directions. An order can generate several documents.</p></div><div class="price-ledger"><div class="price-row"><span class="price-label">Monthly service</span><span class="price-value">{pricingDisplay.monthlyFee}</span><span class="price-unit">per month</span></div><div class="price-row"><span class="price-label">Document usage</span><span class="price-value">{pricingDisplay.documentFee}</span><span class="price-unit">per document</span></div><div class="price-includes"><span>Standard setup included</span><span>No annual contract</span><span>Unlimited users</span><span>Technical support</span></div><p>Prices exclude VAT. Confirm your integration and support scope before starting.</p><a class="button" href="/pricing">Calculate your monthly cost</a></div></section>
-    <section class="supplier-questions section" aria-labelledby="questions-title"><div class="section-heading"><p class="section-intro">Before you choose</p><h2 id="questions-title">Get the practical questions answered.</h2><p><a href="/security">Review security and service questions</a> or <a href="/contact">contact the EDI Spark team</a>.</p></div><div class="supplier-faqs">{faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
-    <section class="enterprise section section--indigo" aria-labelledby="enterprise-title"><div><p class="section-intro">Larger networks and technical teams</p><h2 id="enterprise-title">Bring the whole operation into view.</h2></div><div class="enterprise-copy"><p>Review trading networks, ERP integrations, volumes and service requirements with your team. Build a technical and commercial scope around the work you need to do.</p><a class="button button--light" href="/enterprise">Explore enterprise EDI</a><a class="text-arrow" href="/developers">Technical evaluation and integrations <span aria-hidden="true">→</span></a></div></section>
-    <section class="final-cta" aria-labelledby="final-title"><div class="final-cta__copy"><p class="section-intro">Your retailers. Your software. A clear next step.</p><h2 id="final-title">Let’s scope your first connection.</h2></div><div class="final-cta__actions"><a class="button button--ink" href={trialHref} data-cta="trial">{trialLabel}</a></div></section>
-  </main><SiteFooter />
-  <script>
-    const steps = [...document.querySelectorAll('[data-mapping-step]')];
-    if ('IntersectionObserver' in window && steps.length) {
-      const observer = new IntersectionObserver((entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) steps.forEach((step) => step.setAttribute('data-active', String(step === visible.target)));
-      }, { rootMargin: '-15% 0px -15%', threshold: [0.25, 0.55] });
-      steps.forEach((step) => observer.observe(step));
-    }
-  </script>
+
+    <section class="home-section home-questions" aria-labelledby="questions-title">
+      <div>
+        <h2 id="questions-title">Questions before you connect?</h2>
+        <p><a href="/security">Review security and service questions</a> or <a href="/contact">contact the EDI Spark team</a>.</p>
+      </div>
+      <div class="home-faqs">
+        {faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}
+      </div>
+    </section>
+
+    <section class="home-section home-enterprise" aria-labelledby="enterprise-title">
+      <h2 id="enterprise-title">EDI for larger trading networks.</h2>
+      <div>
+        <p>Review trading networks, ERP integrations, volumes and service requirements with your team. Build a technical and commercial scope around the work you need to do.</p>
+        <div class="button-group">
+          <a class="button button--light" href="/enterprise">Explore enterprise EDI</a>
+          <a class="text-arrow" href="/developers">Technical evaluation and integrations</a>
+        </div>
+      </div>
+    </section>
+    <section class="home-section home-close" aria-labelledby="final-title">
+      <h2 id="final-title">Let’s scope your first connection.</h2>
+      <a class="button" href={trialHref} data-cta="trial">{trialLabel}</a>
+    </section>
+  </main>
+  <SiteFooter />
 </BaseLayout>
+
+<script>
+  const sheet = document.querySelector('[data-exchange-sheet]');
+  const replay = sheet?.querySelector<HTMLButtonElement>('[data-exchange-replay]');
+  const packets = [...(sheet?.querySelectorAll<HTMLElement>('[data-exchange-packet]') ?? [])];
+  if (sheet && replay && typeof Element.prototype.animate === 'function') {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let animations: Animation[] = [];
+    const stop = () => {
+      animations.forEach((animation) => animation.cancel());
+      animations = [];
+    };
+    const play = () => {
+      stop();
+      if (preference.matches) return;
+      const distances = packets.map((packet) => ((packet.parentElement?.clientWidth ?? 0) - 20) / 2);
+      animations = packets.map((packet, index) => {
+        const travel = Math.max(0, distances[index]) * (index === 0 ? -1 : 1);
+        return packet.animate([
+          { transform: `translateX(${-travel}px)`, opacity: 0 },
+          { opacity: 1, offset: .15 },
+          { opacity: 1, offset: .85 },
+          { transform: `translateX(${travel}px)`, opacity: 0 },
+        ], { duration: 600, delay: index * 60, easing: 'cubic-bezier(0.77, 0, 0.175, 1)' });
+      });
+    };
+    const updatePreference = () => {
+      replay.hidden = preference.matches;
+      if (preference.matches) stop();
+    };
+    updatePreference();
+    preference.addEventListener('change', updatePreference);
+    replay.addEventListener('click', play);
+    if ('IntersectionObserver' in window && !preference.matches) {
+      const observe = new IntersectionObserver(([entry]) => {
+        if (!entry?.isIntersecting) return;
+        observe.disconnect();
+        if (!animations.length) play();
+      }, { threshold: .4 });
+      observe.observe(sheet);
+    }
+  }
+</script>

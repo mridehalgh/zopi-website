@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/information.css';
+---
+<BaseLayout title="Page not found — EDI Spark" description="Find your way back to EDI Spark’s homepage or trading partner directory." noindex>
+  <SiteHeader />
+  <main id="main-content" class="information-page information-404">
+    <header class="information-hero">
+      <div class="information-wrap">
+        <h1>Page not found.</h1>
+        <p class="information-lede">This address may have changed. You can look up a trading partner or head back to the homepage.</p>
+        <p class="information-links"><a class="button" href="/">Back to EDI Spark</a><a href="/partners">Find a trading partner</a></p>
+      </div>
+    </header>
+  </main>
+  <SiteFooter />
+</BaseLayout>

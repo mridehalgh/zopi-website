@@ -4,27 +4,22 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { site } from '../config/site';
 import { pricing } from '../config/pricing';
+import '../styles/information.css';
 ---
 <BaseLayout title="Discuss your EDI connection — EDI Spark" description="Talk through your retailer connections, business software, document volumes and EDI requirements with EDI Spark.">
   <SiteHeader />
   <main id="main-content" class="information-page contact-page">
-    <section class="information-hero">
-      <p class="section-intro">Start with your requirements</p>
-      <h1 data-contact-title>Let’s talk about your next connection.</h1>
-      <p class="information-lede">Tell us who you trade with and which software you use. We’ll review the fit, the work involved and the next steps before you commit.</p>
-      <a class="contact-email" href={`mailto:${site.contactEmail}`} data-cta>{site.contactEmail}</a>
-      {site.bookingUrl && <p><a class="button" href={site.bookingUrl} data-cta>Book a conversation</a></p>}
-    </section>
-    <section class="information-body contact-grid" aria-labelledby="enquiry-title">
-      <div>
-        <h2 id="enquiry-title">Give us a little context.</h2>
-        <p>We’ll confirm retailer and software compatibility, onboarding responsibilities and commercial terms for your proposed scope.</p>
-        <p>Interested in the {pricing.standard.trialDays}-day trial? Ask about eligibility, included usage and when the trial would begin. Live access and timing need to be confirmed for your connection.</p>
-        <p>For a technical evaluation, include formats, integration requirements and testing needs. Please use anonymised examples and keep passwords, API keys and live documents out of your enquiry.</p>
-        <p><a href="/security">Security and service questions</a> · <a href="/privacy">How this website handles information</a></p>
-      </div>
-      <form data-enquiry-form data-recipient={site.contactEmail} hidden>
-        <p class="form-explanation">This prepares a draft in your email app. Nothing is submitted through this website.</p>
+    <div class="information-wrap information-body contact-grid">
+      <header class="information-hero contact-intro">
+        <h1 data-contact-title>Let’s talk about your next connection.</h1>
+        <p class="information-lede">Tell us who you trade with and which software you use. We’ll review the fit, the work involved and the next steps before you commit.</p>
+        <a class="contact-email" href={`mailto:${site.contactEmail}`} data-cta>{site.contactEmail}</a>
+        {site.bookingUrl && <p class="contact-booking"><a class="button" href={site.bookingUrl} data-cta>Book a conversation</a></p>}
+        <noscript><p>In your email, include your retailer, software and approximate document volume.</p></noscript>
+      </header>
+      <form data-enquiry-form data-recipient={site.contactEmail} aria-labelledby="draft-title" hidden>
+        <h2 id="draft-title">Prepare an email draft</h2>
+        <p class="form-explanation">Review and send the draft in your email app.</p>
         <label for="company">Company <span>(optional)</span></label>
         <input id="company" name="company" autocomplete="organization" maxlength="120" />
         <label for="connection">Retailers and software <span>(optional)</span></label>
@@ -32,12 +27,19 @@ import { pricing } from '../config/pricing';
         <label for="volume">Approximate documents per month <span>(optional)</span></label>
         <input id="volume" name="volume" type="number" min="0" step="1" inputmode="numeric" />
         <label for="requirements">What would you like to discuss? <span>(optional)</span></label>
-        <textarea id="requirements" name="requirements" rows="5" maxlength="1500"></textarea>
+        <textarea id="requirements" name="requirements" rows="4" maxlength="1500" aria-describedby="draft-safety"></textarea>
+        <p id="draft-safety" class="form-explanation">Use anonymised examples and keep passwords, API keys and live documents out of your enquiry.</p>
         <button class="button button--ink" type="submit">Open email draft</button>
         <p class="form-explanation" role="status" data-draft-status></p>
       </form>
-      <noscript><p>Email your retailer, software and approximate volume to <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>.</p></noscript>
-    </section>
+      <section class="contact-context" aria-labelledby="enquiry-title">
+        <h2 id="enquiry-title">What to include</h2>
+        <p>We’ll confirm retailer and software compatibility, onboarding responsibilities and commercial terms for your proposed scope.</p>
+        <p>Interested in the {pricing.standard.trialDays}-day trial? Ask about eligibility, included usage and when the trial would begin. Live access and timing need to be confirmed for your connection.</p>
+        <p>For a technical evaluation, include formats, integration requirements and testing needs.</p>
+        <p class="information-links"><a href="/security">Security and service questions</a><a href="/privacy">How this website handles information</a></p>
+      </section>
+    </div>
   </main>
   <SiteFooter />
 </BaseLayout>
@@ -52,8 +54,9 @@ import { pricing } from '../config/pricing';
   };
   const params = new URLSearchParams(location.search);
   const intent = params.get('intent') || '';
+  const intentTitle = Object.hasOwn(intents, intent) ? intents[intent] : undefined;
   const title = document.querySelector('[data-contact-title]');
-  if (title && intents[intent]) title.textContent = intents[intent];
+  if (title && intentTitle) title.textContent = intentTitle;
   const connection = document.querySelector<HTMLInputElement>('[data-connection]');
   if (connection) connection.value = (params.get('connection') || '').slice(0, 300);
   if (form) {
@@ -68,7 +71,7 @@ import { pricing } from '../config/pricing';
         `Monthly documents: ${fields.get('volume') || ''}`,
         '', String(fields.get('requirements') || ''),
       ].join('\n');
-      const subject = `EDI Spark: ${intents[intent] || 'Supplier enquiry'}`;
+      const subject = `EDI Spark: ${intentTitle || 'Supplier enquiry'}`;
       const mailto = `mailto:${form.dataset.recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailto;
       track('connection_requested', { placement: 'contact', destination: 'email_draft' });
