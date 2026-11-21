@@ -53,6 +53,8 @@ Do not resemble dated enterprise software or jargon-heavy EDI websites. Avoid ge
 4. Serve two depths without splitting the brand. Keep the main journey approachable for suppliers while providing serious detail for enterprise and developer evaluators.
 5. Earn trust through precision. Prefer specific, supportable claims over inflated startup language or vague AI promises.
 
+6. Lead with customer value. Start with what the buyer or operator can do better, then show the workflow that makes it possible. Name the team, task and practical result, such as a warehouse preparing the right shipment or finance matching an invoice to the original order. Use features and protocols to explain that result. Treat connection-specific outcomes as goals to validate. Publish savings, service levels or throughput only when evidence supports them.
+
 ## Accessibility & Inclusion
 
 Target WCAG 2.2 AA for the public website. Support full keyboard operation, visible focus states, semantic screen-reader structure, sufficient colour contrast, and reduced-motion preferences as baseline requirements.

@@ -5,6 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import { pricing } from '../config/pricing';
 import { demoHref, site, trialHref, trialLabel } from '../config/site';
 import { integrationCategories, integrations } from '../data/integrations';
+import { assessmentPath, directoryPath } from '../data/directory-pages';
 import '../styles/integrations.css';
 
 const categoryCounts = new Map(
@@ -25,7 +26,7 @@ const markFor = (name: string) => name
 
 <BaseLayout
   title="Business integrations — EDI Spark"
-  description="Explore business systems and ask us to assess the integration route, supported documents and setup requirements for your workflow."
+  description="Find your business software and see how to scope, test and price an EDI integration for orders, stock or invoices."
 >
   <SiteHeader current="/integrations" />
 
@@ -34,8 +35,7 @@ const markFor = (name: string) => name
       <div class="integrations-hero__copy">
         <h1 id="integrations-title">Find the right EDI connection.</h1>
         <p class="integrations-hero__lede">
-          Find your business system and tell us your product version and workflow.
-          We’ll assess how it could exchange orders, invoices, despatch notices and inventory.
+          Find the software you use for orders, stock or invoices. See what to map, how to test the handoff and what to budget for your EDI connection.
         </p>
         <div class="button-group">
           <a class="button" href="#directory">Browse integrations</a>
@@ -95,7 +95,8 @@ const markFor = (name: string) => name
               >
                 <div class="integration-identity">
                   <span class="integration-mark" aria-hidden="true">{markFor(integration.name)}</span>
-                  <div><h3>{integration.name}</h3><small>{integration.category}</small></div>
+                  <div><h3><a href={directoryPath('integrations', integration.name)} data-analytics-event="directory_item_selected"
+                          data-directory="integrations" data-item-slug={integration.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}>{integration.name}</a></h3><small>{integration.category}</small></div>
                 </div>
                 <p>{integration.description}</p>
                 <ul aria-label={`${integration.name} potential document flows`}>
@@ -103,7 +104,7 @@ const markFor = (name: string) => name
                 </ul>
                 <a
                   class="integration-status"
-                  href={`/contact?intent=connection&connection=${encodeURIComponent(integration.name)}`}
+                  href={assessmentPath(integration.name)}
                   data-analytics-event="directory_item_selected"
                   data-directory="integrations"
                   data-item-slug={integration.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}

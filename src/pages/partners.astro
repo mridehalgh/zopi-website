@@ -5,6 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import { pricing } from '../config/pricing';
 import { demoHref, site, trialHref, trialLabel } from '../config/site';
 import { featuredPartners, partnerLetters, partners } from '../data/partners';
+import { assessmentPath, directoryPath } from '../data/directory-pages';
 import '../styles/partners.css';
 
 const categories = ['All partners', 'Retail', 'Logistics', 'Wholesale', 'Healthcare', 'Other'];
@@ -22,7 +23,7 @@ const featuredPartnerRecords = featuredPartners
 
 <BaseLayout
   title="Trading partners — EDI Spark"
-  description="Find your retailer or trading partner and ask us to assess its document, testing and connection requirements."
+  description="Find your trading partner, see how to prepare for EDI onboarding and check what your first exchange will cost."
 >
   <SiteHeader current="/partners" />
 
@@ -31,8 +32,7 @@ const featuredPartnerRecords = featuredPartners
       <div class="partners-hero__copy">
         <h1 id="partners-hero-title">Find your trading partner.</h1>
         <p>
-          Search the directory, then tell us who you need to trade with. We’ll assess the
-          document requirements and connection route before you commit.
+          Find the retailer or trading partner you need to connect with. See what to gather, how to test your first exchange and what to budget before you get started.
         </p>
         <a class="button" href="#directory">Browse trading partners</a>
       </div>
@@ -42,7 +42,7 @@ const featuredPartnerRecords = featuredPartners
         <ul>
           {featuredPartnerRecords.map((partner) => (
             <li>
-              <a href={`/contact?intent=connection&connection=${encodeURIComponent(partner.name)}`}
+              <a href={directoryPath('partners', partner.name)}
                  data-analytics-event="directory_item_selected" data-directory="partners"
                  data-item-slug={partner.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}>
                 {partner.name}
@@ -130,11 +130,12 @@ const featuredPartnerRecords = featuredPartners
                           />
                           <span class="wordmark" hidden data-logo-fallback>{partner.name.split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase()}</span>
                         </span>
-                        <h4>{partner.name}</h4>
+                        <h4><a href={directoryPath('partners', partner.name)} data-analytics-event="directory_item_selected"
+                          data-directory="partners" data-item-slug={partner.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}>{partner.name}</a></h4>
                       </div>
                       <span class="partner-meta partner-meta--category">{partner.category}</span>
                       <span class="partner-meta">{partner.region}</span>
-                      <a class="connection-status" href={`/contact?intent=connection&connection=${encodeURIComponent(partner.name)}`} data-analytics-event="directory_item_selected" data-directory="partners" data-item-slug={partner.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')} aria-label={`Request assessment for ${partner.name}`}>Request assessment</a>
+                      <a class="connection-status" href={assessmentPath(partner.name)} data-analytics-event="directory_item_selected" data-directory="partners" data-item-slug={partner.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')} aria-label={`Request assessment for ${partner.name}`}>Request assessment</a>
                     </article>
                   ))}
                 </div>

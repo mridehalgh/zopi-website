@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { pricing, estimateMonthlyCost } from '../src/config/pricing.ts';
+import { pricing, estimateMonthlyCost, formatPrice, pricingDisplay } from '../src/config/pricing.ts';
 import config from '../astro.config.mjs';
+import { assessmentPath, directoryPages } from '../src/data/directory-pages.ts';
 
 for (const [documents, expected] of [[0, 49.50], [100, 94.50], [500, 274.50], [1000, 499.50], [2000, 949.50], [5000, 2299.50], [10000, 4549.50]]) {
   assert.equal(estimateMonthlyCost(documents), expected, `Price for ${documents} documents`);
@@ -37,6 +38,25 @@ const origin = config.site;
 const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
 const robots = await readFile(join(root, 'robots.txt'), 'utf8');
 assert.ok(robots.includes(new URL('/sitemap.xml', origin).href));
+const details = [...directoryPages.partners, ...directoryPages.integrations];
+const detailByPath = new Map(details.map(detail => [join(root, detail.path, 'index.html'), detail]));
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url);
+const sitemapSet = new Set(sitemapUrls);
+assert.equal(sitemapSet.size, sitemapUrls.length, 'Sitemap has no duplicate URLs');
+const emittedDetails = files.filter(file => /\/(partners|integrations)\/[^/]+\/index\.html$/.test(file));
+assert.deepEqual(new Set(emittedDetails), new Set(detailByPath.keys()), 'One generated detail page per canonical entity');
+for (const image of ['retail-document-workspace.webp', 'invoice-field-mapping.webp']) {
+  assert.ok((await stat(join(root, 'product', image))).size > 0, `Built product illustration: ${image}`);
+}
+const indexableDescriptions = new Set();
+const indexableTitles = new Set();
+const indexableCanonicals = new Set();
+for (const kind of ['partners', 'integrations']) {
+  const directoryHtml = await readFile(join(root, kind, 'index.html'), 'utf8');
+  for (const detail of directoryPages[kind]) {
+    assert.ok(directoryHtml.includes(`href="${detail.path}"`), `Directory links to ${detail.path}`);
+  }
+}
 let links = 0;
 for (const path of files) {
   const html = await readFile(path, 'utf8');
@@ -46,15 +66,47 @@ for (const path of files) {
   assert.match(html, /<meta name="description" content="[^"]+"/);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   const is404 = path === join(root, '404.html');
-  const pageUrl = is404 ? new URL('/404.html', origin).href : canonical;
+  const detail = detailByPath.get(path);
+  const pageUrl = new URL(is404 ? '/404.html' : detail?.path ?? canonical, origin).href;
+  if (detail) {
+    const image = detail.kind === 'partners' ? 'retail-document-workspace.webp' : 'invoice-field-mapping.webp';
+    assert.ok(html.includes(`src="/product/${image}"`), `${path}: relevant product illustration`);
+    assert.match(html, /alt="Illustrative /);
+    for (const section of ['business-value', 'workflow-example', 'connection-questions']) {
+      assert.ok(html.includes(`id="${section}"`), `${path}: ${section}`);
+    }
+    for (const amount of [pricingDisplay.monthlyFee, pricingDisplay.documentFee, formatPrice(estimateMonthlyCost(pricing.estimator.defaultDocuments))]) {
+      assert.ok(html.includes(amount), `${path}: standard price and example reflect pricing configuration`);
+    }
+    assert.ok(html.includes(`href="${assessmentPath(detail.entity.name).replace('&', '&amp;')}"`), `${path}: prefilled enquiry`);
+    const breadcrumbs = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .flatMap(([, json]) => JSON.parse(json)['@graph'] ?? []).find(node => node['@type'] === 'BreadcrumbList');
+    assert.deepEqual(breadcrumbs?.itemListElement.map(({ item }) => item), [
+      new URL(`/${detail.kind}/`, origin).href, pageUrl,
+    ], `${path}: detail breadcrumbs`);
+  }
   if (is404) {
     assert.match(html, /<meta name="robots" content="noindex, follow"/);
     assert.equal(canonical, undefined, '404 page has no canonical URL');
     assert.doesNotMatch(sitemap, /\/404(?:\.html|\/)?<\/loc>/);
+  } else if (detail && detail.editorial?.status !== 'reviewed') {
+    assert.match(html, /<meta name="robots" content="noindex, follow"/);
+    assert.ok(!sitemapSet.has(pageUrl), `${path}: unreviewed detail excluded from sitemap`);
   } else {
     assert.ok(canonical, `${path}: canonical URL`);
     assert.equal(new URL(canonical).origin, new URL(origin).origin);
-    assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `${path}: sitemap membership`);
+    assert.ok(sitemapSet.has(canonical), `${path}: sitemap membership`);
+    assert.ok(!indexableCanonicals.has(canonical), `${path}: unique canonical URL`);
+    indexableCanonicals.add(canonical);
+    if (detail) {
+      assert.equal(canonical, pageUrl, `${path}: canonical detail URL`);
+      assert.doesNotMatch(html, /<meta name="robots" content="noindex/);
+      const title = html.match(/<title>([^<]+)<\/title>/)[1];
+      const description = html.match(/<meta name="description" content="([^"]+)"/)[1];
+      assert.ok(!indexableTitles.has(title) && !indexableDescriptions.has(description), `${path}: unique search metadata`);
+      indexableTitles.add(title);
+      indexableDescriptions.add(description);
+    }
   }
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length, `${path}: unique IDs`);
@@ -76,4 +128,5 @@ for (const path of files) {
   }
   for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(match[1]);
 }
-console.log(`Passed: pricing boundaries, invalid volumes, ${files.length} pages, ${links} local links, canonical URLs, sitemap, JSON-LD and landmarks.`);
+assert.deepEqual(sitemapSet, indexableCanonicals, 'Sitemap corresponds to indexable generated pages');
+console.log(`Passed: pricing boundaries, invalid volumes, ${files.length} pages, ${links} local links, canonical URLs, sitemap, JSON-LD and landmarks. ${details.length} directory detail pages with ${indexableTitles.size} indexable.`);

@@ -1,0 +1,10 @@
+---
+import DirectoryDetail from '../../components/DirectoryDetail.astro';
+import { directoryPages } from '../../data/directory-pages';
+
+export function getStaticPaths() {
+  return directoryPages.integrations.map(page => ({ params: { slug: page.slug }, props: { page } }));
+}
+const { page } = Astro.props;
+---
+<DirectoryDetail page={page} />

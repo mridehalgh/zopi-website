@@ -1,0 +1,234 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+import { estimateMonthlyCost, formatPrice, pricing, pricingDisplay } from '../config/pricing';
+import { assessmentPath, directoryLabels, relatedDirectoryPages, type DirectoryPage } from '../data/directory-pages';
+import '../styles/directory-detail.css';
+
+interface Props { page: DirectoryPage }
+const { page } = Astro.props;
+const { entity, kind } = page;
+const isPartner = kind === 'partners';
+const hub = directoryLabels[kind];
+const hubPath = `/${kind}/`;
+const editorial = page.editorial?.status === 'reviewed' ? page.editorial : undefined;
+const title = isPartner ? `${entity.name} EDI onboarding` : `${entity.name} EDI integration`;
+const summary = editorial?.summary ?? (isPartner
+  ? `Planning to trade with ${entity.name}? Bring your account instructions and the software you use. We’ll work through the documents you need to exchange, how to connect and what to test before going live.`
+  : `Planning an EDI integration with ${entity.name}? Show us where records start and where they need to go. We’ll review the available connection routes and what needs to be mapped and tested.`);
+const assessment = assessmentPath(entity.name);
+const action = isPartner ? 'Discuss your EDI connection' : 'Discuss your integration';
+const related = relatedDirectoryPages(page);
+const logo = kind === 'partners' && existsSync(join(process.cwd(), 'public', page.entity.logoPath))
+  ? page.entity.logoPath : undefined;
+const guide = isPartner ? { href: '/guides/retailer-edi-onboarding/', label: 'Read the retailer onboarding checklist' }
+  : { href: '/developers/', label: 'See a document mapping example' };
+const preview = isPartner ? {
+  image: '/product/retail-document-workspace.webp',
+  alt: 'Illustrative document history for one purchase order, with an order response, a despatch advice needing a reference check and a draft invoice.',
+} : {
+  image: '/product/invoice-field-mapping.webp',
+  alt: 'Illustrative mapping of an invoice number and retailer order reference to accounting fields, with draft status and a tax code review.',
+};
+const sheet = isPartner ? [
+  ['Scope the account', 'Share your supplier reference, current instructions and the software that will receive orders or create outbound documents.'],
+  ['Prove the exchange', 'Agree message formats, delivery method and who handles mapping. Test sample documents against the trading partner’s acceptance criteria.'],
+  ['Go live', 'Agree who signs off, when to switch and who will handle rejected or missing documents after launch.'],
+] : [
+  ['Choose a route', 'Share the product, version or service you use. We’ll review whether an API, file exchange or existing workflow fits.'],
+  ['Map a record', 'Walk through one order, invoice, shipment or stock update from its source to its destination. Agree what each system owns.'],
+  ['Test and hand over', 'Check what happens when an update arrives twice or fails. Agree how to spot a missing record and who will resolve it.'],
+];
+const operationChecks = isPartner ? [
+  ['Purchase orders and changes', 'Confirm how orders arrive and when the buyer expects a response. Test a change, cancellation or short shipment that your team would need to act on.'],
+  ['Despatch and receiving', 'Check whether the buyer needs a despatch advice before delivery. If pallet or carton labels are required, match the label identifiers to the electronic shipment. Agree how receiving discrepancies are reported.'],
+  ['Product and stock data', 'If the retailer needs item or inventory feeds, agree product and location identifiers, pack sizes and how often availability should update.'],
+  ['Invoices and credits', 'Check that order, delivery and invoice references match. Agree how to handle rejected invoices, quantity discrepancies and credit notes.'],
+  ['Formats and delivery', 'Check the buyer’s implementation guide for the message standard and version. Agree whether the route uses AS2, a value-added network (VAN) or another method, and who manages credentials or certificates.'],
+  ['Tracking and recovery', 'Agree what a transport receipt confirms, how the buyer reports a business rejection, and who handles alerts, corrections and controlled resends.'],
+  ['Switching from another provider', 'Inventory your existing maps, routes and open documents. Agree a parallel test, a cutover date and how to avoid sending a document twice.'],
+] : [
+  ['Data ownership and mapping', 'Decide which system owns items, customers, prices and stock. Map the identifiers, units and tax fields that need to agree across both systems.'],
+  ['Access and delivery', 'Confirm the vendor’s access requirements and available test environment. For event feeds or scheduled files, agree how soon updates need to arrive and how to recover missed records.'],
+  ['Changes and retries', 'Test an edited order, partial shipment or invoice correction as appropriate. Repeat one transmission to check it cannot create a second business record.'],
+  ['Accounting and reconciliation', 'For finance workflows, check invoice and credit-note references, customer records, VAT and whether records should be drafted for approval. Reconcile a sample in both systems.'],
+  ['Support after launch', 'Agree who reviews the exchange history, receives failure alerts, and handles retries and vendor API changes. Confirm support hours and escalation contacts during scoping.'],
+];
+const checks = isPartner
+  ? ['Your account or supplier reference, the software you use and the buyer’s current instructions.', 'A rough monthly document count and any deadline for testing or switching over.']
+  : ['The product and environment you use, the source and destination systems and a redacted sample record.', 'Your usual and peak volumes, the expected update frequency and any constraints on API or file access.'];
+const outcomes = isPartner ? [
+  ['Give the order desk one order to work from', 'Bring buyer orders into the agreed workflow with their original references. An updated quantity or delivery date should reach the team deciding what can ship.'],
+  ['Help the warehouse prepare the right delivery', 'Carry item, quantity and delivery data through to despatch. Where labels are required, check that the physical shipment and electronic advice identify the same goods.'],
+  ['Give finance a clear trail to payment', 'Keep the order and delivery references on the invoice so finance can trace a query to the right shipment and decide what to correct.'],
+] : [
+  ['Keep people in the systems they already use', 'Choose which records should move automatically and where a person still needs to approve them. For an accounting workflow, finance can review a mapped invoice in the ledger.'],
+  ['Spend less time matching records by hand', 'Preserve shared references and agree which system owns each record. A retailer query can then be traced back to the order or invoice it concerns.'],
+  ['Make problems visible before they pile up', 'Agree who spots missing records and who fixes them. Test a retry so a temporary failure can be resolved without creating a second transaction.'],
+];
+const walkthrough = isPartner ? [
+  ['Receive the order', 'Use PO-10482 to check item codes, pack sizes, the delivery location and requested date against your order system.'],
+  ['Confirm what will ship', 'Test a short shipment. Confirm what goes into the order response, and check that any required despatch advice matches the shipment and labels.'],
+  ['Match the invoice', 'Check that the invoice carries the right order and delivery references. Agree how you’ll resolve a mismatch before sending it again.'],
+] : [
+  ['Keep the original reference', 'Start with invoice INV-10482 against retailer order PO-10482. Decide where each reference belongs in the destination system.'],
+  ['Review the accounting fields', 'Match the customer, line totals, tax and account codes. Agree whether the receiving system should hold the invoice for approval.'],
+  ['Prove the recovery path', 'Try a corrected tax code and a repeat delivery of the same invoice. Check that finance can reconcile the final record and that the retry creates no duplicate.'],
+];
+const questions = isPartner ? [
+  ['Can we keep our current order and warehouse systems?', 'Share the systems and steps you use today. We’ll review which parts can stay as they are, where people still need to review an exception and whether automation fits your volume.'],
+  ['Do we know when we can go live?', 'Agree milestones after checking the retailer’s test process, the connection method and who signs off. If you already trade by EDI, plan a cutover with a way to account for outstanding documents.'],
+  ['Who owns a failed delivery or rejected document?', 'Agree who watches for errors, how to distinguish delivery failures from buyer rejections, and who can correct and resend a document. Confirm support hours and escalation contacts for your scope.'],
+] : [
+  ['Should we use an API, scheduled files or an existing workflow?', 'Start with where your data lives, the access your product or service allows, and how quickly a change needs to be reflected. We’ll review the routes available for your setup.'],
+  ['Can we test with a sample before connecting?', 'Bring a redacted record and the expected result. Agree where to test, which permissions you’ll need and how to exercise a failure or duplicate safely.'],
+  ['What happens if the software changes?', 'Agree who monitors vendor changes, verifies mappings after an update and reconciles affected records. Confirm what ongoing work and support are included for your scope.'],
+];
+const exampleDocuments = pricing.estimator.defaultDocuments;
+const examplePrice = formatPrice(estimateMonthlyCost(exampleDocuments));
+---
+<BaseLayout
+  title={`${title} — EDI Spark`}
+  description={editorial?.description ?? summary}
+  noindex={!editorial}
+  breadcrumbs={[{ name: hub, path: hubPath }, { name: entity.name, path: page.path }]}
+>
+  <SiteHeader current={`/${kind}`} />
+  <main id="main-content" class:list={['directory-detail', { 'directory-detail--software': !isPartner }]}>
+    <section class="detail-masthead" aria-labelledby="detail-title">
+      <div class="detail-intro">
+        <nav class="detail-trail" aria-label="Breadcrumb">
+          <ol><li><a href={hubPath}>{hub}</a></li><li aria-current="page">{entity.name}</li></ol>
+        </nav>
+        <h1 id="detail-title">{title}</h1>
+        <p class="detail-lede">{summary}</p>
+        <div class="button-group detail-actions">
+          <a class="button" href={assessment} data-cta="connection">{action}</a>
+          <a href="#connection-scope">See what we’ll assess</a>
+        </div>
+        <p class="detail-rate">Standard supplier pricing <strong>{pricingDisplay.monthlyFee}/month + {pricingDisplay.documentFee} per billable document</strong> excluding VAT. <a href="#connection-pricing">See an example</a></p>
+      </div>
+      <figure class="detail-preview">
+        <img src={preview.image} alt={preview.alt} width="1120" height="690" fetchpriority="high" decoding="async" />
+      </figure>
+    </section>
+
+    <nav class="detail-jump" aria-label="On this page">
+      <a href="#business-value">Business value</a>
+      <a href="#connection-scope">Getting connected</a>
+      <a href="#workflow-example">Workflow example</a>
+      <a href="#operations-title">{isPartner ? 'Documents and support' : 'Mapping and support'}</a>
+      <a href="#connection-pricing">Pricing</a>
+      <a href="#connection-questions">Common questions</a>
+    </nav>
+
+    <section class="detail-value" id="business-value" aria-labelledby="value-title">
+      <div>
+        <h2 id="value-title">{isPartner ? 'Keep orders, deliveries and invoices in step' : 'Get the same records working across your business'}</h2>
+        <p>{isPartner ? 'A good exchange gives each team the information it needs to keep the order moving.' : 'A good integration frees teams from copying records and gives them a clear way to handle exceptions.'}</p>
+      </div>
+      <div class="detail-value__outcomes">
+        {outcomes.map(([label, detail]) => <div><h3>{label}</h3><p>{detail}</p></div>)}
+      </div>
+    </section>
+
+    <section class="detail-process" id="connection-scope" aria-labelledby="process-title">
+      <div class="detail-process__intro">
+        <h2 id="process-title">{isPartner ? 'From a sample order to go-live' : 'From a sample record to a live exchange'}</h2>
+        {logo && <img src={logo} alt="" width="144" height="56" loading="lazy" decoding="async" />}
+      </div>
+      <ol class="detail-process__steps">
+        {sheet.map(([label, detail]) => <li><h3>{label}</h3><p>{detail}</p></li>)}
+      </ol>
+      {kind === 'integrations' && page.entity.capabilities.length > 0 &&
+        <p class="detail-process__flows"><strong>Workflows to assess</strong> {page.entity.capabilities.join(' · ')}</p>}
+    </section>
+
+    <section class="detail-walkthrough" id="workflow-example" aria-labelledby="workflow-title">
+      <div>
+        <h2 id="workflow-title">{isPartner ? 'Follow one order all the way through' : 'Follow one invoice from source to ledger'}</h2>
+        <p>{isPartner ? 'Use an example like this to check which documents your team needs, where to find them and what happens when something changes.' : 'Use a sample like this to agree what to map, what finance will review and how to tell whether the record posted correctly.'}</p>
+      </div>
+      <ol role="list">
+        {walkthrough.map(([label, detail]) => <li><h3>{label}</h3><p>{detail}</p></li>)}
+      </ol>
+    </section>
+
+    <div class="detail-content">
+      <div>
+        {editorial && (
+          <section class="detail-guidance" aria-labelledby="guidance-title">
+            <h2 id="guidance-title">{isPartner ? 'Published supplier guidance' : 'What the vendor documents'}</h2>
+            {editorial.guidance.map(item => (
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.fact}</p>
+                <a href={item.source.url}>{item.source.label}</a>
+              </div>
+            ))}
+            <p class="detail-reviewed">Sources reviewed <time datetime={editorial.reviewedOn}>{new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(editorial.reviewedOn))}</time>.</p>
+          </section>
+        )}
+        <section class="detail-guidance detail-operations" aria-labelledby="operations-title">
+          <h2 id="operations-title">{isPartner ? 'Documents, delivery and day-to-day support' : 'Mapping, delivery and day-to-day support'}</h2>
+          <p>{isPartner ? 'Confirm the documents, route and support that your trading account needs. Use these points to compare proposals.' : 'Bring a real workflow so we can agree which parts to automate and how you’ll check the result.'}</p>
+          {operationChecks.map(([label, detail]) => <div><h3>{label}</h3><p>{detail}</p></div>)}
+          {isPartner && <a href="https://www.gs1.org/docs/tl/GS1Standards_DeliveryManagement.pdf">GS1 guidance on despatch and receiving messages</a>}
+        </section>
+        <section class="detail-checks" aria-labelledby="checks-title">
+          <h2 id="checks-title">What to bring to your first conversation</h2>
+          <ul>{checks.map(check => <li>{check}</li>)}</ul>
+          {editorial && <ul aria-label={`Questions specific to ${entity.name}`}>{editorial.checks.map(check => <li>{check}</li>)}</ul>}
+          <p>Send redacted examples only. Keep credentials and live documents out of your first enquiry.</p>
+        </section>
+      </div>
+      <aside class="detail-next" id="connection-pricing" aria-labelledby="next-title">
+        <h2 id="next-title">What will it cost?</h2>
+        <p>At the standard supplier rate, a month with <strong>{exampleDocuments} billable documents totals {examplePrice}</strong> excluding VAT. Standard setup is included, with no annual contract.</p>
+        <p>Estimate the documents you expect to send and receive. We’ll confirm which count towards your bill and scope any bespoke integration work or third-party charges separately.</p>
+        <a href="/pricing/">Calculate your monthly EDI cost</a>
+        <a href={guide.href}>{guide.label}</a>
+        <a href="/security/">Review security and support questions</a>
+        <a class="button button--outline" href={assessment} data-cta="connection">{action}</a>
+        {isPartner && <p class="detail-retailer">Onboarding multiple suppliers? Plan how you’ll share message requirements, track who is ready to trade and handle exceptions during peak periods. <a href="/enterprise/">Explore EDI for retail networks</a>.</p>}
+      </aside>
+    </div>
+
+    <section class="detail-questions" id="connection-questions" aria-labelledby="questions-title">
+      <h2 id="questions-title">Questions before you connect</h2>
+      <div>
+        {questions.map(([question, answer]) => (
+          <details><summary>{question}</summary><p>{answer}</p></details>
+        ))}
+      </div>
+    </section>
+
+    <section class="detail-close" aria-labelledby="close-title">
+      <div>
+        <h2 id="close-title">{isPartner ? 'Plan your next exchange' : 'Bring a workflow to map together'}</h2>
+        <p>{isPartner ? `Tell us what you need to exchange with ${entity.name} and when you need it live.` : `Tell us what has to move in or out of ${entity.name}, and which system owns it today.`}</p>
+      </div>
+      <a class="button" href={assessment} data-cta="connection">{action}</a>
+    </section>
+
+    {related.length > 0 && (
+      <section class="detail-related" aria-labelledby="related-title">
+        <h2 id="related-title">{isPartner ? 'Other trading partners' : 'Related integrations'}</h2>
+        <ul role="list">
+          {related.map(item => (
+            <li>
+              <a href={item.path}>
+                <span>{item.entity.name}</span>
+                <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 9h13m-5-5 5 5-5 5" /></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </main>
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+name: directory-pages
+description: Add, update or review an EDI Spark trading partner or software integration detail page. Use to maintain the catalogue, research entity-specific EDI guidance, and prepare reviewed pages for search.
+---
+
+# EDI Spark directory pages
+
+Maintain the catalogue and the editorial content that the two Astro detail routes use. Read `PRODUCT.md` for the site's evidence policy and `src/data/directory-editorial.ts` for the content shape.
+
+1. **Resolve the record.** Look for the entity and its aliases in `src/data/partners.ts` or `src/data/integrations.ts`. Confirm the geography, product edition and trading relationship when names overlap. Reuse the canonical record for aliases. A new record belongs in the appropriate catalogue. Add a partner logo only if a suitable existing asset or authorised source is available. Keep an existing published URL when renaming a record by preserving its slug in `slugOverrides` in `src/data/directory-pages.ts`. Leave the editorial record keyed by that slug. Fix new collisions before building.
+2. **Research claims.** Use the retailer's supplier instructions or the software vendor's current documentation. Record each sourced fact with its exact HTTPS page and a descriptive link label. Keep the applicable region, supplier account, edition and workflow clear. Vendor documentation establishes the vendor's capability. A claim about a live EDI Spark route, supported messages, a native connector or endorsement needs separately verified first-party evidence. Avoid credential or live document requests.
+3. **Write for the decision.** Add the editorial record keyed by slug in `src/data/directory-editorial.ts`. Use a unique description and lead summary. Under `guidance`, pair each fact with its source. Under `checks`, give at least two recommendations tailored to the entity and describe them as steps the reader can take. For a partner, focus on account scope, document requirements and testing. For an integration, focus on editions, record inputs and outputs, and a concrete test. Keep the writing in UK English and omit claims with incomplete evidence.
+4. **Review or leave as draft.** Use `status: 'draft'` while facts are incomplete. The catalogue will still generate a public directory profile with an enquiry action and `noindex, follow`. Use `status: 'reviewed'` and a real ISO calendar date only after opening the cited material, checking claim scope and confirming the content adds useful entity-specific guidance. The sitemap follows that status automatically.
+5. **Verify.** Run `npm run build` and `npm test` with the project's supported Node version. Open the generated route and confirm its directory link, title, enquiry prefill, breadcrumb, and intended sitemap/indexing state. Inspect a narrow viewport if the name or copy is long. Summarise the change and flag any research gaps. The workflow produces site changes in the repository for the normal deployment process.
